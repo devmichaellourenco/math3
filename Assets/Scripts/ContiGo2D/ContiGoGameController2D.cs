@@ -67,6 +67,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
     public TextMeshProUGUI txtVidas;
     public TextMeshProUGUI txtResultadoApresentado;
     public TextMeshProUGUI txtPontos;
+    TextMeshProUGUI txtNotifications;
 
     TextMeshProUGUI txtDiceRowHint;
     TextMeshProUGUI txtPecasRestantesTitulo;
@@ -88,8 +89,12 @@ public partial class ContiGoGameController2D : MonoBehaviour
     const float GapTimerRowAboveDice = 22f;
     /// <summary>Espaço entre o bloco do timer e a linha superior (vidas|pular|marcadas).</summary>
     const float GapTopHudAboveTimer = 18f;
+    /// <summary>Espaço entre a linha superior e o painel de notificações.</summary>
+    const float GapNotificationsAboveTopHud = 10f;
     /// <summary>Altura da faixa com (vidas | pular | marcadas).</summary>
     const float TopHudRowHeight = 72f;
+    /// <summary>Altura do painel de notificações (desbloqueios, dicas), sem bloquear gameplay.</summary>
+    const float NotificationsRowHeight = 74f;
     /// <summary>Altura do bloco do timer (sozinho, maior).</summary>
     const float TimerOnlyRowHeight = 84f;
     /// <summary>Altura reservada acima do tabuleiro (dados ~116px + margens do layout).</summary>
@@ -99,6 +104,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
     const float DiceHlgSpacing = 28f;
     RectTransform boardGridRoot;
     RectTransform topHudRowAboveTimerRt;
+    RectTransform notificationsRowRt;
     RectTransform timerRowAboveDiceRt;
     RectTransform diceAboveBoardRt;
     ContiGoBoardCell2D[,] piecesInBoard;
@@ -174,6 +180,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
             return;
         }
         var sorted = pecasRestantes.OrderBy (x => x).ToList ();
+        // Gameplay: manter só números para ocupar menos espaço (nomes ficam para missões/coleção/feedback).
         string listaVirgula = string.Join (", ", sorted);
         string listaHifen = string.Join (" - ", sorted.ConvertAll (x => x.ToString ()));
         if (txtPecasRestantesLista != null) {
@@ -328,6 +335,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
         _pendingBoardValues = new List<int> (_sessionBoardValues);
         _cellGoalCount = _sessionBoardValues.Count;
         pecasRestantes = new List<int> (_sessionBoardValues);
+        ResetMissionSessionForNewMatch ();
 
         EnsureTimerSettingsExist ();
         mainTimer = ContiGo2DLevelCatalog.MainTimeSeconds (levelId);
@@ -453,13 +461,15 @@ public partial class ContiGoGameController2D : MonoBehaviour
             int v1 = dado.RolarDado (1, 7);
             int v2 = dado.RolarDado (1, 7);
             int v3 = dado.RolarDado (1, 7);
-            string msg = language == "portuguese" ? "acertou!" : "correct!";
-            jogador.AtualizarDadosJogador (jogador.getIdPlayer (), jogador.vidas, 0, v1, v2, v3, 0, 0f, jogador.pontos + 1, jogador.ResultadoApresentado);
+            string msg = ContiGoFantasyNames.FormatHitFeedback (peca.valor, language == "portuguese");
+            jogador.AtualizarDadosJogador (jogador.getIdPlayer (), jogador.vidas, 0, v1, v2, v3, 0, 0f, jogador.pontos + 1, msg);
             TiraItemDaLista (pecasRestantes, peca.valor);
+            OnMissionCorrectHit (peca.valor);
             AtualizarHud (msg);
             return true;
         }
 
+        OnMissionWrongChoice ();
         jogador.vidas -= 1;
         jogador.ResultadoApresentado = language == "portuguese" ? "errou!" : "fail!";
         AtualizarHud (jogador.ResultadoApresentado);
@@ -474,6 +484,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
         bool existe = contas.VerificaValidade (valeounaoData);
 
         if (existe) {
+            OnMissionWrongChoice ();
             jogador.ResultadoApresentado = language == "portuguese" ? "errou!" : "fail!";
             Dado dado = new Dado ();
             int v1 = dado.RolarDado (1, 7);
@@ -563,9 +574,10 @@ public partial class ContiGoGameController2D : MonoBehaviour
 
     void Victory ()
     {
-        gameOn = false;
         if (gameHasEnded)
             return;
+        OnMissionVictory ();
+        gameOn = false;
         gameHasEnded = true;
         if (btnPause != null)
             btnPause.SetActive (false);
@@ -651,6 +663,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
     public void PlayGame ()
     {
         gameOn = true;
+        OnMatchPlayStarted ();
         SoundManager.PlaySound (SoundManager.Sound.UIConfimation);
     }
 

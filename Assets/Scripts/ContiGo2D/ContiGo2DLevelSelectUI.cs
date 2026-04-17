@@ -48,6 +48,9 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
 
         AddTitle (canvasRt, pt ? "ESCOLHA O DESAFIO" : "CHOOSE THE CHALLENGE", font, 0.86f, 0.94f);
 
+        AddNavButton (canvasRt, pt ? "MISSÕES" : "MISSIONS", () => SceneManager.LoadScene ("ContiGoMissions"), 0.14f, 0.22f, font);
+        AddNavButton (canvasRt, pt ? "COLEÇÃO" : "COLLECTION", () => SceneManager.LoadScene ("ContiGoCollection"), 0.04f, 0.12f, font);
+
         AddLevelButton (canvasRt, ContiGo2DLevelId.Iniciante, pt ? "INICIANTE  (2×2)" : "BEGINNER  (2×2)", 0.68f, 0.78f, font, levelRowSprite);
         AddLevelButton (canvasRt, ContiGo2DLevelId.Profissional, pt ? "PROFISSIONAL  (4×4)" : "PRO  (4×4)", 0.54f, 0.64f, font, levelRowSprite);
         AddLevelButton (canvasRt, ContiGo2DLevelId.Sabio, pt ? "SÁBIO  (6×6)" : "SAGE  (6×6)", 0.40f, 0.50f, font, levelRowSprite);

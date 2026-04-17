@@ -213,6 +213,24 @@ public partial class ContiGoGameController2D
         CreateDiceSlotSquare (diceAboveBoardRt, "DieB", font, out txtB);
         CreateDiceSlotSquare (diceAboveBoardRt, "DieC", font, out txtC);
 
+        // Painel de notificações (acima de vidas|pular|marcadas). Não bloqueia gameplay.
+        notificationsRowRt = CreatePanel (safeAreaRt, "NotificationsRow", new Color (0f, 0f, 0f, 0.26f)).rectTransform;
+        Image notifImg = notificationsRowRt.GetComponent<Image> ();
+        notifImg.raycastTarget = false;
+        notifImg.sprite = RoundedRectSpriteFactory.Get (64, 10);
+        notifImg.type = Image.Type.Sliced;
+
+        txtNotifications = CreateTmp (notificationsRowRt, "NotificationsText", "", 30f, TextAlignmentOptions.Center, font);
+        txtNotifications.raycastTarget = false;
+        txtNotifications.enableWordWrapping = false;
+        txtNotifications.overflowMode = TextOverflowModes.Ellipsis;
+        txtNotifications.alpha = 0f;
+        RectTransform ntRt = txtNotifications.rectTransform;
+        ntRt.anchorMin = new Vector2 (0.03f, 0.12f);
+        ntRt.anchorMax = new Vector2 (0.97f, 0.88f);
+        ntRt.offsetMin = Vector2.zero;
+        ntRt.offsetMax = Vector2.zero;
+
         // Linha superior: vidas (esq) | pular (centro) | marcadas (dir)
         topHudRowAboveTimerRt = CreatePanel (safeAreaRt, "TopHudRow", new Color (0f, 0f, 0f, 0.22f)).rectTransform;
         Image topHudImg = topHudRowAboveTimerRt.GetComponent<Image> ();

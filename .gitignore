@@ -72,5 +72,9 @@ aa/
 
 # Never commit local secrets
 *CREDENTIALS*.txt
+# Credenciais do keystore Android (ficheiro local; nunca versionar)
+Keystore-CREDENTIALS.local
+Keystore-CREDENTIALS.local.txt
+**/Keystore-CREDENTIALS.local*
 *secrets*
 *.pem

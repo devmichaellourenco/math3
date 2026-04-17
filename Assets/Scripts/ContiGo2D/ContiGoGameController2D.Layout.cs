@@ -62,14 +62,15 @@ public partial class ContiGoGameController2D
 
         float boardBottom = pad + PecasRestantesStripHeight + GapBelowPecas;
         float fixedStack = boardBottom + GapAboveBoardDice + DiceStripHeight
-            + GapTimerRowAboveDice + TimerOnlyRowHeight + GapTopHudAboveTimer + TopHudRowHeight + pad;
+            + GapTimerRowAboveDice + TimerOnlyRowHeight + GapTopHudAboveTimer + TopHudRowHeight
+            + GapNotificationsAboveTopHud + NotificationsRowHeight + pad;
         float availForBoard = h - fixedStack;
         float side = Mathf.Max (32f, Mathf.Min (boardW, availForBoard));
         for (int fit = 0; fit < 60; fit++) {
             float diceB = boardBottom + side + GapAboveBoardDice;
             float timerB = diceB + DiceStripHeight + GapTimerRowAboveDice;
             float topB = timerB + TimerOnlyRowHeight + GapTopHudAboveTimer;
-            float topTop = topB + TopHudRowHeight;
+            float topTop = topB + TopHudRowHeight + GapNotificationsAboveTopHud + NotificationsRowHeight;
             if (topTop <= h - pad + 0.5f)
                 break;
             side -= 2f;
@@ -103,6 +104,15 @@ public partial class ContiGoGameController2D
         topHudRowAboveTimerRt.pivot = new Vector2 (0.5f, 0f);
         topHudRowAboveTimerRt.anchoredPosition = new Vector2 (0f, topBottom);
         topHudRowAboveTimerRt.sizeDelta = new Vector2 (-2f * pad, TopHudRowHeight);
+
+        float notifBottom = topBottom + TopHudRowHeight + GapNotificationsAboveTopHud;
+        if (notificationsRowRt != null) {
+            notificationsRowRt.anchorMin = new Vector2 (0f, 0f);
+            notificationsRowRt.anchorMax = new Vector2 (1f, 0f);
+            notificationsRowRt.pivot = new Vector2 (0.5f, 0f);
+            notificationsRowRt.anchoredPosition = new Vector2 (0f, notifBottom);
+            notificationsRowRt.sizeDelta = new Vector2 (-2f * pad, NotificationsRowHeight);
+        }
 
         LayoutPecasRestantesStrip (pad);
         return true;

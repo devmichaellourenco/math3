@@ -109,7 +109,10 @@ public static class ContiGoMatch2D
                     tmp.font = font;
                 }
                 tmp.alignment = TextAlignmentOptions.Center;
-                float fs = side > 56f ? 30f : (gridSide <= 4 ? 28f : 24f);
+                tmp.enableWordWrapping = ContiGoFantasyNames.USE_FANTASY_NAMES_ON_BOARD;
+                float fs = ContiGoFantasyNames.USE_FANTASY_NAMES_ON_BOARD
+                    ? ContiGoFantasyNames.GetSuggestedCellFontSize (side, gridSide)
+                    : (side > 56f ? 30f : (gridSide <= 4 ? 28f : 24f));
                 tmp.fontSize = fs;
                 tmp.color = Color.black;
                 tmp.fontWeight = TMPro.FontWeight.Bold;

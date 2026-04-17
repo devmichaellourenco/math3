@@ -25,7 +25,7 @@ public class ContiGoBoardCell2D : MonoBehaviour
         y = col;
         valor = value;
         status = 0;
-        label.text = value.ToString ();
+        label.text = ContiGoFantasyNames.FormatBoardCell (value);
         label.color = Color.black;
         label.fontWeight = TMPro.FontWeight.Bold;
         background.color = unmarkedColor;

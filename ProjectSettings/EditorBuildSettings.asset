@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/ContiGo2DLevelSelect.unity
     guid: f1e2d3c4b5a69788796a5b4c3d2e1f00
   - enabled: 1
+    path: Assets/Scenes/ContiGoMissions.unity
+    guid: e2a3b4c5d6e7f80918293a4b5c6d7e8f
+  - enabled: 1
+    path: Assets/Scenes/ContiGoCollection.unity
+    guid: f3b4c5d6e7f8a90b1c2d3e4f5a6b7c8d
+  - enabled: 1
     path: Assets/Scenes/GamePlay2D_Iniciante.unity
     guid: f1e2d3c4b5a69788796a5b4c3d2e1f01
   - enabled: 1
