@@ -256,21 +256,185 @@ public static class ContiGoFantasyNames
             "as if each held a secret of the universe. His gaze is contemplative and distant—not from indifference, but from seeing layers of reality few perceive. On his staff of ancient wood are carved seven arcane symbols, marks of knowledge " +
             "gathered through ages and dimensions. Around him, silence gains meaning, as if each pause were part of an unseen language. Septurion does not impose answers—he inspires reflection. Wherever he passes, restless minds find wisdom, and " +
             "forgotten questions awaken again. His presence reminds us that the universe is not made only of matter, but also of mystery, consciousness, and inner paths still waiting to be explored.");
-        Add (8, "Octavira", "F");
-        Add (9, "Nontheris", "M");
+        Add (
+            8,
+            "Octavira",
+            "F",
+            "Octavira dobra o destino em ciclos perfeitos, onde equilíbrio e continuidade nunca se quebram.\n\n" +
+            "Octavira surge onde padrões se repetem sem se desgastar. Sua presença é como um laço perfeito que se fecha e reabre, mantendo a mesma forma " +
+            "mesmo quando o mundo muda ao redor. Em seu corpo, curvas gêmeas de luz percorrem caminhos espelhados, e cada passo deixa no ar uma sensação " +
+            "de continuidade — como se a realidade lembrasse de respirar em ciclos. Ela não acelera nem interrompe: ela sustenta. Ao seu redor, forças opostas " +
+            "encontram um ritmo comum, e o caos perde o excesso, tornando-se desenho. Octavira não promete finais; ela oferece permanência — a ideia de que aquilo " +
+            "que é verdadeiro retorna, sempre, com a mesma clareza.",
+            "Octavira bends fate into perfect cycles, where balance and continuity never break.\n\n" +
+            "Octavira appears where patterns repeat without wearing thin. Her presence is a flawless loop that closes and opens again, keeping its shape even as " +
+            "the world shifts around it. Twin arcs of light trace mirrored paths along her form, and every step leaves a feeling of continuity in the air—as if reality " +
+            "remembered how to breathe in cycles. She neither rushes nor interrupts: she sustains. Around her, opposing forces find a shared rhythm, and chaos loses its " +
+            "excess until it becomes design. Octavira doesn’t promise endings; she offers permanence—the certainty that what is true will return, again and again, with the same clarity.");
 
-        Add (10, "Decalya", "F", null, null, CardPortrait10Resource);
-        Add (11, "Undecor", "M");
-        Add (12, "Dodecira", "F");
-        Add (13, "Trezalon", "M");
-        Add (14, "Quattuora", "F");
-        Add (15, "Quinzelor", "M");
-        Add (16, "Sexdoria", "F");
-        Add (17, "Septenor", "M");
-        Add (18, "Octavelyn", "F");
-        Add (19, "Noventhor", "M");
+        Add (
+            9,
+            "Nontheris",
+            "M",
+            "Nontheris sela o que estava disperso, transformando esforço em sentido e fim em passagem.\n\n" +
+            "Nontheris caminha como o guardião do acabamento — aquele instante em que tudo faz sentido e nada sobra. Sua aura é densa e serena, como uma noite que não pesa, " +
+            "apenas encerra o ruído. Ele carrega marcas geométricas que parecem sempre \"fechadas\", como se cada traço fosse a última peça de um mosaico. Quando fala, as palavras " +
+            "soam como veredito gentil: não é imposição, é clareza. Ao seu redor, tarefas inacabadas encontram forma, ideias dispersas se alinham e o impulso de continuar sem rumo " +
+            "se dissolve. Nontheris não cria caminhos; ele os conclui — e, ao concluir, prepara silenciosamente o terreno para o próximo começo.",
+            "Nontheris seals what was scattered, turning effort into meaning—and endings into passage.\n\n" +
+            "Nontheris walks as the keeper of completion—the moment when everything makes sense and nothing is left dangling. His aura is dense yet calm, like a night that doesn’t " +
+            "weigh you down, only quiets the noise. Geometric marks on his form always seem \"closed,\" as if each line were the final tile in a mosaic. When he speaks, his words land " +
+            "like a gentle verdict: not force, but clarity. Around him, unfinished tasks find shape, scattered ideas align, and the urge to keep moving without direction dissolves. Nontheris " +
+            "doesn’t forge paths; he finishes them—and in finishing, he silently prepares the ground for the next beginning.");
 
-        Add (20, "Vigessia", "F");
+        Add (
+            10,
+            "Decalya",
+            "F",
+            "Decalya abre a passagem onde a intenção encontra escala — e o começo volta maior do que antes.\n\n" +
+            "Decalya aparece como um portal entre o simples e o vasto. Ela não se limita a avançar: ela muda a escala do mundo. Sua presença tem duas naturezas " +
+            "em equilíbrio — uma linha firme de intenção e um espaço amplo de possibilidade — como se carregasse, ao mesmo tempo, direção e abertura. Ao seu redor, " +
+            "o ambiente parece reorganizar-se em \"degraus\", e aquilo que era pequeno passa a ter alcance. Ela fala pouco, mas quando age, tudo ganha medida: distâncias " +
+            "ficam claras, metas se tornam contáveis, e o impulso vira plano. Decalya não é apenas progresso; é transição — o momento em que o caminho deixa de ser tentativa " +
+            "e passa a ser jornada.",
+            "Decalya opens the passage where intent meets scale—and beginnings return larger than before.\n\n" +
+            "Decalya appears as a gateway between the simple and the vast. She doesn’t merely move forward—she changes the scale of the world. Her presence holds two " +
+            "balanced natures: a firm line of intent and a wide space of possibility, carrying direction and openness at once. Around her, the environment seems to reorganize " +
+            "into \"steps,\" and what was small suddenly gains reach. She speaks little, but when she acts, everything gains measure: distances become clear, goals turn countable, " +
+            "and impulse becomes plan. Decalya is not just progress; she is transition—the moment when a path stops being trial and becomes journey.",
+            CardPortrait10Resource);
+        Add (
+            11,
+            "Undecor",
+            "M",
+            "Undecor abre um passo além do óbvio, onde a vontade aprende a continuar sem se repetir.\n\n" +
+            "Undecor surge como a inquietação elegante de quem se recusa a encerrar uma jornada cedo demais. Sua presença não rompe o que existe; ela estende, " +
+            "com delicadeza firme, a linha do possível. Em torno dele, faixas finas de luz percorrem trajetos que parecem sempre apontar para fora, como uma promessa " +
+            "de continuação. Seus gestos são econômicos, mas carregam impulso: a sensação de que o caminho não termina quando a mente diz “basta”. Undecor é feito de " +
+            "curiosidade disciplinada — aquela coragem silenciosa que dá mais um passo quando todos já pararam.",
+            "Undecor opens a step beyond the obvious, where intent learns to continue without repeating itself.\n\n" +
+            "Undecor appears as the elegant restlessness of one who refuses to end a journey too soon. His presence doesn’t break what exists; it extends the line of " +
+            "the possible with steady delicacy. Around him, thin ribbons of light trace paths that always seem to point outward, like a promise of continuation. His " +
+            "gestures are economical yet driven, carrying the sense that a path doesn’t end when the mind says “enough.” Undecor is made of disciplined curiosity—" +
+            "the quiet courage that takes one more step when everyone else has stopped.");
+
+        Add (
+            12,
+            "Dodecira",
+            "F",
+            "Dodecira costura ciclos completos, onde cada parte encontra o seu lugar e nada fica solto.\n\n" +
+            "Dodecira manifesta-se como uma arquiteta do tempo e das rotas, com uma calma que organiza sem prender. Em sua pele, marcas delicadas lembram anéis e " +
+            "segmentos, como mapas de um percurso que retorna ao início sem perder significado. Ao caminhar, o espaço parece dividir-se em etapas naturais, e cada " +
+            "etapa ganha nome, cor e propósito. Ela não apressa: ela alinha. Onde Dodecira passa, o que era disperso vira sequência, e a sequência vira entendimento.",
+            "Dodecira stitches complete cycles, where every part finds its place and nothing is left loose.\n\n" +
+            "Dodecira manifests as an architect of time and routes, with a calm that organizes without trapping. On her skin, delicate markings resemble rings and segments, " +
+            "like maps of a path that returns to its start without losing meaning. As she walks, space seems to divide into natural stages, and each stage gains a name, " +
+            "a color, and a purpose. She doesn’t rush; she aligns. Wherever Dodecira passes, what was scattered becomes sequence, and sequence becomes understanding.");
+
+        Add (
+            13,
+            "Trezalon",
+            "M",
+            "Trezalon transforma risco em descoberta, onde a ousadia encontra sentido e vira destino.\n\n" +
+            "Trezalon chega como um vento que muda a direção do pensamento. Sua aura tem um brilho raro, como se carregasse um segredo prestes a ser revelado, e " +
+            "ao seu redor a realidade ganha uma leve tensão — não de perigo, mas de novidade. Ele não procura conforto; procura verdade. Quando fala, as palavras " +
+            "soam como convite à travessia. Onde Trezalon passa, o medo perde o comando e a coragem aprende a sorrir.",
+            "Trezalon turns risk into discovery, where boldness finds meaning and becomes destiny.\n\n" +
+            "Trezalon arrives like a wind that shifts the direction of thought. His aura holds a rare glow, as if carrying a secret about to be revealed, and around him " +
+            "reality gains a subtle tension—not danger, but novelty. He doesn’t seek comfort; he seeks truth. When he speaks, his words sound like an invitation to cross. " +
+            "Where Trezalon passes, fear loses its grip and courage learns to smile.");
+
+        Add (
+            14,
+            "Quattuora",
+            "F",
+            "Quattuora firma o mundo em pontos seguros, onde direção e estabilidade se tornam confiança.\n\n" +
+            "Quattuora ergue-se com serenidade resoluta, como alguém que conhece as bordas do caos e sabe onde apoiar as mãos. Em torno dela, linhas invisíveis " +
+            "parecem traçar um campo de orientação — como ventos que apontam sempre para o norte interior. Seus passos são firmes, e cada passo estabelece um " +
+            "apoio: não para limitar, mas para sustentar. Onde Quattuora permanece, o ambiente desacelera e encontra forma.",
+            "Quattuora anchors the world in safe points, where direction and stability become trust.\n\n" +
+            "Quattuora rises with resolute serenity, like one who knows the edges of chaos and where to place her hands. Around her, unseen lines seem to draw an " +
+            "orienting field—like winds that always point toward an inner north. Her steps are steady, and each step establishes footing: not to limit, but to sustain. " +
+            "Where Quattuora remains, the environment slows down and finds shape.");
+
+        Add (
+            15,
+            "Quinzelor",
+            "M",
+            "Quinzelor revela caminhos ocultos, onde escolha e precisão transformam acaso em estratégia.\n\n" +
+            "Quinzelor aparece com olhos atentos e silêncio calculado. Ele observa o mundo como quem lê sinais em camadas: o que está na superfície, o que se repete, " +
+            "o que falha por um detalhe. Ao seu redor, brilhos curtos surgem como marcações de rota, indicando alternativas que poucos enxergam. Ele não força a sorte; " +
+            "ele a direciona. Onde Quinzelor caminha, decisões pequenas viram vitórias grandes.",
+            "Quinzelor reveals hidden paths, where choice and precision turn chance into strategy.\n\n" +
+            "Quinzelor appears with attentive eyes and a measured silence. He reads the world in layers: what lies on the surface, what repeats, what fails by a single detail. " +
+            "Around him, brief glints flare like route markers, pointing to alternatives few can see. He doesn’t force luck; he steers it. Where Quinzelor walks, small decisions " +
+            "become big wins.");
+
+        Add (
+            16,
+            "Sexdoria",
+            "F",
+            "Sexdoria harmoniza forma e função, onde beleza e utilidade caminham lado a lado.\n\n" +
+            "Sexdoria manifesta-se como uma artesã do equilíbrio prático. Sua presença é calorosa sem ser frágil, precisa sem ser fria. Padrões geométricos " +
+            "parecem surgir e encaixar-se ao redor dela, como peças que sabem exatamente onde pertencer. Ao seu toque, o que era bruto encontra acabamento, e o " +
+            "que era confuso encontra método. Sexdoria não impõe ordem: ela inspira arranjo.",
+            "Sexdoria harmonizes form and function, where beauty and usefulness walk side by side.\n\n" +
+            "Sexdoria manifests as a craftswoman of practical balance. Her presence is warm without fragility, precise without coldness. Geometric patterns seem to appear and " +
+            "interlock around her, like pieces that know exactly where they belong. At her touch, what was rough finds polish, and what was confusing finds method. Sexdoria " +
+            "doesn’t impose order; she inspires arrangement.");
+
+        Add (
+            17,
+            "Septenor",
+            "M",
+            "Septenor protege o que é raro, onde paciência e mistério cultivam sabedoria.\n\n" +
+            "Septenor caminha com um peso leve — a gravidade de quem escuta antes de agir. Sua aura tem camadas, como uma névoa que guarda sentidos escondidos " +
+            "e só se abre para quem persiste. Ao seu redor, o ruído diminui e o mundo parece sussurrar. Ele não oferece respostas rápidas; oferece perguntas " +
+            "melhores. Onde Septenor passa, a mente desacelera e aprende a ver profundidade.",
+            "Septenor protects what is rare, where patience and mystery cultivate wisdom.\n\n" +
+            "Septenor walks with a gentle weight—the gravity of one who listens before acting. His aura has layers, like a mist that holds hidden meanings and opens only " +
+            "to those who persist. Around him, noise fades and the world seems to whisper. He doesn’t offer quick answers; he offers better questions. Where Septenor passes, " +
+            "the mind slows down and learns to see depth.");
+
+        Add (
+            18,
+            "Octavelyn",
+            "F",
+            "Octavelyn refina o movimento em ritmo, onde repetição vira maestria e serenidade.\n\n" +
+            "Octavelyn surge como música que não cansa. Sua presença estabelece um compasso discreto, e tudo ao redor começa a seguir um fluxo mais limpo, " +
+            "mais preciso. Ela não prende o mundo em regras; ela oferece cadência. Em sua passagem, erros se tornam ajustes e ajustes se tornam arte. " +
+            "Octavelyn é o treino que vira graça.",
+            "Octavelyn refines motion into rhythm, where repetition becomes mastery and serenity.\n\n" +
+            "Octavelyn appears like music that never tires. Her presence sets a subtle tempo, and everything around begins to follow a cleaner, more precise flow. She doesn’t " +
+            "trap the world in rules; she offers cadence. In her wake, mistakes become adjustments, and adjustments become art. Octavelyn is practice turned into grace.");
+
+        Add (
+            19,
+            "Noventhor",
+            "M",
+            "Noventhor guarda o limiar da mudança, onde o fim se curva para abrir espaço ao recomeço.\n\n" +
+            "Noventhor manifesta-se como a última vigília antes da virada. Seu olhar reconhece padrões que já deram tudo o que tinham, e sua presença " +
+            "traz uma calma estranha — a calma de quem sabe que a ruptura pode ser necessária. Ao seu redor, o que estava rígido começa a soltar, " +
+            "e o que era insistência vira escolha. Noventhor não destrói; ele libera. Ele prepara o terreno para que o novo não nasça frágil.",
+            "Noventhor guards the threshold of change, where endings bend to make room for beginnings.\n\n" +
+            "Noventhor manifests as the final watch before the turn. His gaze recognizes patterns that have given all they could, and his presence brings a strange calm—the calm " +
+            "of one who knows a break can be necessary. Around him, what was rigid begins to loosen, and what was stubbornness becomes choice. Noventhor doesn’t destroy; he releases. " +
+            "He prepares the ground so the new won’t be born fragile.");
+
+        Add (
+            20,
+            "Vigessia",
+            "F",
+            "Vigessia transforma disciplina em leveza, onde constância vira poder silencioso.\n\n" +
+            "Vigessia caminha como quem conhece a força do hábito bem escolhido. Sua presença não chama atenção; ela estabiliza. Ao seu redor, o " +
+            "mundo parece encontrar rotina sem monotonia, como se cada ação se encaixasse no momento certo. Em sua pele, brilhos suaves surgem como " +
+            "marcas de percurso, lembrando que evolução é soma de pequenas escolhas repetidas. Ela não promete atalhos; promete continuidade. Onde Vigessia " +
+            "passa, a ansiedade perde pressa e a mente ganha firmeza — o tipo de firmeza que aguenta o tempo.",
+            "Vigessia turns discipline into lightness, where consistency becomes quiet power.\n\n" +
+            "Vigessia walks like one who knows the strength of a well-chosen habit. Her presence doesn’t demand attention; it stabilizes. Around her, the world " +
+            "finds routine without monotony, as if each action fit the right moment. On her skin, soft glints appear like journey-marks, reminding that growth is the sum " +
+            "of small repeated choices. She doesn’t promise shortcuts; she promises continuity. Where Vigessia passes, anxiety loses its rush and the mind gains steadiness—" +
+            "the kind that can withstand time.");
         Add (21, "Vintarion", "M");
         Add (22, "Duovintia", "F");
         Add (23, "Trivintor", "M");
