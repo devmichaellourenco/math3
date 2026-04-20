@@ -161,11 +161,101 @@ public static class ContiGoFantasyNames
             "turning tension into understanding. Wherever Duovelya passes, isolation dissolves and bonds are formed—for her essence is not " +
             "to walk alone, but to reveal that existence finds meaning when two presences learn to coexist in harmony.",
             CardPortrait2Resource);
-        Add (3, "Triandor", "M", null, null, CardPortrait3Resource);
-        Add (4, "Quadrina", "F", null, null, CardPortrait4Resource);
-        Add (5, "Quintaros", "M", null, null, CardPortrait5Resource);
-        Add (6, "Hexalyn", "F", null, null, CardPortrait6Resource);
-        Add (7, "Septurion", "M");
+        Add (
+            3,
+            "Triandor",
+            "M",
+            "Triandor sustenta o equilíbrio da criação, onde três forças se encontram para dar forma à expressão e à vida.\n\n" +
+            "Triandor manifesta-se como uma presença vibrante e criativa, cuja energia se organiza em três correntes luminosas que giram ao " +
+            "redor de seu corpo em perfeita harmonia. Sua forma parece sustentar um equilíbrio natural, como se cada movimento seu fosse apoiado " +
+            "por três pontos invisíveis que estabilizam tudo ao seu redor. Sobre sua cabeça pairam três fragmentos de luz cristalina que orbitam " +
+            "lentamente, formando um padrão triangular que pulsa com ritmo constante, lembrando passado, presente e futuro entrelaçados em um mesmo " +
+            "instante. Sua voz ecoa com clareza e inspiração, carregando uma força expressiva capaz de despertar ideias, histórias e caminhos onde antes " +
+            "havia silêncio. Marcas sutis em forma de triângulos percorrem sua pele como símbolos ancestrais de sabedoria e completude. Ao caminhar, o " +
+            "espaço parece ganhar estrutura e fluidez ao mesmo tempo, como se a realidade encontrasse em sua presença a combinação perfeita entre estabilidade " +
+            "e criação. Triandor não apenas sustenta o equilíbrio — ele o transforma em expressão, fazendo do universo uma obra viva que se comunica, se reinventa " +
+            "e continua a se expandir.",
+            "Triandor upholds the balance of creation, where three forces meet to give shape to expression and life.\n\n" +
+            "Triandor manifests as a vibrant, creative presence, his energy arranged into three luminous currents that spin around his body in perfect harmony. " +
+            "His form sustains a natural equilibrium, as if each movement were supported by three invisible points that stabilize everything nearby. Above his head, " +
+            "three crystalline fragments of light orbit slowly, forming a triangular pattern that pulses with a steady rhythm, evoking past, present, and future braided " +
+            "into a single instant. His voice echoes with clarity and inspiration, carrying an expressive force capable of awakening ideas, stories, and paths where there was " +
+            "once silence. Subtle triangular markings run across his skin like ancestral symbols of wisdom and completeness. As he walks, space seems to gain structure and flow at " +
+            "once, as if reality found in him the perfect blend of stability and creation. Triandor does not merely hold balance—he turns it into expression, making the universe a living " +
+            "work that speaks, reinvents itself, and continues to expand.",
+            CardPortrait3Resource);
+
+        Add (
+            4,
+            "Quadrina",
+            "F",
+            "Quadrina é o alicerce da realidade, onde quatro forças se unem para sustentar ordem, direção e estabilidade.\n\n" +
+            "Quadrina ergue-se como a guardiã da estrutura e da ordem que sustenta o mundo. Sua presença transmite firmeza serena, como se o próprio espaço " +
+            "encontrasse nela seus pontos de apoio. Quatro pilares de energia cristalina orbitam lentamente ao seu redor, formando um campo estável que organiza tudo " +
+            "o que toca. Em sua pele brilham marcas geométricas que lembram ângulos perfeitos e formas sólidas, como se cada traço carregasse a essência das fundações " +
+            "invisíveis da realidade. Seus passos são precisos e seguros, como alguém que compreende a importância de cada base antes de qualquer construção. Ao seu redor, " +
+            "as forças do universo se alinham como pontos cardeais encontrando direção, e até o caos parece adquirir forma e propósito. Quadrina não busca dominar o mundo — " +
+            "ela o sustenta, mantendo a ordem silenciosa que permite que todas as coisas existam, cresçam e permaneçam firmes diante do tempo.",
+            "Quadrina is the foundation of reality, where four forces unite to sustain order, direction, and stability.\n\n" +
+            "Quadrina rises as the guardian of structure and order that holds the world together. Her presence carries a serene firmness, as if space itself found in her its points of support. " +
+            "Four pillars of crystalline energy orbit slowly around her, forming a stable field that organizes everything it touches. Geometric marks glow on her skin, recalling perfect angles and solid " +
+            "forms, as if each line carried the essence of reality's invisible foundations. Her steps are precise and sure, like someone who understands the importance of every base before any construction. " +
+            "Around her, the forces of the universe align like cardinal points finding direction, and even chaos seems to gain shape and purpose. Quadrina does not seek to dominate the world—she sustains it, " +
+            "maintaining the silent order that allows all things to exist, grow, and remain firm against time.",
+            CardPortrait4Resource);
+
+        Add (
+            5,
+            "Quintaros",
+            "M",
+            "Quintaros é o espírito da mudança, guiado por cinco forças que despertam liberdade, curiosidade e novos caminhos.\n\n" +
+            "Quintaros caminha como a própria personificação do movimento e da descoberta. Sua presença nunca permanece estática; ao redor de seu corpo giram cinco " +
+            "correntes de energia viva que se expandem em diferentes direções, como se explorassem o mundo através de sentidos invisíveis. Seus olhos carregam um brilho inquieto " +
+            "e curioso, sempre atentos aos detalhes do universo, percebendo texturas, sons e vibrações que poucos conseguem notar. Em suas mãos surgem marcas luminosas que se abrem " +
+            "como uma estrela de cinco pontas, refletindo sua ligação com as forças naturais que permeiam todas as coisas. Cada passo de Quintaros parece despertar novas possibilidades, " +
+            "como se o próprio espaço se abrisse para caminhos inesperados. Ele não se prende a rotas fixas nem a estruturas rígidas; sua essência é experimentar, adaptar e avançar. Onde " +
+            "Quintaros passa, o mundo se torna mais vasto, mais vivo e cheio de possibilidades — pois sua natureza é lembrar que a verdadeira existência se revela quando se tem coragem de " +
+            "explorar o desconhecido.",
+            "Quintaros is the spirit of change, guided by five forces that awaken freedom, curiosity, and new paths.\n\n" +
+            "Quintaros walks as the very embodiment of movement and discovery. His presence never remains static; around his body spin five currents of living energy, spreading in different directions as if " +
+            "exploring the world through unseen senses. His eyes carry a restless, curious glow, always alert to the universe's details—perceiving textures, sounds, and vibrations few can notice. In his hands, " +
+            "luminous marks unfold like a five-pointed star, reflecting his bond with the natural forces that permeate all things. Each step seems to awaken new possibilities, as if space itself opened into unexpected " +
+            "routes. He clings to neither fixed paths nor rigid structures; his essence is to experiment, adapt, and move forward. Wherever Quintaros passes, the world becomes wider, more alive, and full of possibility—" +
+            "for his nature is to remind us that true existence is revealed when we dare to explore the unknown.",
+            CardPortrait5Resource);
+
+        Add (
+            6,
+            "Hexalyn",
+            "F",
+            "Hexalyn é a guardiã da perfeição serena, onde cada parte encontra seu lugar e o mundo se mantém em harmonia.\n\n" +
+            "Hexalyn possui uma presença acolhedora e firme, como uma guardiã silenciosa que sustenta aquilo que precisa permanecer inteiro. Seus passos são calmos e seguros, e " +
+            "por onde caminha o ambiente parece se organizar naturalmente, como se cada coisa encontrasse seu lugar correto. Seu manto apresenta padrões geométricos delicados que " +
+            "lembram colmeias e estruturas naturais, símbolos de uma ordem construída com paciência e cooperação. Seu olhar transmite uma serenidade profunda, a de alguém que compreende " +
+            "o valor de proteger, nutrir e manter o equilíbrio entre as partes. Hexalyn não age com pressa nem com imposição; sua força está na constância e na responsabilidade. Ao seu redor, " +
+            "conflitos se suavizam e excessos se acomodam, como se sua presença lembrasse ao mundo que toda criação precisa de cuidado, estrutura e harmonia para continuar existindo.",
+            "Hexalyn is the guardian of serene perfection, where every part finds its place and the world remains in harmony.\n\n" +
+            "Hexalyn has a welcoming yet steadfast presence, like a silent guardian who holds together what must remain whole. Her steps are calm and sure, and wherever she walks the environment seems to organize itself " +
+            "naturally, as if each thing found its rightful place. Her cloak bears delicate geometric patterns reminiscent of honeycombs and natural structures—symbols of an order built through patience and cooperation. Her gaze " +
+            "conveys deep serenity, that of someone who understands the value of protecting, nurturing, and keeping balance among all parts. Hexalyn acts neither in haste nor by imposition; her strength lies in constancy and responsibility. " +
+            "Around her, conflicts soften and excesses settle, as if her presence reminded the world that every creation needs care, structure, and harmony to continue existing.",
+            CardPortrait6Resource);
+
+        Add (
+            7,
+            "Septurion",
+            "M",
+            "Septurion é o guardião do mistério, onde sabedoria, sorte e espiritualidade se encontram.\n\n" +
+            "Septurion caminha como um viajante entre o visível e o invisível, carregando consigo uma aura de mistério sereno. Seu manto profundo parece tecido com fragmentos de céu noturno, " +
+            "pontilhado por pequenas luzes que lembram constelações antigas, como se cada uma guardasse um segredo do universo. Seu olhar é contemplativo e distante, não por indiferença, mas por " +
+            "enxergar camadas da realidade que poucos percebem. Em seu bastão de madeira antiga estão gravados sete símbolos arcanos, marcas de conhecimento acumulado através de eras e dimensões. Ao " +
+            "seu redor, o silêncio adquire significado, como se cada pausa fosse parte de uma linguagem invisível. Septurion não impõe respostas — ele inspira reflexão. Onde ele passa, mentes inquietas " +
+            "encontram sabedoria, e perguntas esquecidas voltam a despertar. Sua presença lembra que o universo não é feito apenas de matéria, mas também de mistério, consciência e caminhos interiores ainda por explorar.",
+            "Septurion is the guardian of mystery, where wisdom, fortune, and spirituality meet.\n\n" +
+            "Septurion walks like a traveler between the visible and the invisible, carrying an aura of serene mystery. His deep mantle seems woven from fragments of the night sky, speckled with small lights that recall ancient constellations, " +
+            "as if each held a secret of the universe. His gaze is contemplative and distant—not from indifference, but from seeing layers of reality few perceive. On his staff of ancient wood are carved seven arcane symbols, marks of knowledge " +
+            "gathered through ages and dimensions. Around him, silence gains meaning, as if each pause were part of an unseen language. Septurion does not impose answers—he inspires reflection. Wherever he passes, restless minds find wisdom, and " +
+            "forgotten questions awaken again. His presence reminds us that the universe is not made only of matter, but also of mystery, consciousness, and inner paths still waiting to be explored.");
         Add (8, "Octavira", "F");
         Add (9, "Nontheris", "M");
 

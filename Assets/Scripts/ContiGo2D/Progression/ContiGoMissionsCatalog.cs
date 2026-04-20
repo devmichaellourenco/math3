@@ -128,6 +128,42 @@ public static class ContiGoMissionsCatalog
                 240),
 
             new ContiGoMissionDefinition (
+                "unlock_3_prime3_master_125",
+                "Três primos (125s) — No Mestre (8×8), marque todos os números com 3 fatores primos antes de 125 s.",
+                "Triple primes (125s) — On Master (8×8), mark all numbers with 3 prime factors before 125 s.",
+                3,
+                ContiGoMissionKind.HitValueSetWithinSecondsOnLevel,
+                L (ContiGo2DLevelId.Mestre),
+                125),
+
+            new ContiGoMissionDefinition (
+                "unlock_5_vowels_25",
+                "Vogais (25s) — Marque as posições das vogais (1, 5, 9, 15, 21) antes de 25 s.",
+                "Vowels (25s) — Mark vowel positions (1, 5, 9, 15, 21) before 25 s.",
+                5,
+                ContiGoMissionKind.HitValueSetWithinSecondsOnLevel,
+                -1,
+                25),
+
+            new ContiGoMissionDefinition (
+                "unlock_6_mult6_master_300",
+                "Múltiplos de 6 (300s) — No Mestre (8×8), marque todos os múltiplos de 6 antes de 300 s.",
+                "Multiples of 6 (300s) — On Master (8×8), mark all multiples of 6 before 300 s.",
+                6,
+                ContiGoMissionKind.HitValueSetWithinSecondsOnLevel,
+                L (ContiGo2DLevelId.Mestre),
+                300),
+
+            new ContiGoMissionDefinition (
+                "unlock_7_make7_master_300",
+                "Resultado 7 (300s) — No Mestre (8×8), marque todos os valores que podem resultar em 7 antes de 300 s.",
+                "Make 7 (300s) — On Master (8×8), mark all values that can result in 7 before 300 s.",
+                7,
+                ContiGoMissionKind.HitValueSetWithinSecondsOnLevel,
+                L (ContiGo2DLevelId.Mestre),
+                300),
+
+            new ContiGoMissionDefinition (
                 "unlock_timer_120_left",
                 "Relógio (120s) — Vença com pelo menos 120 s restantes no relógio principal.",
                 "Timer (120s) — Win with at least 120 seconds left on the main timer.",
