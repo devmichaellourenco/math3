@@ -213,7 +213,7 @@ public partial class ContiGoGameController2D
         CreateDiceSlotSquare (diceAboveBoardRt, "DieB", font, out txtB);
         CreateDiceSlotSquare (diceAboveBoardRt, "DieC", font, out txtC);
 
-        // Painel de notificações (acima de vidas|pular|marcadas). Não bloqueia gameplay.
+        // Painel de notificações (acima de vidas|trocar|marcadas). Não bloqueia gameplay.
         notificationsRowRt = CreatePanel (safeAreaRt, "NotificationsRow", new Color (0f, 0f, 0f, 0.26f)).rectTransform;
         Image notifImg = notificationsRowRt.GetComponent<Image> ();
         notifImg.raycastTarget = false;
@@ -231,7 +231,7 @@ public partial class ContiGoGameController2D
         ntRt.offsetMin = Vector2.zero;
         ntRt.offsetMax = Vector2.zero;
 
-        // Linha superior: vidas (esq) | pular (centro) | marcadas (dir)
+        // Linha superior: vidas (esq) | trocar rodada (centro) | marcadas (dir)
         topHudRowAboveTimerRt = CreatePanel (safeAreaRt, "TopHudRow", new Color (0f, 0f, 0f, 0.22f)).rectTransform;
         Image topHudImg = topHudRowAboveTimerRt.GetComponent<Image> ();
         topHudImg.raycastTarget = false;
@@ -253,10 +253,11 @@ public partial class ContiGoGameController2D
         vRt.offsetMin = Vector2.zero;
         vRt.offsetMax = Vector2.zero;
 
-        btnPularRodada = CreateTextButton (topHudRowAboveTimerRt, "Pular", "Pular", font, PularRodadaPressed).gameObject;
+        string trocarLbl = language == "portuguese" ? "Trocar" : "Swap";
+        btnPularRodada = CreateTextButton (topHudRowAboveTimerRt, "TrocarRodada", trocarLbl, font, PularRodadaPressed).gameObject;
         Image pularImg = btnPularRodada.GetComponent<Image> ();
         if (pularImg != null)
-            pularImg.color = new Color (0.92f, 0.62f, 0.12f, 1f); // amarelo/laranja: ação de "pular"
+            pularImg.color = new Color (0.92f, 0.62f, 0.12f, 1f); // amarelo/laranja: trocar dados / rodada
         SetButtonTextSize (btnPularRodada.GetComponent<Button> (), 34f);
         RectTransform pularRt = btnPularRodada.GetComponent<RectTransform> ();
         pularRt.anchorMin = new Vector2 (0.36f, 0.20f);

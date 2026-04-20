@@ -362,6 +362,7 @@ RectTransform:
   m_LocalScale: {x: 1.0000347, y: 1.0000347, z: 1.0000347}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 519680199}
   - {fileID: 2036617451}
   m_Father: {fileID: 1471510992}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1464,11 +1465,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2117728749}
-  m_Father: {fileID: 1781042113}
+  m_Father: {fileID: 885704055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -1870}
+  m_AnchoredPosition: {x: 0, y: -2600}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &246937506
@@ -4279,17 +4280,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519680198}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4326044, y: 1.4326044, z: 1.4326044}
+  m_LocalScale: {x: 1.4325548, y: 1.4325548, z: 1.4325548}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1471510992}
+  m_Father: {fileID: 99131223}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.3, y: 48}
-  m_SizeDelta: {x: 1400, y: 2222}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -134.9751, y: 254.0498}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &519680200
 MonoBehaviour:
@@ -7133,7 +7134,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 790.00006}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1500, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &760192094
@@ -7285,7 +7286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -479, y: -2382}
+  m_AnchoredPosition: {x: -460, y: -2400}
   m_SizeDelta: {x: 319.3, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &814129962
@@ -8443,6 +8444,7 @@ RectTransform:
   - {fileID: 948684106}
   - {fileID: 973443362}
   - {fileID: 1608167292}
+  - {fileID: 212771364}
   m_Father: {fileID: 1781042113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8785,7 +8787,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 461, y: -2383}
+  m_AnchoredPosition: {x: 460, y: -2400}
   m_SizeDelta: {x: 319.3, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &948684107
@@ -8850,7 +8852,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 56a7718c4b0bf0c49880e431386e46cb,
+          m_ObjectArgument: {fileID: 8300000, guid: cae8800df294c1f4db2ef0667dc17cdd,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
@@ -9817,7 +9819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 76}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1210, y: 1740}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1078471270
@@ -12568,13 +12570,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 99131223}
-  - {fileID: 519680199}
   m_Father: {fileID: 351243843}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2352, y: 4180}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1471510993
 MonoBehaviour:
@@ -13928,7 +13929,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8, y: -2128}
+  m_AnchoredPosition: {x: 0, y: -2073}
   m_SizeDelta: {x: 422.4, y: 390}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1634211400
@@ -13981,7 +13982,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 4d346bdc3942a194aad1878d88834dc6,
+          m_ObjectArgument: {fileID: 8300000, guid: cae8800df294c1f4db2ef0667dc17cdd,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
@@ -15262,7 +15263,6 @@ RectTransform:
   - {fileID: 885704055}
   - {fileID: 1078471267}
   - {fileID: 1232831679}
-  - {fileID: 212771364}
   - {fileID: 131118525}
   m_Father: {fileID: 682994537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

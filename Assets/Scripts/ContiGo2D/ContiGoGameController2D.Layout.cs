@@ -43,7 +43,7 @@ public partial class ContiGoGameController2D
     }
 
     /// <summary>
-    /// De baixo para o topo do ecrã: faixa de valores por marcar → tabuleiro → dados → timer → barra (vidas | pular | marcadas).
+    /// De baixo para o topo do ecrã: faixa de valores por marcar → tabuleiro → dados → timer → barra (vidas | trocar | marcadas).
     /// Anchors com pivot em baixo no eixo Y dentro da safe area.
     /// </summary>
     bool TryComputePortraitBoardLayout ()

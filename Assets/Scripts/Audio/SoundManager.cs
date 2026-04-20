@@ -25,6 +25,26 @@ public static class SoundManager
     private static GameObject oneShotGameObject;
     private static AudioSource oneShotAudioSource;
 
+    const string ContiGo2DMenuHelpOpenClipResource = "Sound/Effects/SELECT-dgsl9m_ui-132";
+    static AudioClip _contiGo2DMenuHelpOpenClip;
+
+    /// <summary>SFX ao abrir menu ou "como jogar" no ContiGo 2D (Resources).</summary>
+    public static void PlayContiGo2DMenuOrHelpOpenSound ()
+    {
+        if (_contiGo2DMenuHelpOpenClip == null)
+            _contiGo2DMenuHelpOpenClip = Resources.Load<AudioClip> (ContiGo2DMenuHelpOpenClipResource);
+        if (_contiGo2DMenuHelpOpenClip == null) {
+            Debug.LogWarning ("AudioClip em Resources não encontrado: " + ContiGo2DMenuHelpOpenClipResource + " — a usar UIConfimation.");
+            PlaySound (Sound.UIConfimation);
+            return;
+        }
+        if (oneShotGameObject == null) {
+            oneShotGameObject = new GameObject ("One Shot Sound");
+            oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource> ();
+        }
+        oneShotAudioSource.PlayOneShot (_contiGo2DMenuHelpOpenClip);
+    }
+
     public static void Initialize()
     {
         soundTimerDictionary = new Dictionary<Sound, float>();

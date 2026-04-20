@@ -50,6 +50,30 @@ public static class ContiGoFantasyNames
     /// </summary>
     public const bool USE_FANTASY_NAMES_ON_BOARD = false;
 
+    /// <summary>Retrato placeholder (832×1248) até haver arte por valor.</summary>
+    public const string CardPortraitPlaceholderResource = "Imagens/Cartas/zeraphina";
+
+    /// <summary>Retrato da carta 1 — Primarion.</summary>
+    public const string CardPortrait1Resource = "Imagens/Cartas/primarion";
+
+    /// <summary>Retrato da carta 2 — Duovelya.</summary>
+    public const string CardPortrait2Resource = "Imagens/Cartas/duovelya";
+
+    /// <summary>Retrato da carta 3 — Triandor.</summary>
+    public const string CardPortrait3Resource = "Imagens/Cartas/triandor";
+
+    /// <summary>Retrato da carta 4 — Quadrina.</summary>
+    public const string CardPortrait4Resource = "Imagens/Cartas/quadrina";
+
+    /// <summary>Retrato da carta 5 — Quintaros.</summary>
+    public const string CardPortrait5Resource = "Imagens/Cartas/quintaros";
+
+    /// <summary>Retrato da carta 6 — Hexalyn.</summary>
+    public const string CardPortrait6Resource = "Imagens/Cartas/hexalyn";
+
+    /// <summary>Retrato da carta 10 — decalya.</summary>
+    public const string CardPortrait10Resource = "Imagens/Cartas/decalya";
+
     static readonly Dictionary<int, ContiGoFantasyData> s_map = BuildMap ();
     static readonly int[] s_sortedValueIds = CreateSortedValueIds ();
 
@@ -66,23 +90,24 @@ public static class ContiGoFantasyNames
     static Dictionary<int, ContiGoFantasyData> BuildMap ()
     {
         var d = new Dictionary<int, ContiGoFantasyData> (96);
-        void Add (int key, string name, string gender, string lorePt = null, string loreEn = null)
+        void Add (int key, string name, string gender, string lorePt = null, string loreEn = null, string iconResourcePath = null)
         {
-            d[key] = new ContiGoFantasyData (name, gender, null, null, lorePt, loreEn, true);
+            string icon = string.IsNullOrEmpty (iconResourcePath) ? CardPortraitPlaceholderResource : iconResourcePath;
+            d[key] = new ContiGoFantasyData (name, gender, null, icon, lorePt, loreEn, true);
         }
 
         Add (0, "Zeraphina", "F");
-        Add (1, "Primarion", "M");
-        Add (2, "Duovelya", "F");
-        Add (3, "Triandor", "M");
-        Add (4, "Quadrina", "F");
-        Add (5, "Quintaros", "M");
-        Add (6, "Hexalyn", "F");
+        Add (1, "Primarion", "M", null, null, CardPortrait1Resource);
+        Add (2, "Duovelya", "F", null, null, CardPortrait2Resource);
+        Add (3, "Triandor", "M", null, null, CardPortrait3Resource);
+        Add (4, "Quadrina", "F", null, null, CardPortrait4Resource);
+        Add (5, "Quintaros", "M", null, null, CardPortrait5Resource);
+        Add (6, "Hexalyn", "F", null, null, CardPortrait6Resource);
         Add (7, "Septurion", "M");
         Add (8, "Octavira", "F");
         Add (9, "Nontheris", "M");
 
-        Add (10, "Decalya", "F");
+        Add (10, "Decalya", "F", null, null, CardPortrait10Resource);
         Add (11, "Undecor", "M");
         Add (12, "Dodecira", "F");
         Add (13, "Trezalon", "M");
@@ -160,7 +185,7 @@ public static class ContiGoFantasyNames
         return BuildProceduralLoreEn (id, data.Name);
     }
 
-    /// <summary>Retrato da carta em <c>Resources</c>, se <see cref="ContiGoFantasyData.IconAssetId"/> estiver definido.</summary>
+    /// <summary>Retrato da carta em <c>Resources</c> (<see cref="ContiGoFantasyData.IconAssetId"/>).</summary>
     public static Sprite TryLoadCardPortrait (int id)
     {
         if (!s_map.TryGetValue (id, out ContiGoFantasyData data))

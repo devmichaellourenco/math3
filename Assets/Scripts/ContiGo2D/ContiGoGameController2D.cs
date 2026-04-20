@@ -87,11 +87,11 @@ public partial class ContiGoGameController2D : MonoBehaviour
     const float GapAboveBoardDice = 8f;
     /// <summary>Espaço entre a faixa dos dados e o bloco do timer.</summary>
     const float GapTimerRowAboveDice = 22f;
-    /// <summary>Espaço entre o bloco do timer e a linha superior (vidas|pular|marcadas).</summary>
+    /// <summary>Espaço entre o bloco do timer e a linha superior (vidas|trocar|marcadas).</summary>
     const float GapTopHudAboveTimer = 18f;
     /// <summary>Espaço entre a linha superior e o painel de notificações.</summary>
     const float GapNotificationsAboveTopHud = 10f;
-    /// <summary>Altura da faixa com (vidas | pular | marcadas).</summary>
+    /// <summary>Altura da faixa com (vidas | trocar | marcadas).</summary>
     const float TopHudRowHeight = 72f;
     /// <summary>Altura do painel de notificações (desbloqueios, dicas), sem bloquear gameplay.</summary>
     const float NotificationsRowHeight = 74f;
@@ -163,6 +163,14 @@ public partial class ContiGoGameController2D : MonoBehaviour
         if (txtPecasRestantesTitulo != null)
             txtPecasRestantesTitulo.text = tituloPecas;
         AtualizarPecasRestantesTexto ();
+        if (btnPularRodada != null) {
+            Transform tr = btnPularRodada.transform.Find ("Txt");
+            if (tr != null) {
+                TextMeshProUGUI tmp = tr.GetComponent<TextMeshProUGUI> ();
+                if (tmp != null)
+                    tmp.text = language == "portuguese" ? "Trocar" : "Swap";
+            }
+        }
     }
 
     void AtualizarPecasRestantesTexto ()
@@ -238,7 +246,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
         if (helpScreen != null)
             helpScreen.transform.SetAsLastSibling ();
         ResetTutorialSlides ();
-        SoundManager.PlaySound (SoundManager.Sound.UIConfimation);
+        SoundManager.PlayContiGo2DMenuOrHelpOpenSound ();
     }
 
     void CloseHelp ()
@@ -263,7 +271,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
         gameOn = false;
         if (menuScreen != null)
             menuScreen.SetActive (true);
-        SoundManager.PlaySound (SoundManager.Sound.UIConfimation);
+        SoundManager.PlayContiGo2DMenuOrHelpOpenSound ();
     }
 
     void CloseMenu ()
