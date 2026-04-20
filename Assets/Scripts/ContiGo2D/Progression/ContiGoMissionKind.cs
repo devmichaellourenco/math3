@@ -4,6 +4,12 @@ public enum ContiGoMissionKind
     /// <summary>Iniciar uma partida (evento único quando o jogo entra em "Play").</summary>
     MatchStart,
 
+    /// <summary>
+    /// Marcar um conjunto específico de valores (missão define o conjunto por Id), no nível indicado em Param1,
+    /// dentro de Param2 segundos após o início da partida.
+    /// </summary>
+    HitValueSetWithinSecondsOnLevel,
+
     /// <summary>Acertar <see cref="ContiGoMissionDefinition.Param1"/> com tempo desde o início da partida ≤ Param2 (segundos).</summary>
     HitNumberWithinSecondsFromMatchStart,
 

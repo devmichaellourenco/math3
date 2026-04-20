@@ -14,8 +14,8 @@ public static class ContiGoMissionsCatalog
         return new[] {
             new ContiGoMissionDefinition (
                 "unlock_150_fast",
-                "Marque 150 nos primeiros 10 s após o início da partida.",
-                "Mark 150 within the first 10 seconds after the match starts.",
+                "Arranque rápido (10s) — Marque 150 nos primeiros 10 s após o início da partida.",
+                "Fast start (10s) — Mark 150 within the first 10 seconds after the match starts.",
                 150,
                 ContiGoMissionKind.HitNumberWithinSecondsFromMatchStart,
                 150,
@@ -31,8 +31,8 @@ public static class ContiGoMissionsCatalog
 
             new ContiGoMissionDefinition (
                 "unlock_8_quick",
-                "Marque 8 nos primeiros 15 s de jogo.",
-                "Mark 8 within the first 15 seconds.",
+                "Arranque rápido (15s) — Marque 8 nos primeiros 15 s de jogo.",
+                "Fast start (15s) — Mark 8 within the first 15 seconds.",
                 8,
                 ContiGoMissionKind.HitNumberWithinSecondsFromMatchStart,
                 8,
@@ -72,8 +72,8 @@ public static class ContiGoMissionsCatalog
 
             new ContiGoMissionDefinition (
                 "unlock_72_slow",
-                "Marque 72 após pelo menos 45 s desde o início.",
-                "Mark 72 at least 45 seconds after the match starts.",
+                "Paciência (45s) — Marque 72 após pelo menos 45 s desde o início.",
+                "Patience (45s) — Mark 72 at least 45 seconds after the match starts.",
                 72,
                 ContiGoMissionKind.HitNumberAfterSecondsFromMatchStart,
                 72,
@@ -119,9 +119,18 @@ public static class ContiGoMissionsCatalog
                 ContiGoMissionKind.MatchStart),
 
             new ContiGoMissionDefinition (
+                "unlock_2_even_master_240",
+                "Mestre dos pares (240s) — No tabuleiro Mestre (8×8), marque todos os valores pares antes de 240 s.",
+                "Even Master (240s) — On Master (8×8), mark all even values before 240 s.",
+                2,
+                ContiGoMissionKind.HitValueSetWithinSecondsOnLevel,
+                L (ContiGo2DLevelId.Mestre),
+                240),
+
+            new ContiGoMissionDefinition (
                 "unlock_timer_120_left",
-                "Vença com pelo menos 120 s restantes no relógio principal.",
-                "Win with at least 120 seconds left on the main timer.",
+                "Relógio (120s) — Vença com pelo menos 120 s restantes no relógio principal.",
+                "Timer (120s) — Win with at least 120 seconds left on the main timer.",
                 125,
                 ContiGoMissionKind.VictoryWithTimerRemainingAtLeast,
                 120),

@@ -137,7 +137,30 @@ public static class ContiGoFantasyNames
             "Where Primarion appears, inertia dissolves and the universe finds its first direction, as if every journey, before anything else, needs " +
             "someone willing to take the very first step.",
             CardPortrait1Resource);
-        Add (2, "Duovelya", "F", null, null, CardPortrait2Resource);
+        Add (
+            2,
+            "Duovelya",
+            "F",
+            "Duovelya une forças opostas em perfeita harmonia, revelando que o verdadeiro poder nasce da união.\n\n" +
+            "Duovelya manifesta-se como a guardiã da harmonia entre forças que, sozinhas, jamais encontrariam paz. Sua presença flui " +
+            "em duas correntes de energia entrelaçadas que percorrem seu corpo como fitas luminosas, movendo-se em perfeita sincronia, " +
+            "ora se afastando, ora se aproximando, como se dançassem em constante diálogo. Seus olhos refletem duas luzes suaves e " +
+            "complementares, revelando uma percepção capaz de compreender lados opostos sem permitir que se tornem conflito. Ao seu redor, " +
+            "o espaço parece se dividir e se recompor em equilíbrio, como se cada força encontrasse naturalmente sua contraparte. Pequenas " +
+            "marcas luminosas surgem em pares ao longo de sua pele, lembrando antigos sinais gravados para representar união e companhia. " +
+            "Sua voz carrega uma serenidade conciliadora, capaz de transformar tensão em entendimento. Onde Duovelya passa, o isolamento se " +
+            "desfaz e vínculos se formam — pois sua essência não é caminhar sozinha, mas revelar que toda existência encontra sentido quando " +
+            "duas presenças aprendem a coexistir em harmonia.",
+            "Duovelya unites opposing forces in perfect harmony, revealing that true power is born from unity.\n\n" +
+            "Duovelya manifests as the guardian of harmony between forces that, alone, would never find peace. Her presence flows in two " +
+            "intertwined currents of energy that run across her body like luminous ribbons, moving in perfect synchrony—sometimes drifting " +
+            "apart, sometimes drawing close—as if dancing in constant dialogue. Her eyes reflect two gentle, complementary lights, revealing " +
+            "a perception able to understand opposing sides without allowing them to become conflict. Around her, space seems to split and " +
+            "recompose in balance, as if each force naturally found its counterpart. Small luminous marks appear in pairs along her skin, " +
+            "echoing ancient symbols carved to represent union and companionship. Her voice carries a conciliatory serenity, capable of " +
+            "turning tension into understanding. Wherever Duovelya passes, isolation dissolves and bonds are formed—for her essence is not " +
+            "to walk alone, but to reveal that existence finds meaning when two presences learn to coexist in harmony.",
+            CardPortrait2Resource);
         Add (3, "Triandor", "M", null, null, CardPortrait3Resource);
         Add (4, "Quadrina", "F", null, null, CardPortrait4Resource);
         Add (5, "Quintaros", "M", null, null, CardPortrait5Resource);
