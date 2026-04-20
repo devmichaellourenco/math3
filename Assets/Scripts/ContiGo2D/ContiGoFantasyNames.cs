@@ -563,42 +563,395 @@ public static class ContiGoFantasyNames
             "Trizena turns effort into results, where consistency and clarity sustain progress.\n\n" +
             "Trizena walks like one who knows the art of holding course. Her presence is steady but not rigid: she adjusts the pace without losing direction. Around her, the world seems to accept discipline " +
             "as comfort rather than burden. She knows how to break the large into achievable stages, and each stage becomes a kept promise. Where Trizena passes, fatigue becomes endurance—and endurance becomes a quiet win.");
-        Add (31, "Trionyx", "M");
-        Add (32, "Duotrina", "F");
-        Add (33, "Triatrix", "M");
-        Add (34, "Quadrya", "F");
-        Add (35, "Quinzor", "M");
-        Add (36, "Hexatria", "F");
-        Add (37, "Septorin", "M");
-        Add (38, "Octaryn", "F");
-        Add (39, "Novatrix", "M");
+        Add (
+            31,
+            "Trionyx",
+            "M",
+            "Trionyx transforma tensão em foco, onde controle e instinto viram precisão.\n\n" +
+            "Trionyx surge como uma lâmina de calma no meio do ruído. Sua presença tem a firmeza de quem conhece o perigo, mas não se deixa dominar por ele. " +
+            "Ao seu redor, o ar parece afiar-se: escolhas ficam nítidas, distrações perdem força. Ele se move com economia e intenção, como se cada gesto já " +
+            "tivesse sido decidido antes de acontecer. Trionyx não busca confronto — busca domínio de si. Onde ele passa, o mundo aprende a ser exato.",
+            "Trionyx turns tension into focus, where control and instinct become precision.\n\n" +
+            "Trionyx appears like a blade of calm within the noise. His presence carries the steadiness of one who knows danger yet refuses to be ruled by it. Around him, the air seems to sharpen: " +
+            "choices grow clear and distractions lose their pull. He moves with economy and intent, as if each gesture were decided before it happens. Trionyx doesn’t seek conflict—he seeks mastery of self. " +
+            "Where he passes, the world learns to be exact.");
 
-        Add (40, "Quadrinae", "F");
-        Add (41, "Quadrion", "M");
-        Add (42, "Duoquadria", "F");
-        Add (44, "Quadrorix", "M");
-        Add (45, "Quinquadra", "F");
-        Add (48, "Octaquadrix", "M");
-        Add (50, "Quintessara", "F");
-        Add (54, "Quinhexor", "M");
-        Add (55, "Quinquinara", "F");
+        Add (
+            32,
+            "Duotrina",
+            "F",
+            "Duotrina costura contrastes em continuidade, onde duas vozes viram um só caminho.\n\n" +
+            "Duotrina manifesta-se como uma mediadora de camadas. Sua presença reúne o que parecia separado, não por forçar acordo, mas por revelar o ponto " +
+            "em que as diferenças se completam. Em torno dela, brilhos surgem em pares e depois se multiplicam, como alianças que se espalham. Sua fala tem " +
+            "ritmo de conciliação, e seu silêncio tem peso de escolha. Onde Duotrina caminha, o conflito perde importância e a cooperação ganha forma.",
+            "Duotrina stitches contrasts into continuity, where two voices become a single path.\n\n" +
+            "Duotrina manifests as a mediator of layers. Her presence gathers what seemed separate—not by forcing agreement, but by revealing the point where differences complete each other. Around her, " +
+            "glints appear in pairs and then multiply, like alliances spreading outward. Her speech carries a conciliatory rhythm, and her silence holds the weight of choice. Where Duotrina walks, conflict " +
+            "loses its grip and cooperation takes shape.");
 
-        Add (60, "Hexagor", "M");
-        Add (64, "Hexaquara", "F");
-        Add (66, "Hexhexor", "M");
-        Add (72, "Septadua", "F");
-        Add (75, "Septaquor", "M");
-        Add (80, "Octogena", "F");
-        Add (90, "Novarix", "M");
-        Add (96, "Novexa", "F");
-        Add (100, "Centorion", "M");
-        Add (108, "Centavira", "F");
+        Add (
+            33,
+            "Triatrix",
+            "M",
+            "Triatrix organiza a criação em rotas claras, onde imaginação e método caminham juntos.\n\n" +
+            "Triatrix surge como um desenhista do possível. Sua presença traz estrutura sem sufocar, e liberdade sem dispersar. Ao seu redor, linhas " +
+            "invisíveis formam padrões que se ajustam conforme a necessidade, como esboços vivos. Ele enxerga alternativas em camadas e escolhe a " +
+            "melhor com serenidade. Onde Triatrix passa, o que era ideia vira plano — e o plano vira mundo.",
+            "Triatrix organizes creation into clear routes, where imagination and method walk together.\n\n" +
+            "Triatrix appears like a drafter of possibility. His presence brings structure without suffocating, and freedom without scattering. Around him, unseen lines form patterns that adapt to need, " +
+            "like living sketches. He sees alternatives in layers and chooses the best with calm. Where Triatrix passes, what was idea becomes plan—and plan becomes world.");
 
-        Add (120, "Centovintor", "M");
-        Add (125, "Centoquinara", "F");
-        Add (144, "Centoquadrix", "M");
-        Add (150, "Centoquinella", "F");
-        Add (180, "Centoctarion", "M");
+        Add (
+            34,
+            "Quadrya",
+            "F",
+            "Quadrya sustenta o avanço com serenidade, onde base firme permite altura sem medo.\n\n" +
+            "Quadrya manifesta-se como um ponto de apoio constante. Sua presença distribui forças como quem conhece o peso das coisas e sabe onde colocá-lo. " +
+            "Ao redor dela, o ambiente se alinha: direções ficam claras, passos ficam seguros. Ela não acelera; ela estabiliza. Onde Quadrya permanece, " +
+            "o mundo encontra equilíbrio e a pressa perde comando.",
+            "Quadrya sustains progress with serenity, where steady footing allows height without fear.\n\n" +
+            "Quadrya manifests as a constant support point. Her presence distributes forces like one who understands weight and where to place it. Around her, the environment aligns: directions become clear and steps become sure. " +
+            "She doesn’t speed things up; she stabilizes them. Where Quadrya remains, the world finds balance and haste loses its grip.");
+
+        Add (
+            35,
+            "Quinzor",
+            "M",
+            "Quinzor vira o jogo com astúcia, onde decisão certa transforma chance em vantagem.\n\n" +
+            "Quinzor surge com um brilho curioso no olhar e uma calma de quem já viu a mesma encruzilhada muitas vezes. Sua presença é leve, mas " +
+            "estrategicamente pesada: cada palavra parece posicionar algo no tabuleiro do destino. Ao seu redor, pequenas oportunidades acendem como " +
+            "faíscas, e ele as recolhe antes que desapareçam. Onde Quinzor passa, o improvável vira opção real — e a opção vira vitória.",
+            "Quinzor flips the game with cunning, where the right decision turns chance into advantage.\n\n" +
+            "Quinzor appears with a curious spark in his eyes and the calm of one who has seen the same crossroads many times. His presence is light, yet strategically heavy: every word seems to place something on fate’s board. Around him, " +
+            "small opportunities flare like sparks, and he gathers them before they vanish. Where Quinzor passes, the unlikely becomes a real option—and the option becomes a win.");
+
+        Add (
+            36,
+            "Hexatria",
+            "F",
+            "Hexatria tece harmonia duradoura, onde cuidado e estrutura protegem o que cresce.\n\n" +
+            "Hexatria manifesta-se como uma guardiã de sistemas vivos. Sua presença lembra colmeias, redes e formas que se sustentam por cooperação. " +
+            "Ao seu redor, partes dispersas parecem encontrar encaixe, e o que era excesso vira equilíbrio. Ela age com paciência: ajusta, reforça, " +
+            "preserva. Onde Hexatria passa, o mundo aprende que força também é sustentar.",
+            "Hexatria weaves lasting harmony, where care and structure protect what grows.\n\n" +
+            "Hexatria manifests as a guardian of living systems. Her presence evokes honeycombs, networks, and forms held together by cooperation. Around her, scattered parts find their fit, and what was excess becomes balance. She acts with patience: " +
+            "adjusting, reinforcing, preserving. Where Hexatria passes, the world learns that strength can also mean sustaining.");
+
+        Add (
+            37,
+            "Septorin",
+            "M",
+            "Septorin revela sentido no silêncio, onde mistério e intuição guiam o passo certo.\n\n" +
+            "Septorin surge como um viajante de olhos profundos. Sua presença diminui o barulho do mundo e faz emergir sinais discretos, como se a realidade " +
+            "sussurrasse instruções escondidas. Ele não corre atrás de respostas; ele cria espaço para que elas apareçam. Onde Septorin caminha, a mente " +
+            "desacelera e aprende a enxergar o que sempre esteve ali.",
+            "Septorin reveals meaning in silence, where mystery and intuition guide the right step.\n\n" +
+            "Septorin appears like a traveler with deep eyes. His presence lowers the world’s noise and brings forth subtle signs, as if reality whispered hidden directions. He doesn’t chase answers; he makes room for them to appear. Where Septorin walks, " +
+            "the mind slows down and learns to see what was always there.");
+
+        Add (
+            38,
+            "Octaryn",
+            "F",
+            "Octaryn mantém o ritmo do mundo, onde repetição vira refinamento e paz.\n\n" +
+            "Octaryn manifesta-se como um compasso vivo. Sua presença dá cadência às ações e suaviza os extremos, como maré que regula o excesso. " +
+            "Ao seu redor, movimentos se tornam mais limpos, e o que era impulso vira fluxo. Ela não impõe ciclos; ela os revela. Onde Octaryn " +
+            "passa, o caos aprende a respirar em tempo.",
+            "Octaryn keeps the world’s rhythm, where repetition becomes refinement and peace.\n\n" +
+            "Octaryn manifests like a living tempo. Her presence gives cadence to actions and softens extremes, like a tide that regulates excess. Around her, movements become cleaner and what was impulse becomes flow. She doesn’t impose cycles; she reveals them. " +
+            "Where Octaryn passes, chaos learns to breathe in time.");
+
+        Add (
+            39,
+            "Novatrix",
+            "M",
+            "Novatrix guarda a fronteira da mudança, onde o fim amadurece para virar começo.\n\n" +
+            "Novatrix surge como uma última curva antes da virada. Sua presença traz clareza sobre o que deve ficar e o que precisa ir. " +
+            "Ao seu redor, estruturas antigas cedem sem colapsar, como se a realidade aprendesse a soltar com elegância. Ele não apressa " +
+            "o novo; ele prepara o terreno. Onde Novatrix passa, transição vira passagem segura.",
+            "Novatrix guards the border of change, where endings mature into beginnings.\n\n" +
+            "Novatrix appears like the final bend before the turn. His presence brings clarity about what must remain and what must go. Around him, old structures loosen without collapsing, as if reality learned to let go with elegance. He doesn’t rush the new; he prepares the ground. " +
+            "Where Novatrix passes, transition becomes a safe crossing.");
+
+        Add (
+            40,
+            "Quadrinae",
+            "F",
+            "Quadrinae firma o que importa, onde ordem e direção sustentam o próximo passo.\n\n" +
+            "Quadrinae manifesta-se como um mapa de estabilidade. Sua presença organiza o espaço em referências claras, como se cada coisa ganhasse um lugar " +
+            "legítimo. Ela não reduz o mundo; ela o torna navegável. Ao seu redor, o caos perde arestas e a dúvida encontra norte. Onde Quadrinae " +
+            "passa, o ambiente se alinha e a confiança volta a existir.",
+            "Quadrinae anchors what matters, where order and direction sustain the next step.\n\n" +
+            "Quadrinae manifests like a map of stability. Her presence organizes space into clear references, as if everything gained a rightful place. She doesn’t shrink the world; she makes it navigable. Around her, chaos loses its edges and doubt finds north. Where Quadrinae passes, the environment aligns and confidence returns.");
+        Add (
+            41,
+            "Quadrion",
+            "M",
+            "Quadrion endireita o caos, onde ordem e propósito se tornam caminho seguro.\n\n" +
+            "Quadrion surge como um eixo silencioso em torno do qual o mundo se organiza. Sua presença não é rígida — é firme. Ao seu redor, " +
+            "tudo parece ganhar alinhamento: o que estava torto encontra direção, o que estava solto encontra base. Ele observa como quem mede " +
+            "distâncias internas e, com poucos gestos, ajusta o essencial. Onde Quadrion passa, o ambiente perde ruído e ganha intenção.",
+            "Quadrion straightens chaos, where order and purpose become a safe path.\n\n" +
+            "Quadrion appears like a silent axis around which the world organizes itself. His presence isn’t rigid—it’s steady. Around him, " +
+            "everything seems to align: what was crooked finds direction, what was loose finds footing. He watches as if measuring inner distances " +
+            "and, with few gestures, adjusts what matters. Where Quadrion passes, the environment loses noise and gains intent.");
+
+        Add (
+            42,
+            "Duoquadria",
+            "F",
+            "Duoquadria une estrutura e gentileza, onde firmeza e cuidado coexistem sem conflito.\n\n" +
+            "Duoquadria manifesta-se como uma guardiã de equilíbrio aplicado. Sua presença cria apoio sem peso, como um abraço que também sustenta. " +
+            "Ao seu redor, forças contrárias encontram um ponto comum, e o que era tensão vira colaboração. Ela não apaga diferenças; ela as " +
+            "encaixa. Onde Duoquadria caminha, o mundo aprende que estabilidade também pode ser acolhimento.",
+            "Duoquadria unites structure and kindness, where steadiness and care coexist without conflict.\n\n" +
+            "Duoquadria manifests as a guardian of applied balance. Her presence provides support without heaviness, like an embrace that also holds. " +
+            "Around her, opposing forces find common ground and what was tension becomes collaboration. She doesn’t erase differences; she fits them. " +
+            "Where Duoquadria walks, the world learns that stability can also be warmth.");
+
+        Add (
+            44,
+            "Quadrorix",
+            "M",
+            "Quadrorix governa limites com justiça, onde força vira proteção e direção.\n\n" +
+            "Quadrorix surge como um sentinela de fronteiras invisíveis. Sua presença delimita sem sufocar, como muralhas feitas de critério e respeito. " +
+            "Ele lê o mundo como um terreno que precisa de regras claras para permanecer livre. Ao seu redor, excessos recuam e intenções se revelam. " +
+            "Onde Quadrorix permanece, o que é essencial fica — e o que é ruído se dissolve.",
+            "Quadrorix rules boundaries with fairness, where strength becomes protection and direction.\n\n" +
+            "Quadrorix appears as a sentinel of unseen borders. His presence defines without suffocating, like walls built from judgment and respect. " +
+            "He reads the world as ground that needs clear rules to stay free. Around him, excess retreats and intentions reveal themselves. " +
+            "Where Quadrorix remains, what is essential stays—and what is noise dissolves.");
+
+        Add (
+            45,
+            "Quinquadra",
+            "F",
+            "Quinquadra sustenta mudança com estabilidade, onde adaptação não perde o chão.\n\n" +
+            "Quinquadra manifesta-se como uma construtora de transições. Sua presença ensina que crescer não precisa ser queda e que mudar não precisa " +
+            "ser caos. Ao seu redor, estruturas flexíveis surgem como pontes, permitindo atravessar sem quebrar. Ela caminha com serenidade prática, " +
+            "ajustando o mundo para que o novo se encaixe. Onde Quinquadra passa, transformação vira arquitetura.",
+            "Quinquadra sustains change with stability, where adaptation doesn’t lose its footing.\n\n" +
+            "Quinquadra manifests as a builder of transitions. Her presence teaches that growth doesn’t have to be collapse and change doesn’t have to " +
+            "be chaos. Around her, flexible structures appear like bridges, letting you cross without breaking. She walks with practical serenity, " +
+            "tuning the world so the new can fit. Where Quinquadra passes, transformation becomes architecture.");
+
+        Add (
+            48,
+            "Octaquadrix",
+            "M",
+            "Octaquadrix domina o ritmo do retorno, onde ciclos fortes mantêm o mundo em pé.\n\n" +
+            "Octaquadrix surge como um guardião de cadências profundas. Sua presença é como uma engrenagem silenciosa que nunca falha: repetição sem " +
+            "cansaço, movimento sem desperdício. Ao seu redor, o caos perde impulso e encontra padrão. Ele não impõe ordem à força; ele a revela " +
+            "como uma lei natural. Onde Octaquadrix caminha, o mundo aprende a girar com equilíbrio.",
+            "Octaquadrix commands the rhythm of return, where strong cycles keep the world standing.\n\n" +
+            "Octaquadrix appears as a guardian of deep cadences. His presence is like a silent gear that never fails: repetition without fatigue, " +
+            "motion without waste. Around him, chaos loses momentum and finds pattern. He doesn’t force order; he reveals it as a natural law. " +
+            "Where Octaquadrix walks, the world learns to turn in balance.");
+
+        Add (
+            50,
+            "Quintessara",
+            "F",
+            "Quintessara acende possibilidades, onde vontade e liberdade abrem novos horizontes.\n\n" +
+            "Quintessara manifesta-se como um salto de energia criativa. Sua presença amplia o mundo sem quebrá-lo, como se abrisse janelas em paredes " +
+            "antigas. Ao seu redor, caminhos inesperados surgem, e o que era limite vira escolha. Ela não se prende a um único rumo; ela coleciona " +
+            "rotas. Onde Quintessara passa, o medo encolhe e a curiosidade cresce.",
+            "Quintessara ignites possibility, where will and freedom open new horizons.\n\n" +
+            "Quintessara manifests as a burst of creative energy. Her presence expands the world without breaking it, as if opening windows in old walls. " +
+            "Around her, unexpected paths appear and what was a limit becomes a choice. She doesn’t bind herself to a single direction; she collects routes. " +
+            "Where Quintessara passes, fear shrinks and curiosity grows.");
+
+        Add (
+            54,
+            "Quinhexor",
+            "M",
+            "Quinhexor encontra encaixe no improvável, onde ordem e improviso viram solução.\n\n" +
+            "Quinhexor surge como um engenheiro de atalhos. Sua presença não rejeita o erro; ela o recicla em caminho. Ao seu redor, peças que não " +
+            "combinavam começam a se ajustar, e o mundo parece aceitar arranjos novos. Ele pensa rápido sem ser ansioso, e decide sem ser duro. " +
+            "Onde Quinhexor passa, o impossível aprende a ter forma.",
+            "Quinhexor finds fit in the unlikely, where order and improvisation become solution.\n\n" +
+            "Quinhexor appears like an engineer of shortcuts. His presence doesn’t reject mistakes; it recycles them into paths. Around him, pieces that didn’t match begin to " +
+            "align, and the world seems to accept new arrangements. He thinks fast without anxiety and decides without harshness. Where Quinhexor passes, the impossible " +
+            "learns to take shape.");
+
+        Add (
+            55,
+            "Quinquinara",
+            "F",
+            "Quinquinara duplica a coragem, onde insistência vira arte e avanço.\n\n" +
+            "Quinquinara manifesta-se como uma força que retorna com mais clareza. Sua presença insiste sem repetir: ela aprende, ajusta e volta melhor. " +
+            "Ao seu redor, tentativas falhas deixam de ser derrota e viram treino. Ela carrega uma alegria teimosa, capaz de manter o rumo mesmo quando " +
+            "o mundo oscila. Onde Quinquinara passa, perseverança ganha brilho e propósito.",
+            "Quinquinara doubles courage, where persistence becomes art and progress.\n\n" +
+            "Quinquinara manifests as a force that returns with greater clarity. Her presence persists without repeating: it learns, adjusts, and comes back better. " +
+            "Around her, failed attempts stop being defeat and become practice. She carries a stubborn joy that holds course even as the world wavers. Where Quinquinara " +
+            "passes, perseverance gains shine and purpose.");
+
+        Add (
+            60,
+            "Hexagor",
+            "M",
+            "Hexagor sustenta a disciplina do mundo, onde constância transforma esforço em resultado.\n\n" +
+            "Hexagor surge como uma rotina viva: firme, repetível e necessária. Sua presença organiza o ambiente em etapas claras, e cada etapa parece " +
+            "alcançável. Ele não oferece atalhos; oferece ritmo. Ao seu redor, ações simples ganham potência, porque são feitas na hora certa, do jeito " +
+            "certo, de novo. Onde Hexagor passa, o cansaço se converte em resistência e a resistência em conquista.",
+            "Hexagor sustains the world’s discipline, where consistency turns effort into results.\n\n" +
+            "Hexagor appears like a living routine: steady, repeatable, necessary. His presence organizes the environment into clear steps, and each step feels " +
+            "reachable. He doesn’t offer shortcuts; he offers rhythm. Around him, simple actions gain power because they are done at the right time, the right way, again. " +
+            "Where Hexagor passes, fatigue turns into endurance—and endurance into achievement.");
+
+        Add (
+            64,
+            "Hexaquara",
+            "F",
+            "Hexaquara protege o coletivo, onde cuidado e estrutura mantêm tudo inteiro.\n\n" +
+            "Hexaquara manifesta-se como uma guardiã de comunidades. Sua presença distribui peso e responsabilidade com justiça, como quem sabe que " +
+            "o todo depende do equilíbrio das partes. Ao seu redor, padrões surgem como redes, lembrando que união é engenharia delicada. Ela não " +
+            "apressa; ela sustenta. Onde Hexaquara caminha, cooperação vira força e a força vira abrigo.",
+            "Hexaquara protects the collective, where care and structure keep everything whole.\n\n" +
+            "Hexaquara manifests as a guardian of communities. Her presence distributes weight and responsibility with fairness, as one who knows the whole depends on the balance of its parts. Around her, patterns appear like networks, reminding that unity is delicate engineering. She doesn’t rush; she sustains. Where Hexaquara walks, cooperation becomes strength—and strength becomes shelter.");
+
+        Add (
+            66,
+            "Hexhexor",
+            "M",
+            "Hexhexor harmoniza engrenagens do destino, onde repetição vira perfeição.\n\n" +
+            "Hexhexor surge como um mestre de mecanismos. Sua presença transforma movimentos brutos em ciclos elegantes, e o que era ruído vira " +
+            "compasso. Ao seu redor, padrões se repetem com mínima perda, como se o mundo aprendesse a economizar esforço. Ele não busca brilho; " +
+            "busca encaixe. Onde Hexhexor passa, a realidade se torna eficiente — e, por isso, mais leve.",
+            "Hexhexor harmonizes fate’s gears, where repetition becomes perfection.\n\n" +
+            "Hexhexor appears like a master of mechanisms. His presence turns rough motion into elegant cycles, and what was noise becomes tempo. Around him, patterns repeat with minimal loss, as if the world learned to waste less effort. He doesn’t chase shine; he chases fit. Where Hexhexor passes, reality becomes efficient—and therefore lighter.");
+        Add (
+            72,
+            "Septadua",
+            "F",
+            "Septadua revela padrões no improvável, onde paciência e método transformam complexidade em caminho.\n\n" +
+            "Septadua manifesta-se como uma tecelã de regularidades. Sua presença encontra ordem onde outros veem excesso, e, ao seu redor, " +
+            "movimentos se repetem com intenção — como se a realidade aprendesse a encaixar peças grandes com delicadeza. Ela não se apressa: " +
+            "observa, identifica, alinha. Onde Septadua caminha, o difícil deixa de ser um muro e vira sequência de passos possíveis.",
+            "Septadua reveals patterns in the unlikely, where patience and method turn complexity into a path.\n\n" +
+            "Septadua manifests as a weaver of regularities. Her presence finds order where others see excess, and around her, movements repeat with intent—as if reality learned to fit large pieces gently. She doesn’t rush: she observes, identifies, aligns. Where Septadua walks, difficulty stops being a wall and becomes a sequence of possible steps.");
+
+        Add (
+            75,
+            "Septaquor",
+            "M",
+            "Septaquor abre trilhas na persistência, onde repetição vira domínio e calma.\n\n" +
+            "Septaquor surge como um viajante de treino e constância. Sua presença é firme sem ser pesada, e o mundo ao redor parece aceitar " +
+            "o trabalho contínuo como destino honroso. Ele não busca atalhos: busca refinamento. Onde Septaquor passa, o esforço ganha ritmo " +
+            "e o ritmo vira vitória discreta.",
+            "Septaquor carves trails through persistence, where repetition becomes mastery and calm.\n\n" +
+            "Septaquor appears like a traveler of practice and constancy. His presence is steady without heaviness, and the world around seems to accept sustained work as an honorable fate. He doesn’t seek shortcuts; he seeks refinement. Where Septaquor passes, effort finds rhythm—and rhythm becomes a quiet win.");
+
+        Add (
+            80,
+            "Octogena",
+            "F",
+            "Octogena sustenta a maturidade do mundo, onde ciclos longos viram força serena.\n\n" +
+            "Octogena manifesta-se como a memória do que funciona. Sua presença traz uma sensação de tempo bem vivido: o que é frágil se fortalece, " +
+            "o que é instável encontra ritmo. Ao seu redor, movimentos se repetem com suavidade, como maré que aprende a respeitar a margem. " +
+            "Onde Octogena caminha, o mundo amadurece sem perder brilho.",
+            "Octogena sustains the world’s maturity, where long cycles become serene strength.\n\n" +
+            "Octogena manifests as the memory of what works. Her presence carries the feeling of time well lived: what is fragile strengthens, what is unstable finds rhythm. Around her, motions repeat softly, like a tide learning to respect the shore. Where Octogena walks, the world matures without losing its shine.");
+
+        Add (
+            90,
+            "Novarix",
+            "M",
+            "Novarix guarda o fim antes da virada, onde conclusão e clareza preparam o próximo começo.\n\n" +
+            "Novarix surge como um juiz de ciclos: observa, encerra, libera. Sua presença traz a calma de quem sabe finalizar sem arrependimento. " +
+            "Ao seu redor, o que estava disperso se organiza, e o que era insistência vira escolha. Onde Novarix passa, o mundo aprende a fechar " +
+            "portas com gentileza — e abrir outras com coragem.",
+            "Novarix guards the end before the turn, where completion and clarity prepare the next beginning.\n\n" +
+            "Novarix appears like a judge of cycles: he observes, concludes, releases. His presence brings the calm of one who can finish without regret. Around him, what was scattered organizes, and what was stubbornness becomes choice. Where Novarix passes, the world learns to close doors gently—and open others with courage.");
+
+        Add (
+            96,
+            "Novexa",
+            "F",
+            "Novexa revela elegância na estrutura, onde harmonia e precisão sustentam o extraordinário.\n\n" +
+            "Novexa manifesta-se como uma arquiteta de formas raras. Sua presença alinha partes grandes sem quebrar delicadeza, e o espaço " +
+            "ao redor parece aceitar padrões complexos com naturalidade. Ela não exibe força; exibe encaixe. Onde Novexa caminha, o que " +
+            "parecia impossível encontra método — e o método vira beleza.",
+            "Novexa reveals elegance in structure, where harmony and precision sustain the extraordinary.\n\n" +
+            "Novexa manifests as an architect of rare forms. Her presence aligns large parts without breaking delicacy, and space around seems to accept complex patterns naturally. She doesn’t display force; she displays fit. Where Novexa walks, what seemed impossible finds method—and method becomes beauty.");
+
+        Add (
+            100,
+            "Centorion",
+            "M",
+            "Centorion lidera com firmeza, onde disciplina e honra constroem caminho duradouro.\n\n" +
+            "Centorion surge como um comandante de passos largos. Sua presença inspira confiança: não por prometer vitória fácil, mas por " +
+            "sustentar o rumo quando o mundo vacila. Ao seu redor, o ambiente parece organizar-se em ordem de marcha, e até o medo ganha " +
+            "forma para ser enfrentado. Onde Centorion passa, coragem vira hábito e o hábito vira legado.",
+            "Centorion leads with steadiness, where discipline and honor build a lasting path.\n\n" +
+            "Centorion appears like a commander of long strides. His presence inspires trust—not by promising easy victory, but by holding course when the world wavers. Around him, the environment seems to fall into marching order, and even fear takes shape to be faced. Where Centorion passes, courage becomes habit—and habit becomes legacy.");
+
+        Add (
+            108,
+            "Centavira",
+            "F",
+            "Centavira amplia a visão, onde equilíbrio e alcance transformam limites em horizonte.\n\n" +
+            "Centavira manifesta-se como uma guia de grandes distâncias. Sua presença expande sem dispersar, como um mapa que cresce, mas " +
+            "mantém o centro. Ao seu redor, caminhos se tornam legíveis e o mundo parece caber nos olhos. Onde Centavira caminha, " +
+            "o impossível encolhe e o próximo passo se torna claro.",
+            "Centavira expands vision, where balance and reach turn limits into horizon.\n\n" +
+            "Centavira manifests as a guide of long distances. Her presence expands without scattering, like a map that grows yet keeps its center. Around her, paths become readable and the world seems to fit within sight. Where Centavira walks, the impossible shrinks and the next step becomes clear.");
+
+        Add (
+            120,
+            "Centovintor",
+            "M",
+            "Centovintor sustenta a expansão, onde constância e estratégia mantêm o progresso vivo.\n\n" +
+            "Centovintor surge como um navegador de etapas longas. Sua presença não acelera o mundo — ela o mantém avançando. Ao seu redor, " +
+            "o esforço se distribui, e o caminho parece menos pesado. Ele conhece a arte de continuar quando a euforia passa. Onde Centovintor " +
+            "caminha, o futuro deixa de ser desejo e vira plano.",
+            "Centovintor sustains expansion, where consistency and strategy keep progress alive.\n\n" +
+            "Centovintor appears like a navigator of long stages. His presence doesn’t speed the world up—it keeps it moving. Around him, effort spreads out and the path feels lighter. He knows how to continue when excitement fades. Where Centovintor walks, the future stops being a wish and becomes a plan.");
+
+        Add (
+            125,
+            "Centoquinara",
+            "F",
+            "Centoquinara refina a intenção, onde disciplina paciente transforma desejo em forma.\n\n" +
+            "Centoquinara manifesta-se como uma artesã de repetição consciente. Sua presença torna o trabalho contínuo quase sagrado: " +
+            "cada retorno traz melhoria, cada ajuste traz clareza. Ao seu redor, padrões se fecham com perfeição tranquila. Onde " +
+            "Centoquinara caminha, a constância deixa de ser peso e vira poder silencioso.",
+            "Centoquinara refines intent, where patient discipline turns desire into form.\n\n" +
+            "Centoquinara manifests as a craftswoman of mindful repetition. Her presence makes sustained work feel almost sacred: each return brings improvement, each adjustment brings clarity. Around her, patterns close with quiet perfection. Where Centoquinara walks, consistency stops being a burden and becomes quiet power.");
+
+        Add (
+            144,
+            "Centoquadrix",
+            "M",
+            "Centoquadrix ergue uma fortaleza de ordem, onde perfeição e rigor viram proteção.\n\n" +
+            "Centoquadrix surge como um guardião de estruturas impecáveis. Sua presença não tolera desperdício: tudo ao redor encontra " +
+            "encaixe e propósito. Ele não é frio — é exato. Onde Centoquadrix passa, o caos perde acesso, e a mente encontra um chão " +
+            "sólido para construir.",
+            "Centoquadrix raises a fortress of order, where perfection and rigor become protection.\n\n" +
+            "Centoquadrix appears as a guardian of impeccable structures. His presence tolerates no waste: everything around finds fit and purpose. He isn’t cold—he’s exact. Where Centoquadrix passes, chaos loses access and the mind finds solid ground to build upon.");
+
+        Add (
+            150,
+            "Centoquinella",
+            "F",
+            "Centoquinella inspira conquista limpa, onde coragem e método caminham sem ruído.\n\n" +
+            "Centoquinella manifesta-se como uma vencedora serena. Sua presença traz confiança sem arrogância e precisão sem dureza. " +
+            "Ao seu redor, escolhas se alinham, e o caminho parece abrir-se por mérito, não por acaso. Onde Centoquinella caminha, " +
+            "vitória vira consequência natural de um rumo bem mantido.",
+            "Centoquinella inspires clean conquest, where courage and method move without noise.\n\n" +
+            "Centoquinella manifests as a serene victor. Her presence brings confidence without arrogance and precision without harshness. Around her, choices align and the path seems to open by merit rather than chance. Where Centoquinella walks, victory becomes the natural consequence of a well-held course.");
+
+        Add (
+            180,
+            "Centoctarion",
+            "M",
+            "Centoctarion governa o horizonte final, onde grandeza e disciplina transformam limites em legado.\n\n" +
+            "Centoctarion surge como o peso nobre de uma meta distante. Sua presença amplia o mundo e exige responsabilidade: o que é " +
+            "grande precisa ser sustentado. Ao seu redor, o esforço ganha dignidade e o caminho se torna épico. Ele não promete facilidade; " +
+            "promete sentido. Onde Centoctarion passa, a ambição vira construção — e a construção vira memória.",
+            "Centoctarion commands the far horizon, where greatness and discipline turn limits into legacy.\n\n" +
+            "Centoctarion appears as the noble weight of a distant goal. His presence expands the world and demands responsibility: what is great must be sustained. Around him, effort gains dignity and the path turns epic. He doesn’t promise ease; he promises meaning. Where Centoctarion walks, ambition becomes construction—and construction becomes memory.");
 
         return d;
     }
