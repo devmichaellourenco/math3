@@ -435,17 +435,134 @@ public static class ContiGoFantasyNames
             "finds routine without monotony, as if each action fit the right moment. On her skin, soft glints appear like journey-marks, reminding that growth is the sum " +
             "of small repeated choices. She doesn’t promise shortcuts; she promises continuity. Where Vigessia passes, anxiety loses its rush and the mind gains steadiness—" +
             "the kind that can withstand time.");
-        Add (21, "Vintarion", "M");
-        Add (22, "Duovintia", "F");
-        Add (23, "Trivintor", "M");
-        Add (24, "Quadrivela", "F");
-        Add (25, "Quintovar", "M");
-        Add (26, "Hexavina", "F");
-        Add (27, "Septavion", "M");
-        Add (28, "Octalira", "F");
-        Add (29, "Novarion", "M");
+        Add (
+            21,
+            "Vintarion",
+            "M",
+            "Vintarion transforma impulso em propósito, onde avanço e direção caminham juntos.\n\n" +
+            "Vintarion surge como um capitão de rotas invisíveis. Sua presença carrega a sensação de movimento constante, não como pressa, mas como orientação. " +
+            "Ao seu redor, o ar parece abrir corredores de passagem, e o mundo se arranja para facilitar o próximo passo. Ele observa com calma ativa: vê o que vem " +
+            "à frente sem desprezar o que ficou para trás. Em sua voz há um tom de comando gentil, capaz de fazer escolhas parecerem simples. Onde Vintarion passa, " +
+            "hesitação vira ação e ação vira trajetória.",
+            "Vintarion turns impulse into purpose, where progress and direction walk together.\n\n" +
+            "Vintarion appears like a captain of invisible routes. His presence carries the feeling of constant motion—not haste, but guidance. Around him, the air seems " +
+            "to open passageways, and the world rearranges itself to ease the next step. He watches with active calm: seeing what lies ahead without dismissing what came before. " +
+            "His voice holds a gentle command that makes choices feel simple. Where Vintarion passes, hesitation becomes action, and action becomes trajectory.");
 
-        Add (30, "Trizena", "F");
+        Add (
+            22,
+            "Duovintia",
+            "F",
+            "Duovintia junta caminhos distantes, onde encontros improváveis viram alianças duradouras.\n\n" +
+            "Duovintia manifesta-se como uma ponte de luz entre margens que não se tocavam. Sua presença é acolhedora, mas firme, como quem sabe que união exige " +
+            "tanto coragem quanto cuidado. Ao redor dela, pares de símbolos surgem e se conectam, formando mapas de ligação. Ela não força vínculos; ela cria espaço " +
+            "para que eles aconteçam. Onde Duovintia caminha, o isolamento perde força e o mundo aprende a cooperar.",
+            "Duovintia brings distant paths together, where unlikely meetings become lasting alliances.\n\n" +
+            "Duovintia manifests as a bridge of light between shores that never touched. Her presence is welcoming yet steady, as one who knows unity requires courage as much " +
+            "as care. Around her, pairs of symbols appear and connect, forming maps of linkage. She doesn’t force bonds; she makes room for them to happen. Where Duovintia walks, " +
+            "isolation weakens and the world learns to cooperate.");
+
+        Add (
+            23,
+            "Trivintor",
+            "M",
+            "Trivintor refina a escolha em acerto, onde foco e cálculo viram clareza.\n\n" +
+            "Trivintor surge como um estrategista de mente luminosa. Sua presença traz uma nitidez rara: o excesso some, o essencial permanece. Em torno dele, " +
+            "linhas discretas aparecem como rascunhos de possibilidades, e ele as percorre com o olhar até encontrar a melhor rota. Ele não se apressa; ele decide. " +
+            "Onde Trivintor passa, a confusão se organiza e o erro perde espaço para a precisão.",
+            "Trivintor refines choice into accuracy, where focus and calculation become clarity.\n\n" +
+            "Trivintor appears like a strategist with a luminous mind. His presence brings rare sharpness: excess fades, essentials remain. Around him, subtle lines surface like " +
+            "sketches of possibilities, and his gaze follows them until the best route reveals itself. He doesn’t rush; he decides. Where Trivintor passes, confusion organizes and " +
+            "mistake yields to precision.");
+
+        Add (
+            24,
+            "Quadrivela",
+            "F",
+            "Quadrivela sustenta o que cresce, onde estrutura e leveza mantêm tudo de pé.\n\n" +
+            "Quadrivela manifesta-se como uma vela firme em ventos variáveis. Sua presença distribui peso e força com sabedoria, como se conhecesse a arte " +
+            "de erguer sem forçar. Ao seu redor, planos invisíveis se alinham e criam apoio, permitindo expansão sem colapso. Ela é paciente com o tempo e " +
+            "precisa com o espaço. Onde Quadrivela passa, projetos encontram sustentação e o mundo aprende a crescer com estabilidade.",
+            "Quadrivela supports what grows, where structure and lightness keep everything standing.\n\n" +
+            "Quadrivela manifests like a steady sail in shifting winds. Her presence distributes weight and strength with wisdom, as if she knew the art of lifting without strain. " +
+            "Around her, unseen planes align and form support, allowing expansion without collapse. She is patient with time and precise with space. Where Quadrivela passes, projects " +
+            "find footing and the world learns to grow with stability.");
+
+        Add (
+            25,
+            "Quintovar",
+            "M",
+            "Quintovar desperta novas rotas, onde curiosidade e coragem se tornam impulso.\n\n" +
+            "Quintovar surge com olhar inquieto e passos rápidos, como alguém que pressente portas escondidas. Sua presença traz um brilho de possibilidade: " +
+            "o mundo parece maior do que era um instante antes. Em torno dele, sinais surgem como convites — pequenas pistas para quem tem vontade de explorar. " +
+            "Ele não evita o desconhecido; ele o transforma em caminho. Onde Quintovar passa, a rotina se quebra e a aventura começa.",
+            "Quintovar awakens new routes, where curiosity and courage become momentum.\n\n" +
+            "Quintovar appears with a restless gaze and quick steps, like someone sensing hidden doors. His presence carries a glint of possibility: the world seems larger than it was a moment " +
+            "before. Around him, signs emerge like invitations—small clues for those willing to explore. He doesn’t avoid the unknown; he turns it into a path. Where Quintovar passes, routine breaks " +
+            "and adventure begins.");
+
+        Add (
+            26,
+            "Hexavina",
+            "F",
+            "Hexavina harmoniza o coletivo, onde partes diferentes trabalham como uma só vontade.\n\n" +
+            "Hexavina manifesta-se como uma coordenadora silenciosa da vida em conjunto. Sua presença cria um senso de encaixe: cada elemento encontra a posição " +
+            "certa sem perder identidade. Padrões delicados surgem ao redor como redes de cooperação, e o que era ruído vira composição. Ela não manda; ela " +
+            "sincroniza. Onde Hexavina passa, o esforço se distribui e a soma se torna mais forte do que qualquer parte isolada.",
+            "Hexavina harmonizes the collective, where different parts work as a single will.\n\n" +
+            "Hexavina manifests as a silent coordinator of shared life. Her presence creates a sense of fit: each element finds the right position without losing identity. Delicate patterns " +
+            "appear around her like networks of cooperation, and what was noise becomes composition. She doesn’t command; she synchronizes. Where Hexavina passes, effort spreads out and the whole " +
+            "becomes stronger than any isolated part.");
+
+        Add (
+            27,
+            "Septavion",
+            "M",
+            "Septavion revela o invisível, onde intuição e profundidade guiam decisões.\n\n" +
+            "Septavion caminha como quem escuta camadas que o mundo não mostra. Sua presença torna o silêncio mais nítido, e no silêncio surgem sinais. " +
+            "Ele observa sem pressa e, quando escolhe, parece sempre ter visto algo a mais. Em torno dele, símbolos discretos aparecem e somem como " +
+            "pistas de um mapa interior. Onde Septavion passa, dúvidas viram perguntas melhores — e as respostas chegam quando devem.",
+            "Septavion reveals the unseen, where intuition and depth guide decisions.\n\n" +
+            "Septavion walks like one who hears layers the world doesn’t show. His presence makes silence sharper, and within silence, signs appear. He observes without haste, and when he chooses, it " +
+            "always feels as if he saw something extra. Around him, subtle symbols appear and fade like clues on an inner map. Where Septavion passes, doubts become better questions—and answers arrive " +
+            "when they should.");
+
+        Add (
+            28,
+            "Octalira",
+            "F",
+            "Octalira mantém a continuidade, onde ciclos suaves protegem o equilíbrio do mundo.\n\n" +
+            "Octalira manifesta-se como uma dança de retorno. Sua presença repete sem cansar, como maré que sabe a hora de ir e vir. Ao redor dela, " +
+            "linhas curvas de luz desenham trajetos que se cruzam sem conflito, e o ambiente encontra ritmo. Ela não busca o novo a qualquer custo; " +
+            "busca o certo de novo. Onde Octalira passa, o caos perde pressa e a realidade aprende a respirar.",
+            "Octalira preserves continuity, where gentle cycles protect the world’s balance.\n\n" +
+            "Octalira manifests like a dance of return. Her presence repeats without wearing out, like a tide that knows when to come and go. Around her, curved lines of light trace paths that cross " +
+            "without conflict, and the environment finds rhythm. She doesn’t chase novelty at any cost; she chases what is right—again. Where Octalira passes, chaos loses its rush and reality learns " +
+            "to breathe.");
+
+        Add (
+            29,
+            "Novarion",
+            "M",
+            "Novarion prepara a virada, onde o fim amadurece para dar lugar ao próximo passo.\n\n" +
+            "Novarion surge como uma última faísca antes da mudança. Sua aura tem uma tensão controlada, como arco prestes a soltar a flecha. " +
+            "Ele carrega a sabedoria de reconhecer quando insistir é apenas repetir e quando recuar é, na verdade, avançar. Ao seu redor, " +
+            "o que estava preso começa a ceder, e caminhos novos aparecem sem ruído. Onde Novarion passa, transição deixa de ser medo e vira escolha.",
+            "Novarion prepares the turn, where an ending matures to make room for the next step.\n\n" +
+            "Novarion appears like a final spark before change. His aura holds controlled tension, like a bow about to release an arrow. He carries the wisdom to know when persistence is merely repetition and " +
+            "when stepping back is, in truth, moving forward. Around him, what was stuck begins to loosen, and new paths appear without noise. Where Novarion passes, transition stops being fear and becomes choice.");
+
+        Add (
+            30,
+            "Trizena",
+            "F",
+            "Trizena transforma esforço em resultado, onde constância e clareza sustentam o avanço.\n\n" +
+            "Trizena caminha como quem conhece a arte de manter o rumo. Sua presença é firme, mas não rígida: ela ajusta o passo sem perder a direção. " +
+            "Ao seu redor, o mundo parece aceitar a disciplina como conforto, e não como peso. Ela sabe dividir o grande em etapas possíveis, " +
+            "e cada etapa vira promessa cumprida. Onde Trizena passa, o cansaço vira resistência e a resistência vira vitória tranquila.",
+            "Trizena turns effort into results, where consistency and clarity sustain progress.\n\n" +
+            "Trizena walks like one who knows the art of holding course. Her presence is steady but not rigid: she adjusts the pace without losing direction. Around her, the world seems to accept discipline " +
+            "as comfort rather than burden. She knows how to break the large into achievable stages, and each stage becomes a kept promise. Where Trizena passes, fatigue becomes endurance—and endurance becomes a quiet win.");
         Add (31, "Trionyx", "M");
         Add (32, "Duotrina", "F");
         Add (33, "Triatrix", "M");
