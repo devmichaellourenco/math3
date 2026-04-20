@@ -114,7 +114,29 @@ public static class ContiGoFantasyNames
             "light—almost imperceptible—and around her space subtly bends, as if obeying an invisible logic. She carries neither excess nor " +
             "lack—only an absolute balance, where every force cancels and renews itself. They say that, when you cross her path, even the " +
             "greatest certainties dissolve, leaving only a pure state of possibility, where everything can begin once more.");
-        Add (1, "Primarion", "M", null, null, CardPortrait1Resource);
+        Add (
+            1,
+            "Primarion",
+            "M",
+            "Primarion é a primeira vontade do universo: firme, inteiro e destinado a abrir caminhos onde nada existia.\n\n" +
+            "Primarion manifesta-se como a primeira afirmação da existência, uma presença firme que se ergue como um pilar de luz clara " +
+            "no vasto silêncio do universo. Sua forma é simples e imponente, marcada por linhas retas e puras que transmitem direção e " +
+            "propósito. No centro de seu peito arde um núcleo luminoso e constante, uma chama indivisível que jamais se dispersa, mantendo " +
+            "sempre sua essência plena e íntegra. Antigos traços de energia percorrem sua superfície como marcas primordiais, lembrando os " +
+            "primeiros sinais que seres conscientes gravaram para registrar presença e conquista. Ao seu redor, o espaço parece alinhar-se " +
+            "naturalmente, como se tudo reconhecesse nele o ponto onde o movimento começa. Sua postura transmite decisão, coragem e liderança " +
+            "silenciosa — não pela força que impõe, mas pela clareza com que inaugura caminhos. Onde Primarion surge, a inércia se desfaz e " +
+            "o universo encontra sua primeira direção, como se cada jornada precisasse, antes de tudo, de alguém disposto a dar o primeiro passo.",
+            "Primarion is the universe's first will: steady, whole, and bound to open paths where nothing existed.\n\n" +
+            "Primarion manifests as the first affirmation of existence—a firm presence rising like a pillar of clear light within the vast " +
+            "silence of the universe. His form is simple yet imposing, traced by straight, pure lines that convey direction and purpose. At " +
+            "the center of his chest burns a constant luminous core—an indivisible flame that never scatters—keeping his essence complete and " +
+            "intact. Ancient currents of energy run across his surface like primordial markings, recalling the first signs conscious beings carved " +
+            "to record presence and conquest. Around him, space seems to align naturally, as if everything recognizes in him the point where motion " +
+            "begins. His posture carries resolve, courage, and quiet leadership—not through force, but through the clarity with which he opens the way. " +
+            "Where Primarion appears, inertia dissolves and the universe finds its first direction, as if every journey, before anything else, needs " +
+            "someone willing to take the very first step.",
+            CardPortrait1Resource);
         Add (2, "Duovelya", "F", null, null, CardPortrait2Resource);
         Add (3, "Triandor", "M", null, null, CardPortrait3Resource);
         Add (4, "Quadrina", "F", null, null, CardPortrait4Resource);

@@ -112,12 +112,11 @@ public static class ContiGoMissionsCatalog
                 L (ContiGo2DLevelId.Mestre)),
 
             new ContiGoMissionDefinition (
-                "unlock_hit_1",
-                "Marque o valor 1.",
-                "Mark the value 1.",
+                "unlock_1_first_match_start",
+                "Inicie a sua primeira partida.",
+                "Start your first match.",
                 1,
-                ContiGoMissionKind.HitNumber,
-                1),
+                ContiGoMissionKind.MatchStart),
 
             new ContiGoMissionDefinition (
                 "unlock_timer_120_left",

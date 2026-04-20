@@ -18,6 +18,9 @@ public partial class ContiGoGameController2D
     void OnMatchPlayStarted ()
     {
         _missionSession.OnPlayStarted ();
+        List<ContiGoUnlockEvent> unlocks = ContiGoProgressRuntime.ProcessAfterMatchStart (_missionSession);
+        if (unlocks != null && unlocks.Count > 0)
+            EnqueueUnlockNotifications (unlocks);
     }
 
     void OnMissionCorrectHit (int pieceValue)

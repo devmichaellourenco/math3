@@ -1,9 +1,20 @@
 /// <summary>Avalia condições de missão com base no estado da sessão (sem efeitos laterais).</summary>
 public static class ContiGoMissionEvaluator
 {
+    public static bool EvaluateMatchStart (ContiGoMissionDefinition def, ContiGoMatchSessionState s)
+    {
+        switch (def.Kind) {
+        case ContiGoMissionKind.MatchStart:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     public static bool IsHitPhase (ContiGoMissionKind kind)
     {
         switch (kind) {
+        case ContiGoMissionKind.MatchStart:
         case ContiGoMissionKind.VictoryCompleteBoard:
         case ContiGoMissionKind.VictoryOnLevel:
         case ContiGoMissionKind.VictoryWithErrorsAtMost:

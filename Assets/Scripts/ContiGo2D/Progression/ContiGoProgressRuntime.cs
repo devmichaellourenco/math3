@@ -66,6 +66,28 @@ public static class ContiGoProgressRuntime
         return events;
     }
 
+    /// <summary>Chamar quando o jogador inicia uma partida (primeiro "Play").</summary>
+    public static List<ContiGoUnlockEvent> ProcessAfterMatchStart (ContiGoMatchSessionState session)
+    {
+        EnsureLoaded ();
+        var events = new List<ContiGoUnlockEvent> ();
+        bool changed = false;
+
+        foreach (ContiGoMissionDefinition def in ContiGoMissionsCatalog.All) {
+            if (s_doneMissions.Contains (def.Id))
+                continue;
+            if (def.Kind != ContiGoMissionKind.MatchStart)
+                continue;
+            if (!ContiGoMissionEvaluator.EvaluateMatchStart (def, session))
+                continue;
+            TryCompleteMission (def, ref changed, events);
+        }
+
+        if (changed)
+            ContiGoProgressPersistence.Save (s_unlockedCards, s_doneMissions);
+        return events;
+    }
+
     /// <summary>Chamar na vitória (tabuleiro completo), antes ou depois do ecrã de vitória.</summary>
     public static List<ContiGoUnlockEvent> ProcessAfterVictory (
         ContiGoMatchSessionState session,

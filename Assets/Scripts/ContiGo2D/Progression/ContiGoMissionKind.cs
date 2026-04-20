@@ -1,6 +1,9 @@
 /// <summary>Tipos de condição de missão (hit vs vitória). Fácil de estender com novos valores.</summary>
 public enum ContiGoMissionKind
 {
+    /// <summary>Iniciar uma partida (evento único quando o jogo entra em "Play").</summary>
+    MatchStart,
+
     /// <summary>Acertar <see cref="ContiGoMissionDefinition.Param1"/> com tempo desde o início da partida ≤ Param2 (segundos).</summary>
     HitNumberWithinSecondsFromMatchStart,
 
