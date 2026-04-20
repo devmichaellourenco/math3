@@ -164,6 +164,15 @@ public static class ContiGoMissionsCatalog
                 300),
 
             new ContiGoMissionDefinition (
+                "unlock_180_master_mult9_last_180",
+                "Mestre do 180 (180s) — No Mestre (8×8), marque todos os múltiplos de 9 e finalize com 180 antes de 180 s.",
+                "Master of 180 (180s) — On Master (8×8), mark all multiples of 9 and finish with 180 before 180 s.",
+                180,
+                ContiGoMissionKind.HitValueSetWithinSecondsOnLevel,
+                L (ContiGo2DLevelId.Mestre),
+                180),
+
+            new ContiGoMissionDefinition (
                 "unlock_timer_120_left",
                 "Relógio (120s) — Vença com pelo menos 120 s restantes no relógio principal.",
                 "Timer (120s) — Win with at least 120 seconds left on the main timer.",

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 /// <summary>Avalia condições de missão com base no estado da sessão (sem efeitos laterais).</summary>
 public static class ContiGoMissionEvaluator
 {
@@ -19,6 +21,11 @@ public static class ContiGoMissionEvaluator
 
     static readonly HashSet<int> s_unlock7Make7Set = new HashSet<int> {
         7, 16, 17, 18, 25, 29, 34, 43, 72, 108, 125, 144, 180
+    };
+
+    // Múltiplos de 9 presentes no tabuleiro Mestre, sem incluir o 180 (que deve ser o último).
+    static readonly HashSet<int> s_unlock180MultiplesOf9Without180 = new HashSet<int> {
+        0, 9, 18, 27, 36, 45, 54, 72, 90, 96, 108, 144
     };
 
     static bool ContainsAll (ContiGoMatchSessionState s, HashSet<int> required)
@@ -96,6 +103,12 @@ public static class ContiGoMissionEvaluator
                 if (!s_unlock7Make7Set.Contains (lastHitValue))
                     return false;
                 return ContainsAll (s, s_unlock7Make7Set);
+            }
+            if (def.Id == "unlock_180_master_mult9_last_180") {
+                // 180 deve ser o último acerto que completa a missão.
+                if (lastHitValue != 180)
+                    return false;
+                return ContainsAll (s, s_unlock180MultiplesOf9Without180);
             }
             return false;
 
