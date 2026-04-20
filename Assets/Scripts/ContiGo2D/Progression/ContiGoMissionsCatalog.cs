@@ -23,10 +23,11 @@ public static class ContiGoMissionsCatalog
 
             new ContiGoMissionDefinition (
                 "unlock_0_complete_board",
-                "Complete todo o tabuleiro (vitória).",
-                "Clear the entire board (win).",
+                "Vença no nível Mestre (8×8).",
+                "Win on Master (8×8).",
                 0,
-                ContiGoMissionKind.VictoryCompleteBoard),
+                ContiGoMissionKind.VictoryOnLevel,
+                L (ContiGo2DLevelId.Mestre)),
 
             new ContiGoMissionDefinition (
                 "unlock_8_quick",

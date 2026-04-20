@@ -96,7 +96,24 @@ public static class ContiGoFantasyNames
             d[key] = new ContiGoFantasyData (name, gender, null, icon, lorePt, loreEn, true);
         }
 
-        Add (0, "Zeraphina", "F");
+        Add (
+            0,
+            "Zeraphina",
+            "F",
+            "No silêncio do vazio sereno, Zeraphina guarda o ponto onde tudo termina… e tudo pode começar novamente.\n\n" +
+            "Zeraphina é uma entidade silenciosa e enigmática, cuja presença parece ao mesmo tempo existir e se desfazer no ar, " +
+            "como se fosse o ponto de origem de tudo e o destino final de qualquer forma. Seu corpo é envolto por um halo circular " +
+            "de energia suave, que pulsa com um vazio sereno, onde nada pesa e tudo pode nascer. Seus movimentos são leves, quase " +
+            "imperceptíveis, e ao seu redor o espaço se curva sutilmente, como se obedecesse a uma lógica invisível. Ela não carrega " +
+            "excesso nem falta — apenas um equilíbrio absoluto, onde toda força se anula e se renova. Dizem que, ao cruzar seu caminho, " +
+            "até as maiores certezas se dissolvem, deixando apenas um estado puro de possibilidade, onde tudo pode começar outra vez.",
+            "In the silence of the serene void, Zeraphina guards the point where everything ends… and everything can begin again.\n\n" +
+            "Zeraphina is a silent, enigmatic entity whose presence seems to exist and dissolve into the air at the same time, " +
+            "as if she were the point of origin of everything and the final destination of any form. Her body is wrapped in a circular " +
+            "halo of gentle energy that pulses with a serene emptiness, where nothing weighs and anything may be born. Her movements are " +
+            "light—almost imperceptible—and around her space subtly bends, as if obeying an invisible logic. She carries neither excess nor " +
+            "lack—only an absolute balance, where every force cancels and renews itself. They say that, when you cross her path, even the " +
+            "greatest certainties dissolve, leaving only a pure state of possibility, where everything can begin once more.");
         Add (1, "Primarion", "M", null, null, CardPortrait1Resource);
         Add (2, "Duovelya", "F", null, null, CardPortrait2Resource);
         Add (3, "Triandor", "M", null, null, CardPortrait3Resource);
