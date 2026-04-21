@@ -259,3 +259,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9a8b7d6e5f40392817061524354657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _navMissionsButtonSprite: {fileID: 21300000, guid: 53103da9ba51c48348bca95936a9750d, type: 3}
+  _navCollectionButtonSprite: {fileID: 21300000, guid: ae9f8677ca3c24a7c80d7217a941f886, type: 3}

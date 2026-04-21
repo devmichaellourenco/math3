@@ -8,6 +8,13 @@ using UnityEngine.UI;
 /// <summary>Cena leve: escolher Iniciante … Mestre antes do <see cref="ContiGoGameController2D"/>.</summary>
 public class ContiGo2DLevelSelectUI : MonoBehaviour
 {
+    const float LevelSelectFontSize = 60f;
+
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_mint")]
+    [SerializeField] Sprite _navMissionsButtonSprite;
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_yellow")]
+    [SerializeField] Sprite _navCollectionButtonSprite;
+
     void Awake ()
     {
         if (Object.FindObjectOfType<EventSystem> () == null) {
@@ -48,8 +55,8 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
 
         AddTitle (canvasRt, pt ? "ESCOLHA O DESAFIO" : "CHOOSE THE CHALLENGE", font, 0.86f, 0.94f);
 
-        AddNavButton (canvasRt, pt ? "MISSÕES" : "MISSIONS", () => SceneManager.LoadScene ("ContiGoMissions"), 0.14f, 0.22f, font);
-        AddNavButton (canvasRt, pt ? "COLEÇÃO" : "COLLECTION", () => SceneManager.LoadScene ("ContiGoCollection"), 0.04f, 0.12f, font);
+        AddNavButton (canvasRt, pt ? "MISSÕES" : "MISSIONS", () => SceneManager.LoadScene ("ContiGoMissions"), 0.14f, 0.22f, font, _navMissionsButtonSprite);
+        AddNavButton (canvasRt, pt ? "COLEÇÃO" : "COLLECTION", () => SceneManager.LoadScene ("ContiGoCollection"), 0.04f, 0.12f, font, _navCollectionButtonSprite);
 
         AddLevelButton (canvasRt, ContiGo2DLevelId.Iniciante, pt ? "INICIANTE  (2×2)" : "BEGINNER  (2×2)", 0.68f, 0.78f, font, levelRowSprite);
         AddLevelButton (canvasRt, ContiGo2DLevelId.Profissional, pt ? "PROFISSIONAL  (4×4)" : "PRO  (4×4)", 0.54f, 0.64f, font, levelRowSprite);
@@ -99,7 +106,7 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
         rt.offsetMax = Vector2.zero;
         TextMeshProUGUI tmp = go.AddComponent<TextMeshProUGUI> ();
         tmp.text = text;
-        tmp.fontSize = 44f;
+        tmp.fontSize = LevelSelectFontSize;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = Color.white;
         if (font != null)
@@ -150,14 +157,14 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
         TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
         tmp.raycastTarget = false;
         tmp.text = label;
-        tmp.fontSize = 36f;
+        tmp.fontSize = LevelSelectFontSize;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = Color.white;
         if (font != null)
             tmp.font = font;
     }
 
-    static void AddNavButton (RectTransform parent, string label, UnityAction onClick, float yMin, float yMax, TMP_FontAsset font)
+    static void AddNavButton (RectTransform parent, string label, UnityAction onClick, float yMin, float yMax, TMP_FontAsset font, Sprite backgroundSprite)
     {
         GameObject go = new GameObject ("Btn_" + label, typeof (RectTransform));
         go.transform.SetParent (parent, false);
@@ -168,7 +175,14 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
         rt.offsetMax = Vector2.zero;
 
         Image img = go.AddComponent<Image> ();
-        img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
+        if (backgroundSprite != null) {
+            img.sprite = backgroundSprite;
+            img.type = Image.Type.Sliced;
+            img.color = Color.white;
+            img.preserveAspect = false;
+        } else {
+            img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
+        }
         Button btn = go.AddComponent<Button> ();
         btn.targetGraphic = img;
         btn.onClick.AddListener (onClick);
@@ -181,8 +195,9 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
         tr.offsetMin = new Vector2 (8f, 4f);
         tr.offsetMax = new Vector2 (-8f, -4f);
         TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
+        tmp.raycastTarget = false;
         tmp.text = label;
-        tmp.fontSize = 36f;
+        tmp.fontSize = LevelSelectFontSize;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = Color.white;
         if (font != null)
