@@ -8,8 +8,9 @@ public partial class ContiGoGameController2D
     /// <summary> Arte dos botões da Home em px (largura × altura); mantém proporção no HUD/modal. </summary>
     const float HomeButtonArtWidthPx = 425f;
     const float HomeButtonArtHeightPx = 390f;
-    /// <summary> Altura dos ícones no modal do menu (menor que o HUD <see cref="BuildUi"/>). </summary>
-    const float MenuModalIconHeightPx = 44f;
+    /// <summary> Altura dos ícones no modal do menu (proporção da arte; ~2.5× face à versão inicial de 44px). </summary>
+    const float MenuModalIconHeightPx = 110f;
+    const float MenuModalHlgSpacing = 28f;
 
     Image tutorialSlideImage;
     TextMeshProUGUI tutorialSlideCounter;
@@ -372,24 +373,44 @@ public partial class ContiGoGameController2D
         menuPanelRt.anchorMax = Vector2.one;
         menuPanelRt.offsetMin = Vector2.zero;
         menuPanelRt.offsetMax = Vector2.zero;
-        HorizontalLayoutGroup menuHlg = menuPanel.AddComponent<HorizontalLayoutGroup> ();
+
+        Vector2 menuIconSize = SizeDeltaForHomeButtonArt (MenuModalIconHeightPx);
+        RectOffset menuStripPad = new RectOffset (16, 16, 16, 16);
+        float stripInnerW = menuIconSize.x * 3f + MenuModalHlgSpacing * 2f;
+        float stripInnerH = menuIconSize.y;
+        float stripW = stripInnerW + menuStripPad.horizontal;
+        float stripH = stripInnerH + menuStripPad.vertical;
+
+        GameObject menuStripGo = new GameObject ("MenuStrip", typeof (RectTransform));
+        menuStripGo.transform.SetParent (menuPanelRt, false);
+        RectTransform menuStripRt = menuStripGo.GetComponent<RectTransform> ();
+        menuStripRt.anchorMin = new Vector2 (0.5f, 0.5f);
+        menuStripRt.anchorMax = new Vector2 (0.5f, 0.5f);
+        menuStripRt.pivot = new Vector2 (0.5f, 0.5f);
+        menuStripRt.sizeDelta = new Vector2 (stripW, stripH);
+        menuStripRt.anchoredPosition = Vector2.zero;
+        Image menuStripBg = menuStripGo.AddComponent<Image> ();
+        menuStripBg.sprite = RoundedRectSpriteFactory.Get (64, 12);
+        menuStripBg.type = Image.Type.Sliced;
+        menuStripBg.color = new Color (0.18f, 0.19f, 0.22f, 0.82f);
+        menuStripBg.raycastTarget = true;
+
+        HorizontalLayoutGroup menuHlg = menuStripGo.AddComponent<HorizontalLayoutGroup> ();
         menuHlg.childAlignment = TextAnchor.MiddleCenter;
-        menuHlg.spacing = 28f;
-        menuHlg.padding = new RectOffset (16, 16, 16, 16);
+        menuHlg.spacing = MenuModalHlgSpacing;
+        menuHlg.padding = menuStripPad;
         menuHlg.childControlWidth = false;
         menuHlg.childControlHeight = false;
         menuHlg.childForceExpandWidth = false;
         menuHlg.childForceExpandHeight = false;
 
-        Vector2 menuIconSize = SizeDeltaForHomeButtonArt (MenuModalIconHeightPx);
-
-        menuBackButton = CreateImagensSpriteButton (menuPanelRt, "MenuBack", "btn-close-home.fw", MenuBackPressed);
+        menuBackButton = CreateImagensSpriteButton (menuStripRt, "MenuBack", "btn-close-home.fw", MenuBackPressed);
         ConfigureMenuModalIconButton (menuBackButton.GetComponent<RectTransform> (), menuIconSize);
 
-        menuRestartButton = CreateImagensSpriteButton (menuPanelRt, "MenuRestart", "btn-reset.fw", MenuRestartPressed);
+        menuRestartButton = CreateImagensSpriteButton (menuStripRt, "MenuRestart", "btn-reset.fw", MenuRestartPressed);
         ConfigureMenuModalIconButton (menuRestartButton.GetComponent<RectTransform> (), menuIconSize);
 
-        menuHomeButton = CreateImagensSpriteButton (menuPanelRt, "MenuHome", "btn-home.fw", MenuHomePressed);
+        menuHomeButton = CreateImagensSpriteButton (menuStripRt, "MenuHome", "btn-home.fw", MenuHomePressed);
         ConfigureMenuModalIconButton (menuHomeButton.GetComponent<RectTransform> (), menuIconSize);
 
         gameOverScreen = new GameObject ("GameOver");
