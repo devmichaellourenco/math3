@@ -8,6 +8,8 @@ public partial class ContiGoGameController2D
     /// <summary> Arte dos botões da Home em px (largura × altura); mantém proporção no HUD/modal. </summary>
     const float HomeButtonArtWidthPx = 425f;
     const float HomeButtonArtHeightPx = 390f;
+    /// <summary> Altura dos ícones no modal do menu (menor que o HUD <see cref="BuildUi"/>). </summary>
+    const float MenuModalIconHeightPx = 44f;
 
     Image tutorialSlideImage;
     TextMeshProUGUI tutorialSlideCounter;
@@ -358,39 +360,37 @@ public partial class ContiGoGameController2D
         menuRt.offsetMin = Vector2.zero;
         menuRt.offsetMax = Vector2.zero;
         Image menuBg = menuScreen.AddComponent<Image> ();
-        menuBg.color = new Color (0f, 0f, 0f, 0.55f);
+        // Sem escurecimento: vê-se só o fundo do tabuleiro: bloqueia cliques no jogo por baixo.
+        menuBg.color = new Color (0f, 0f, 0f, 0f);
+        menuBg.raycastTarget = true;
         menuScreen.SetActive (false);
 
         GameObject menuPanel = new GameObject ("MenuPanel", typeof (RectTransform));
         menuPanel.transform.SetParent (menuScreen.transform, false);
         RectTransform menuPanelRt = menuPanel.GetComponent<RectTransform> ();
-        menuPanelRt.anchorMin = new Vector2 (0.12f, 0.28f);
-        menuPanelRt.anchorMax = new Vector2 (0.88f, 0.72f);
+        menuPanelRt.anchorMin = Vector2.zero;
+        menuPanelRt.anchorMax = Vector2.one;
         menuPanelRt.offsetMin = Vector2.zero;
         menuPanelRt.offsetMax = Vector2.zero;
-        Image menuPanelBg = menuPanel.AddComponent<Image> ();
-        menuPanelBg.color = new Color (0.18f, 0.19f, 0.22f);
+        HorizontalLayoutGroup menuHlg = menuPanel.AddComponent<HorizontalLayoutGroup> ();
+        menuHlg.childAlignment = TextAnchor.MiddleCenter;
+        menuHlg.spacing = 28f;
+        menuHlg.padding = new RectOffset (16, 16, 16, 16);
+        menuHlg.childControlWidth = false;
+        menuHlg.childControlHeight = false;
+        menuHlg.childForceExpandWidth = false;
+        menuHlg.childForceExpandHeight = false;
+
+        Vector2 menuIconSize = SizeDeltaForHomeButtonArt (MenuModalIconHeightPx);
 
         menuBackButton = CreateImagensSpriteButton (menuPanelRt, "MenuBack", "btn-close-home.fw", MenuBackPressed);
-        RectTransform br0 = menuBackButton.GetComponent<RectTransform> ();
-        br0.anchorMin = new Vector2 (0.08f, 0.62f);
-        br0.anchorMax = new Vector2 (0.92f, 0.9f);
-        br0.offsetMin = Vector2.zero;
-        br0.offsetMax = Vector2.zero;
+        ConfigureMenuModalIconButton (menuBackButton.GetComponent<RectTransform> (), menuIconSize);
 
         menuRestartButton = CreateImagensSpriteButton (menuPanelRt, "MenuRestart", "btn-reset.fw", MenuRestartPressed);
-        RectTransform br1 = menuRestartButton.GetComponent<RectTransform> ();
-        br1.anchorMin = new Vector2 (0.08f, 0.34f);
-        br1.anchorMax = new Vector2 (0.92f, 0.62f);
-        br1.offsetMin = Vector2.zero;
-        br1.offsetMax = Vector2.zero;
+        ConfigureMenuModalIconButton (menuRestartButton.GetComponent<RectTransform> (), menuIconSize);
 
         menuHomeButton = CreateImagensSpriteButton (menuPanelRt, "MenuHome", "btn-home.fw", MenuHomePressed);
-        RectTransform br2 = menuHomeButton.GetComponent<RectTransform> ();
-        br2.anchorMin = new Vector2 (0.08f, 0.08f);
-        br2.anchorMax = new Vector2 (0.92f, 0.34f);
-        br2.offsetMin = Vector2.zero;
-        br2.offsetMax = Vector2.zero;
+        ConfigureMenuModalIconButton (menuHomeButton.GetComponent<RectTransform> (), menuIconSize);
 
         gameOverScreen = new GameObject ("GameOver");
         gameOverScreen.transform.SetParent (canvasRt, false);
@@ -442,6 +442,22 @@ public partial class ContiGoGameController2D
     {
         float w = height * (HomeButtonArtWidthPx / HomeButtonArtHeightPx);
         return new Vector2 (w, height);
+    }
+
+    static void ConfigureMenuModalIconButton (RectTransform rt, Vector2 sizeDelta)
+    {
+        if (rt == null)
+            return;
+        rt.anchorMin = new Vector2 (0.5f, 0.5f);
+        rt.anchorMax = new Vector2 (0.5f, 0.5f);
+        rt.pivot = new Vector2 (0.5f, 0.5f);
+        rt.sizeDelta = sizeDelta;
+        rt.anchoredPosition = Vector2.zero;
+        LayoutElement le = rt.GetComponent<LayoutElement> ();
+        if (le == null)
+            le = rt.gameObject.AddComponent<LayoutElement> ();
+        le.preferredWidth = sizeDelta.x;
+        le.preferredHeight = sizeDelta.y;
     }
 
     /// <param name="normalSpriteFileName">Ficheiro em Resources/Imagens (ex.: btn-home.fw). Hover/pressed: prefixo + "-hover"/"-pressed" + extensão. </param>
