@@ -7,6 +7,11 @@ using UnityEngine.UI;
 /// <summary>Cena de listagem de missões (UI gerada em runtime, alinhada ao nível select).</summary>
 public class ContiGoMissionsSceneUI : MonoBehaviour
 {
+    const float HomeButtonFontSize = 60f;
+
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Button / btn_rectangle_01_n_dark (fundo do botão Home)")]
+    [SerializeField] Sprite _homeButtonSprite;
+
     void Awake ()
     {
         if (Object.FindObjectOfType<EventSystem> () == null) {
@@ -99,7 +104,7 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
             AddMissionRow (content.transform, def, done, pt, font);
         }
 
-        AddBackButton (canvasRt, font);
+        AddBackButton (canvasRt, font, _homeButtonSprite);
     }
 
     static void AddMissionRow (Transform parent, ContiGoMissionDefinition def, bool done, bool pt, TMP_FontAsset font)
@@ -189,7 +194,7 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
             bg.sprite = bgSp;
     }
 
-    static void AddBackButton (RectTransform canvasRt, TMP_FontAsset font)
+    static void AddBackButton (RectTransform canvasRt, TMP_FontAsset font, Sprite homeBackgroundSprite)
     {
         GameObject go = new GameObject ("BtnBack", typeof (RectTransform));
         go.transform.SetParent (canvasRt, false);
@@ -199,7 +204,19 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
         rt.offsetMin = Vector2.zero;
         rt.offsetMax = Vector2.zero;
         Image img = go.AddComponent<Image> ();
-        img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
+        if (homeBackgroundSprite != null) {
+            img.sprite = homeBackgroundSprite;
+            img.color = Color.white;
+            if (homeBackgroundSprite.border.sqrMagnitude > 0.0001f) {
+                img.type = Image.Type.Sliced;
+                img.preserveAspect = false;
+            } else {
+                img.type = Image.Type.Simple;
+                img.preserveAspect = true;
+            }
+        } else {
+            img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
+        }
         Button btn = go.AddComponent<Button> ();
         btn.targetGraphic = img;
         btn.onClick.AddListener (() => SceneManager.LoadScene ("Home"));
@@ -212,8 +229,9 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
         tr.offsetMin = new Vector2 (8f, 4f);
         tr.offsetMax = new Vector2 (-8f, -4f);
         TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
+        tmp.raycastTarget = false;
         tmp.text = "← Home";
-        tmp.fontSize = 36f;
+        tmp.fontSize = HomeButtonFontSize;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = Color.white;
         if (font != null)
