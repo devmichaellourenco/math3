@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class ContiGo2DLevelSelectUI : MonoBehaviour
 {
     const float LevelSelectFontSize = 60f;
+    const float TitleFrameW = 550f;
+    const float TitleFrameH = 200f;
 
     [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_mint")]
     [SerializeField] Sprite _navMissionsButtonSprite;
@@ -16,6 +18,8 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
     [SerializeField] Sprite _navCollectionButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_dark (botões Iniciante…Mestre)")]
     [SerializeField] Sprite _levelChallengeButtonSprite;
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Frame / frame_linetextframe_05_White2 (fundo do título)")]
+    [SerializeField] Sprite _titleFrameSprite;
 
     void Awake ()
     {
@@ -57,7 +61,7 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
             ? _levelChallengeButtonSprite
             : LoadLevelRowPanelSprite ();
 
-        AddTitle (canvasRt, pt ? "ESCOLHA O DESAFIO" : "CHOOSE THE CHALLENGE", font, 0.86f, 0.94f);
+        AddTitle (canvasRt, pt ? "ESCOLHA O DESAFIO" : "CHOOSE THE CHALLENGE", font, 0.86f, 0.94f, _titleFrameSprite);
 
         AddNavButton (canvasRt, pt ? "MISSÕES" : "MISSIONS", () => SceneManager.LoadScene ("ContiGoMissions"), 0.14f, 0.22f, font, _navMissionsButtonSprite);
         AddNavButton (canvasRt, pt ? "COLEÇÃO" : "COLLECTION", () => SceneManager.LoadScene ("ContiGoCollection"), 0.04f, 0.12f, font, _navCollectionButtonSprite);
@@ -99,16 +103,49 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
             ?? Resources.Load<Sprite> ("Imagens/CONFIRMA-QUIT-HOME-PANEL.fw");
     }
 
-    static void AddTitle (RectTransform parent, string text, TMP_FontAsset font, float yMin, float yMax)
+    static void AddTitle (RectTransform parent, string text, TMP_FontAsset font, float yMin, float yMax, Sprite titleFrameSprite)
     {
+        float yMid = (yMin + yMax) * 0.5f;
+
         GameObject go = new GameObject ("Title", typeof (RectTransform));
         go.transform.SetParent (parent, false);
         RectTransform rt = go.GetComponent<RectTransform> ();
-        rt.anchorMin = new Vector2 (0.06f, yMin);
-        rt.anchorMax = new Vector2 (0.94f, yMax);
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
-        TextMeshProUGUI tmp = go.AddComponent<TextMeshProUGUI> ();
+        rt.anchorMin = new Vector2 (0.5f, yMid);
+        rt.anchorMax = new Vector2 (0.5f, yMid);
+        rt.pivot = new Vector2 (0.5f, 0.5f);
+        rt.sizeDelta = new Vector2 (TitleFrameW, TitleFrameH);
+        rt.anchoredPosition = Vector2.zero;
+
+        if (titleFrameSprite != null) {
+            GameObject frameGo = new GameObject ("TitleFrame", typeof (RectTransform));
+            frameGo.transform.SetParent (go.transform, false);
+            RectTransform fr = frameGo.GetComponent<RectTransform> ();
+            fr.anchorMin = Vector2.zero;
+            fr.anchorMax = Vector2.one;
+            fr.offsetMin = Vector2.zero;
+            fr.offsetMax = Vector2.zero;
+            Image frameImg = frameGo.AddComponent<Image> ();
+            frameImg.sprite = titleFrameSprite;
+            frameImg.color = Color.white;
+            frameImg.raycastTarget = false;
+            if (titleFrameSprite.border.sqrMagnitude > 0.0001f) {
+                frameImg.type = Image.Type.Sliced;
+                frameImg.preserveAspect = false;
+            } else {
+                frameImg.type = Image.Type.Simple;
+                frameImg.preserveAspect = false;
+            }
+        }
+
+        GameObject txtGo = new GameObject ("Text", typeof (RectTransform));
+        txtGo.transform.SetParent (go.transform, false);
+        RectTransform tr = txtGo.GetComponent<RectTransform> ();
+        tr.anchorMin = Vector2.zero;
+        tr.anchorMax = Vector2.one;
+        tr.offsetMin = new Vector2 (12f, 8f);
+        tr.offsetMax = new Vector2 (-12f, -8f);
+        TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
+        tmp.raycastTarget = false;
         tmp.text = text;
         tmp.fontSize = LevelSelectFontSize;
         tmp.alignment = TextAlignmentOptions.Center;
