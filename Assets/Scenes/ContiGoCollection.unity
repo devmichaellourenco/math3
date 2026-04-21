@@ -259,3 +259,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e5f4a3b2c1d0e9f8a7b6c5d4e3f201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _homeButtonSprite: {fileID: 21300000, guid: bf59ce9145cd842ffb1a897977f5200f, type: 3}
