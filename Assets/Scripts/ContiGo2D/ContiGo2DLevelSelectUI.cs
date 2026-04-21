@@ -14,6 +14,8 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
     [SerializeField] Sprite _navMissionsButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_yellow")]
     [SerializeField] Sprite _navCollectionButtonSprite;
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_dark (botões Iniciante…Mestre)")]
+    [SerializeField] Sprite _levelChallengeButtonSprite;
 
     void Awake ()
     {
@@ -51,7 +53,9 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
 
         AddBlueSceneBackground (canvasRt);
 
-        Sprite levelRowSprite = LoadLevelRowPanelSprite ();
+        Sprite levelRowSprite = _levelChallengeButtonSprite != null
+            ? _levelChallengeButtonSprite
+            : LoadLevelRowPanelSprite ();
 
         AddTitle (canvasRt, pt ? "ESCOLHA O DESAFIO" : "CHOOSE THE CHALLENGE", font, 0.86f, 0.94f);
 
@@ -136,9 +140,14 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
         img.raycastTarget = true;
         if (rowPanelSprite != null) {
             img.sprite = rowPanelSprite;
-            img.type = Image.Type.Simple;
             img.color = Color.white;
-            img.preserveAspect = true;
+            if (rowPanelSprite.border.sqrMagnitude > 0.0001f) {
+                img.type = Image.Type.Sliced;
+                img.preserveAspect = false;
+            } else {
+                img.type = Image.Type.Simple;
+                img.preserveAspect = true;
+            }
         } else {
             img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
         }
