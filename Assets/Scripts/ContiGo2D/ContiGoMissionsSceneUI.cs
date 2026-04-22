@@ -267,7 +267,7 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
         tr.offsetMax = new Vector2 (-8f, -4f);
         TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
         tmp.raycastTarget = false;
-        tmp.text = "← Home";
+        tmp.text = "HOME";
         tmp.fontSize = HomeButtonFontSize;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = Color.white;
