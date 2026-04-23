@@ -16,6 +16,8 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
     [SerializeField] Sprite _navMissionsButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_yellow")]
     [SerializeField] Sprite _navCollectionButtonSprite;
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_dark (Ranking Google)")]
+    [SerializeField] Sprite _navRankingButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_dark (botões Iniciante…Mestre)")]
     [SerializeField] Sprite _levelChallengeButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Frame / frame_linetextframe_05_White2 (fundo do título)")]
@@ -63,8 +65,13 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
 
         AddTitle (canvasRt, pt ? "ESCOLHA O DESAFIO" : "CHOOSE THE CHALLENGE", font, 0.86f, 0.94f, _titleFrameSprite);
 
-        AddNavButton (canvasRt, pt ? "MISSÕES" : "MISSIONS", () => SceneManager.LoadScene ("ContiGoMissions"), 0.14f, 0.22f, font, _navMissionsButtonSprite);
-        AddNavButton (canvasRt, pt ? "COLEÇÃO" : "COLLECTION", () => SceneManager.LoadScene ("ContiGoCollection"), 0.04f, 0.12f, font, _navCollectionButtonSprite);
+        // Tenta login silencioso assim que o jogador entra no menu de modos.
+        PlayGamesController.TrySignInSilent ();
+
+        AddNavButton (canvasRt, pt ? "GOOGLE PLAY" : "GOOGLE PLAY", () => SceneManager.LoadScene ("GPGSAuth"), 0.26f, 0.34f, font, _navRankingButtonSprite != null ? _navRankingButtonSprite : _levelChallengeButtonSprite);
+        AddNavButton (canvasRt, pt ? "MISSÕES" : "MISSIONS", () => SceneManager.LoadScene ("ContiGoMissions"), 0.18f, 0.26f, font, _navMissionsButtonSprite);
+        AddNavButton (canvasRt, pt ? "RANKING" : "LEADERBOARD", () => SceneManager.LoadScene ("ContiGoGpgsRanking"), 0.10f, 0.18f, font, _navRankingButtonSprite != null ? _navRankingButtonSprite : _levelChallengeButtonSprite);
+        AddNavButton (canvasRt, pt ? "COLEÇÃO" : "COLLECTION", () => SceneManager.LoadScene ("ContiGoCollection"), 0.02f, 0.10f, font, _navCollectionButtonSprite);
 
         AddLevelButton (canvasRt, ContiGo2DLevelId.Iniciante, pt ? "INICIANTE  (2×2)" : "BEGINNER  (2×2)", 0.68f, 0.78f, font, levelRowSprite);
         AddLevelButton (canvasRt, ContiGo2DLevelId.Profissional, pt ? "PROFISSIONAL  (4×4)" : "PRO  (4×4)", 0.54f, 0.64f, font, levelRowSprite);

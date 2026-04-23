@@ -13,6 +13,8 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
 
     [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Button / btn_rectangle_01_n_dark (fundo do botão Home)")]
     [SerializeField] Sprite _homeButtonSprite;
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Button / btn_rectangle_01_n_dark (RANKING → Google)")]
+    [SerializeField] Sprite _rankingButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Frame / frame_linetextframe_05_White2 (fundo do título)")]
     [SerializeField] Sprite _titleFrameSprite;
 
@@ -57,7 +59,7 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
         GameObject scrollGo = new GameObject ("Scroll", typeof (RectTransform));
         scrollGo.transform.SetParent (canvasRt, false);
         RectTransform scrollRt = scrollGo.GetComponent<RectTransform> ();
-        scrollRt.anchorMin = new Vector2 (0.04f, 0.1f);
+        scrollRt.anchorMin = new Vector2 (0.04f, 0.2f);
         scrollRt.anchorMax = new Vector2 (0.96f, 0.86f);
         scrollRt.offsetMin = Vector2.zero;
         scrollRt.offsetMax = Vector2.zero;
@@ -108,6 +110,7 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
             AddMissionRow (content.transform, def, done, pt, font);
         }
 
+        AddRankingButton (canvasRt, pt, font, _rankingButtonSprite != null ? _rankingButtonSprite : _homeButtonSprite);
         AddBackButton (canvasRt, font, _homeButtonSprite);
     }
 
@@ -229,6 +232,50 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
             ?? Resources.Load<Sprite> ("Imagens/bg-square-blue");
         if (bgSp != null)
             bg.sprite = bgSp;
+    }
+
+    static void AddRankingButton (RectTransform canvasRt, bool pt, TMP_FontAsset font, Sprite backgroundSprite)
+    {
+        GameObject go = new GameObject ("BtnRanking", typeof (RectTransform));
+        go.transform.SetParent (canvasRt, false);
+        RectTransform rt = go.GetComponent<RectTransform> ();
+        rt.anchorMin = new Vector2 (0.08f, 0.1f);
+        rt.anchorMax = new Vector2 (0.92f, 0.18f);
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
+        Image img = go.AddComponent<Image> ();
+        if (backgroundSprite != null) {
+            img.sprite = backgroundSprite;
+            img.color = Color.white;
+            if (backgroundSprite.border.sqrMagnitude > 0.0001f) {
+                img.type = Image.Type.Sliced;
+                img.preserveAspect = false;
+            } else {
+                img.type = Image.Type.Simple;
+                img.preserveAspect = true;
+            }
+        } else {
+            img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
+        }
+        Button btn = go.AddComponent<Button> ();
+        btn.targetGraphic = img;
+        btn.onClick.AddListener (() => SceneManager.LoadScene ("ContiGoGpgsRanking"));
+
+        GameObject txtGo = new GameObject ("Text", typeof (RectTransform));
+        txtGo.transform.SetParent (go.transform, false);
+        RectTransform tr = txtGo.GetComponent<RectTransform> ();
+        tr.anchorMin = Vector2.zero;
+        tr.anchorMax = Vector2.one;
+        tr.offsetMin = new Vector2 (8f, 4f);
+        tr.offsetMax = new Vector2 (-8f, -4f);
+        TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
+        tmp.raycastTarget = false;
+        tmp.text = pt ? "RANKING" : "LEADERBOARD";
+        tmp.fontSize = HomeButtonFontSize;
+        tmp.alignment = TextAlignmentOptions.Center;
+        tmp.color = Color.white;
+        if (font != null)
+            tmp.font = font;
     }
 
     static void AddBackButton (RectTransform canvasRt, TMP_FontAsset font, Sprite homeBackgroundSprite)

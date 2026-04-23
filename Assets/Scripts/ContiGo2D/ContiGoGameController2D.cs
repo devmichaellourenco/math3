@@ -43,6 +43,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
 
     public GameObject gameOverScreen;
     TextMeshProUGUI gameOverMainText;
+    TextMeshProUGUI gameOverSubText;
     Button gameOverRestartButton;
     Button gameOverHomeButton;
 
@@ -559,6 +560,15 @@ public partial class ContiGoGameController2D : MonoBehaviour
             .Take (10)
             .ToList ();
         rd.SaveRankingData (rankingAtualizado);
+        // Tenta reportar esta partida imediatamente (se autenticado) e, em seguida,
+        // garante que o melhor local fica sincronizado quando necessário.
+        PlayGamesController.PostToLeaderboard (pts);
+        PlayGamesController.FlushBestLocalIfNeeded ();
+
+        if (gameOverSubText != null) {
+            gameOverSubText.text = (language == "portuguese" ? "Salvo localmente.\n" : "Saved locally.\n")
+                + PlayGamesController.GetLastLeaderboardPostMessage ();
+        }
     }
 
     void GameOver ()
@@ -575,6 +585,12 @@ public partial class ContiGoGameController2D : MonoBehaviour
             btnHelp.SetActive (false);
         gameOverScreen.SetActive (true);
         SaveRanking ();
+        StartGameOverGpgsFeedbackLoopIfNeeded ();
+        if (gameOverSubText != null && levelId != ContiGo2DLevelId.Mestre) {
+            gameOverSubText.text = language == "portuguese"
+                ? "Ranking Google apenas no modo Mestre (8×8)."
+                : "Google ranking only on Master (8×8).";
+        }
         gameOverMainText.text = language == "portuguese"
             ? jogador.pontos + " pontos"
             : jogador.pontos + " points";
@@ -595,6 +611,12 @@ public partial class ContiGoGameController2D : MonoBehaviour
             btnHelp.SetActive (false);
         gameOverScreen.SetActive (true);
         SaveRanking ();
+        StartGameOverGpgsFeedbackLoopIfNeeded ();
+        if (gameOverSubText != null && levelId != ContiGo2DLevelId.Mestre) {
+            gameOverSubText.text = language == "portuguese"
+                ? "Ranking Google apenas no modo Mestre (8×8)."
+                : "Google ranking only on Master (8×8).";
+        }
         gameOverMainText.text = language == "portuguese"
             ? "Venceu! " + jogador.pontos + " pontos"
             : "You win! " + jogador.pontos + " points";
@@ -615,9 +637,61 @@ public partial class ContiGoGameController2D : MonoBehaviour
             btnHelp.SetActive (false);
         gameOverScreen.SetActive (true);
         SaveRanking ();
+        StartGameOverGpgsFeedbackLoopIfNeeded ();
+        if (gameOverSubText != null && levelId != ContiGo2DLevelId.Mestre) {
+            gameOverSubText.text = language == "portuguese"
+                ? "Ranking Google apenas no modo Mestre (8×8)."
+                : "Google ranking only on Master (8×8).";
+        }
         gameOverMainText.text = language == "portuguese"
             ? "Tempo esgotado — " + jogador.pontos + " pontos"
             : "Time up — " + jogador.pontos + " points";
+    }
+
+    void StartGameOverGpgsFeedbackLoopIfNeeded ()
+    {
+        if (levelId != ContiGo2DLevelId.Mestre)
+            return;
+        if (gameOverSubText == null)
+            return;
+        StopCoroutine (nameof (CoUpdateGameOverGpgsStatus));
+        StartCoroutine (CoUpdateGameOverGpgsStatus ());
+    }
+
+    IEnumerator CoUpdateGameOverGpgsStatus ()
+    {
+        float timeout = 12f;
+        float t0 = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - t0 < timeout) {
+            if (gameOverSubText == null)
+                yield break;
+
+            string msg = PlayGamesController.GetLastLeaderboardPostMessage ();
+            bool inflight = PlayGamesController.GetLastLeaderboardPostInFlight ();
+            float secs = PlayGamesController.GetLastLeaderboardPostSecondsSinceStart ();
+
+            if (inflight && secs >= 0f) {
+                if (language == "portuguese")
+                    gameOverSubText.text = "Salvo localmente.\n" + msg + "\n(" + Mathf.FloorToInt (secs) + "s)";
+                else
+                    gameOverSubText.text = "Saved locally.\n" + msg + "\n(" + Mathf.FloorToInt (secs) + "s)";
+            } else {
+                if (language == "portuguese")
+                    gameOverSubText.text = "Salvo localmente.\n" + msg;
+                else
+                    gameOverSubText.text = "Saved locally.\n" + msg;
+                yield break;
+            }
+
+            yield return new WaitForSecondsRealtime (0.25f);
+        }
+
+        if (gameOverSubText != null) {
+            if (language == "portuguese")
+                gameOverSubText.text = "Salvo localmente.\nEnvio para o Google ainda pendente.\nAbra a cena GOOGLE PLAY para ver o estado.";
+            else
+                gameOverSubText.text = "Saved locally.\nGoogle submit still pending.\nOpen GOOGLE PLAY scene to check status.";
+        }
     }
 
     void Update ()

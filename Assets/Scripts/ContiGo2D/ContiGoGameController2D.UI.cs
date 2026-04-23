@@ -441,6 +441,15 @@ public partial class ContiGoGameController2D
         gotr.offsetMin = Vector2.zero;
         gotr.offsetMax = Vector2.zero;
 
+        gameOverSubText = CreateTmp (panelRt, "GOSubText", "", 24f, TextAlignmentOptions.Center, font);
+        RectTransform subRt = gameOverSubText.rectTransform;
+        subRt.anchorMin = new Vector2 (0.06f, 0.39f);
+        subRt.anchorMax = new Vector2 (0.94f, 0.52f);
+        subRt.offsetMin = Vector2.zero;
+        subRt.offsetMax = Vector2.zero;
+        gameOverSubText.color = new Color (0.85f, 0.9f, 1f, 0.95f);
+        gameOverSubText.enableWordWrapping = true;
+
         string againLbl = language == "portuguese" ? "Jogar de novo" : "Play again";
         string menuLbl = language == "portuguese" ? "Menu" : "Menu";
 

@@ -337,6 +337,10 @@ public class GameController : MonoBehaviour {
                 .Take (10)
                 .ToList ();
             rd.SaveRankingData (rankingAtualizado);
+            // Tenta reportar esta partida imediatamente (se autenticado) e garante
+            // que o melhor local fica sincronizado quando necessário.
+            PlayGamesController.PostToLeaderboard (pts);
+            PlayGamesController.FlushBestLocalIfNeeded ();
             if(language=="portuguese"){
             gameOverScreen.GetComponentInChildren<TextMeshProUGUI> ().text = j1.jogador.pontos+" Pontos!";
 
@@ -373,6 +377,10 @@ public class GameController : MonoBehaviour {
             .Take (10)
             .ToList ();
         rd.SaveRankingData (rankingAtualizado);
+        // Tenta reportar esta partida imediatamente (se autenticado) e garante
+        // que o melhor local fica sincronizado quando necessário.
+        PlayGamesController.PostToLeaderboard (pts);
+        PlayGamesController.FlushBestLocalIfNeeded ();
 
         if(language=="portuguese"){
             gameOverScreen.GetComponentInChildren<TextMeshProUGUI> ().text = j1.jogador.pontos+" Pontos!";

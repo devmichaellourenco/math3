@@ -78,3 +78,24 @@ Keystore-CREDENTIALS.local.txt
 **/Keystore-CREDENTIALS.local*
 *secrets*
 *.pem
+
+# Chaves e configs locais adicionais (evita vazamento acidental)
+*.jks
+*.p12
+*.pfx
+*.key
+*.mobileprovision
+**/*credentials*
+**/*credential*
+**/*.env
+**/.env.*
+**/google-services.json
+**/GoogleService-Info.plist
+
+# Artefatos gerados pelo Android Resolver / Gradle (manter fora do repo)
+**/Assets/Plugins/Android/res/
+**/Assets/Plugins/Android/res.meta
+**/Assets/Plugins/Android/.gradle/
+
+# Unity: cache de import do Package Manager
+**/[Pp]ackages/packages-lock.json
