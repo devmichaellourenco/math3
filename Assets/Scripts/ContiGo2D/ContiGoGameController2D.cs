@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +15,30 @@ using UnityEngine.UI;
 public partial class ContiGoGameController2D : MonoBehaviour
 {
     [SerializeField] ContiGo2DLevelId levelId = ContiGo2DLevelId.Mestre;
+
+    [Header ("Menu pausa / Game Over (Layer Lab GUI Pro-CasualGame)")]
+    [Tooltip ("Popup01_Single_Navy — fundo do modal de pause e do Game Over.")]
+    [SerializeField] Sprite _menuPopupBgSprite;
+    [Tooltip ("Button_Hexagon199_Blue — arte do botão hexagonal.")]
+    [SerializeField] Sprite _menuHexButtonSprite;
+    [Tooltip ("Icon_PictoIcon_Play — continuar (fecha o menu).")]
+    [SerializeField] Sprite _menuContinueIconSprite;
+    [Tooltip ("Icon_PictoIcon_Resume — reiniciar partida.")]
+    [SerializeField] Sprite _menuRestartIconSprite;
+    [Tooltip ("Icon_PictoIcon_Exit_l — voltar à Home.")]
+    [SerializeField] Sprite _menuExitIconSprite;
+
+    [Header ("Game Over — relatório de erros (Layer Lab GUI Pro-CasualGame)")]
+    [Tooltip ("ListFrame03_Single_Bg_Blue — fundo do bloco de erros.")]
+    [SerializeField] Sprite _gameOverErrorsListBgSprite;
+    [Tooltip ("ItemFrame03_Single_Purple — fundo de cada item de erro.")]
+    [SerializeField] Sprite _gameOverErrorItemFrameSprite;
+
+    [Header ("HUD — ícones vidas / pontos (Layer Lab GUI Pro-CasualGame)")]
+    [Tooltip ("ResourcesData/Sprites/Components/IconMisc/Icon_StatsIcon_Hp02.png")]
+    [SerializeField] Sprite _hudLivesIconSprite;
+    [Tooltip ("ResourcesData/Sprites/Components/IconMisc/Icon_MenuIcon04_Trophy.Png")]
+    [SerializeField] Sprite _hudScoreTrophyIconSprite;
 
     public bool gameOn = false;
     public bool gameStrategicTimer = false;
@@ -43,9 +67,30 @@ public partial class ContiGoGameController2D : MonoBehaviour
 
     public GameObject gameOverScreen;
     TextMeshProUGUI gameOverMainText;
-    TextMeshProUGUI gameOverSubText;
     Button gameOverRestartButton;
     Button gameOverHomeButton;
+    RectTransform gameOverErrorsRoot;
+    GameObject gameOverErrorsBlock;
+    TMP_FontAsset _uiFont;
+
+    struct WrongAttempt
+    {
+        public int a;
+        public int b;
+        public int c;
+        public int choice;
+
+        public WrongAttempt (int a, int b, int c, int choice)
+        {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.choice = choice;
+        }
+    }
+
+    // Só existem 3 vidas/erros possíveis, então mantemos um buffer pequeno.
+    readonly List<WrongAttempt> _wrongAttempts = new List<WrongAttempt> (3);
 
     GameObject menuScreen;
     Button menuRestartButton;
@@ -88,9 +133,9 @@ public partial class ContiGoGameController2D : MonoBehaviour
     const float GapAboveBoardDice = 8f;
     /// <summary>Espaço entre a faixa dos dados e o bloco do timer.</summary>
     const float GapTimerRowAboveDice = 22f;
-    /// <summary>Espaço entre o bloco do timer e a linha superior (vidas|trocar|marcadas).</summary>
+    /// <summary>Espaço entre o timer e a linha (vidas | trocar | marcadas).</summary>
     const float GapTopHudAboveTimer = 18f;
-    /// <summary>Espaço entre a linha superior e o painel de notificações.</summary>
+    /// <summary>Espaço entre a linha de vidas/trocar e o painel de notificações.</summary>
     const float GapNotificationsAboveTopHud = 10f;
     /// <summary>Altura da faixa com (vidas | trocar | marcadas).</summary>
     const float TopHudRowHeight = 72f;
@@ -155,12 +200,12 @@ public partial class ContiGoGameController2D : MonoBehaviour
     {
         if (txtDiceRowHint != null) {
             txtDiceRowHint.text = language == "portuguese"
-                ? "Números sorteados — use +, -, x, / e parênteses para obter o valor de uma casa branca no tabuleiro."
-                : "Drawn numbers — use +, -, x, / and parentheses to match a white cell on the board.";
+                ? "Valores sorteados — use +, -, x, / e parênteses para obter o valor de uma casa branca no tabuleiro."
+                : "Drawn values — use +, -, x, / and parentheses to match a white cell on the board.";
         }
         string tituloPecas = language == "portuguese"
-            ? "Valores que ainda estão no tabuleiro (casas brancas por marcar). Toque na casa cujo número é o resultado da sua conta:"
-            : "Values still on the board (unmarked white cells). Tap the cell whose number equals your calculation:";
+            ? "Valores que ainda estão no tabuleiro (casas brancas por marcar). Toque na casa cujo valor é o resultado da sua conta:"
+            : "Values still on the board (unmarked white cells). Tap the cell whose value equals your calculation:";
         if (txtPecasRestantesTitulo != null)
             txtPecasRestantesTitulo.text = tituloPecas;
         AtualizarPecasRestantesTexto ();
@@ -189,17 +234,17 @@ public partial class ContiGoGameController2D : MonoBehaviour
             return;
         }
         var sorted = pecasRestantes.OrderBy (x => x).ToList ();
-        // Gameplay: manter só números para ocupar menos espaço (nomes ficam para missões/coleção/feedback).
+        // Gameplay: manter só valores numéricos para ocupar menos espaço (nomes ficam para desbloqueios/cartas/feedback).
         string listaVirgula = string.Join (", ", sorted);
         string listaHifen = string.Join (" - ", sorted.ConvertAll (x => x.ToString ()));
         if (txtPecasRestantesLista != null) {
             txtPecasRestantesLista.text = language == "portuguese"
-                ? "(" + pecasRestantes.Count + " números) " + listaVirgula
+                ? "(" + pecasRestantes.Count + " valores) " + listaVirgula
                 : "(" + pecasRestantes.Count + " values) " + listaVirgula;
         }
         if (txtPecasRestantesListaBoard != null) {
             txtPecasRestantesListaBoard.text = language == "portuguese"
-                ? "(" + pecasRestantes.Count + " números) " + listaHifen
+                ? "(" + pecasRestantes.Count + " valores) " + listaHifen
                 : "(" + pecasRestantes.Count + " values) " + listaHifen;
         }
     }
@@ -338,6 +383,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
     public void InitializeGame ()
     {
         StopAllCoroutines ();
+        _wrongAttempts.Clear ();
 
         int[] baseVals = ContiGo2DLevelCatalog.GetBoardValues (levelId);
         _sessionBoardValues = ContiGo2DLevelCatalog.ShuffleCopy (baseVals);
@@ -367,8 +413,8 @@ public partial class ContiGoGameController2D : MonoBehaviour
         canCountStrategic = false;
         gameOn = false;
 
-        TMP_FontAsset font = Resources.Load<TMP_FontAsset> ("Fonts & Materials/Anton SDF");
-        StartCoroutine (CoBuildBoardAfterLayout (font));
+        TMP_FontAsset boardFont = ContiGo2DSharedUi.GetBoardCellFont ();
+        StartCoroutine (CoBuildBoardAfterLayout (boardFont));
     }
 
     void EnsureTimerSettingsExist ()
@@ -455,7 +501,18 @@ public partial class ContiGoGameController2D : MonoBehaviour
             }
         } else {
             SoundManager.PlaySound (SoundManager.Sound.PieceFalse);
+            StartCoroutine (CoWrongCellFlash (cell));
         }
+    }
+
+    IEnumerator CoWrongCellFlash (ContiGoBoardCell2D cell)
+    {
+        if (cell == null)
+            yield break;
+        cell.ApplyWrongAnswerVisual ();
+        yield return new WaitForSecondsRealtime (0.38f);
+        if (cell != null)
+            cell.RestoreUnmarkedAppearance ();
     }
 
     bool VerificaEscolha (ContiGoBoardCell2D peca, int a, int b, int c)
@@ -478,12 +535,129 @@ public partial class ContiGoGameController2D : MonoBehaviour
             return true;
         }
 
+        RegisterWrongAttempt (a, b, c, peca != null ? peca.valor : 0);
         OnMissionWrongChoice ();
         jogador.vidas -= 1;
         jogador.ResultadoApresentado = language == "portuguese" ? "errou!" : "fail!";
         AtualizarHud (jogador.ResultadoApresentado);
         NextTurn ();
         return false;
+    }
+
+    void RegisterWrongAttempt (int a, int b, int c, int choice)
+    {
+        if (_wrongAttempts.Count >= 3)
+            return;
+        _wrongAttempts.Add (new WrongAttempt (a, b, c, choice));
+    }
+
+    string BuildWrongAttemptsReport (bool pt)
+    {
+        if (_wrongAttempts == null || _wrongAttempts.Count == 0)
+            return "";
+
+        System.Text.StringBuilder sb = new System.Text.StringBuilder (128);
+        sb.Append ("\n\n");
+        sb.Append (pt ? "ERROS" : "MISTAKES");
+
+        for (int i = 0; i < _wrongAttempts.Count; i++) {
+            WrongAttempt wa = _wrongAttempts[i];
+            sb.Append ("\n");
+            sb.Append (i + 1);
+            sb.Append (":\n");
+            sb.Append (pt ? "valores: " : "values: ");
+            sb.Append (wa.a);
+            sb.Append (" - ");
+            sb.Append (wa.b);
+            sb.Append (" - ");
+            sb.Append (wa.c);
+            sb.Append ("\n");
+            sb.Append (pt ? "sua escolha: " : "your choice: ");
+            sb.Append (wa.choice);
+            if (i < _wrongAttempts.Count - 1)
+                sb.Append ("\n");
+        }
+
+        return sb.ToString ();
+    }
+
+    void RefreshGameOverErrorsUi (bool pt)
+    {
+        if (gameOverErrorsBlock == null || gameOverErrorsRoot == null) {
+            return;
+        }
+
+        // Limpa itens antigos
+        for (int i = gameOverErrorsRoot.childCount - 1; i >= 0; i--) {
+            Transform ch = gameOverErrorsRoot.GetChild (i);
+            if (ch != null)
+                Destroy (ch.gameObject);
+        }
+
+        if (_wrongAttempts == null || _wrongAttempts.Count == 0) {
+            gameOverErrorsBlock.SetActive (false);
+            return;
+        }
+
+        gameOverErrorsBlock.SetActive (true);
+
+        TMP_FontAsset font = _uiFont != null ? _uiFont : ContiGo2DSharedUi.GetBoardCellFont ();
+
+        for (int i = 0; i < _wrongAttempts.Count; i++) {
+            WrongAttempt wa = _wrongAttempts[i];
+            CreateGameOverErrorRow (gameOverErrorsRoot, i + 1, wa, pt, font);
+        }
+    }
+
+    void CreateGameOverErrorRow (RectTransform parent, int index, WrongAttempt wa, bool pt, TMP_FontAsset font)
+    {
+        GameObject row = new GameObject ("Error_" + index, typeof (RectTransform));
+        row.transform.SetParent (parent, false);
+        RectTransform rt = row.GetComponent<RectTransform> ();
+        rt.sizeDelta = new Vector2 (0f, 0f);
+
+        LayoutElement le = row.AddComponent<LayoutElement> ();
+        // Linha única de tabela: “a-b-c | escolha”
+        le.preferredHeight = 66f;
+        le.flexibleWidth = 1f;
+
+        Image bg = row.AddComponent<Image> ();
+        if (_gameOverErrorItemFrameSprite != null) {
+            bg.sprite = _gameOverErrorItemFrameSprite;
+            bg.type = _gameOverErrorItemFrameSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+            bg.preserveAspect = false;
+        } else {
+            bg.sprite = RoundedRectSpriteFactory.Get (64, 12);
+            bg.type = Image.Type.Sliced;
+        }
+        bg.color = Color.white;
+        bg.raycastTarget = false;
+
+        GameObject inner = new GameObject ("Inner", typeof (RectTransform));
+        inner.transform.SetParent (row.transform, false);
+        RectTransform irt = inner.GetComponent<RectTransform> ();
+        irt.anchorMin = Vector2.zero;
+        irt.anchorMax = Vector2.one;
+        // Mais respiro vertical para não cortar a fonte em alguns devices.
+        irt.offsetMin = new Vector2 (16f, 12f);
+        irt.offsetMax = new Vector2 (-16f, -12f);
+
+        string valores = wa.a + "-" + wa.b + "-" + wa.c;
+        TextMeshProUGUI left = CreateTmp (inner.transform, "Valores", valores, 24f, TextAlignmentOptions.MidlineLeft, font);
+        left.raycastTarget = false;
+        RectTransform lrt = left.rectTransform;
+        lrt.anchorMin = new Vector2 (0f, 0f);
+        lrt.anchorMax = new Vector2 (0.70f, 1f);
+        lrt.offsetMin = new Vector2 (6f, 0f);
+        lrt.offsetMax = Vector2.zero;
+
+        TextMeshProUGUI right = CreateTmp (inner.transform, "Escolha", wa.choice.ToString (), 24f, TextAlignmentOptions.MidlineRight, font);
+        right.raycastTarget = false;
+        RectTransform rrt = right.rectTransform;
+        rrt.anchorMin = new Vector2 (0.70f, 0f);
+        rrt.anchorMax = new Vector2 (1f, 1f);
+        rrt.offsetMin = Vector2.zero;
+        rrt.offsetMax = new Vector2 (-6f, 0f);
     }
 
     public bool VerificaResultadosPossiveis (List<int> pecasRest, float a, float b, float c)
@@ -564,11 +738,6 @@ public partial class ContiGoGameController2D : MonoBehaviour
         // garante que o melhor local fica sincronizado quando necessário.
         PlayGamesController.PostToLeaderboard (pts);
         PlayGamesController.FlushBestLocalIfNeeded ();
-
-        if (gameOverSubText != null) {
-            gameOverSubText.text = (language == "portuguese" ? "Salvo localmente.\n" : "Saved locally.\n")
-                + PlayGamesController.GetLastLeaderboardPostMessage ();
-        }
     }
 
     void GameOver ()
@@ -585,15 +754,9 @@ public partial class ContiGoGameController2D : MonoBehaviour
             btnHelp.SetActive (false);
         gameOverScreen.SetActive (true);
         SaveRanking ();
-        StartGameOverGpgsFeedbackLoopIfNeeded ();
-        if (gameOverSubText != null && levelId != ContiGo2DLevelId.Mestre) {
-            gameOverSubText.text = language == "portuguese"
-                ? "Ranking Google apenas no modo Mestre (8×8)."
-                : "Google ranking only on Master (8×8).";
-        }
-        gameOverMainText.text = language == "portuguese"
-            ? jogador.pontos + " pontos"
-            : jogador.pontos + " points";
+        bool pt = language == "portuguese";
+        gameOverMainText.text = pt ? (jogador.pontos + " pontos") : (jogador.pontos + " points");
+        RefreshGameOverErrorsUi (pt);
     }
 
     void Victory ()
@@ -611,15 +774,17 @@ public partial class ContiGoGameController2D : MonoBehaviour
             btnHelp.SetActive (false);
         gameOverScreen.SetActive (true);
         SaveRanking ();
-        StartGameOverGpgsFeedbackLoopIfNeeded ();
-        if (gameOverSubText != null && levelId != ContiGo2DLevelId.Mestre) {
-            gameOverSubText.text = language == "portuguese"
-                ? "Ranking Google apenas no modo Mestre (8×8)."
-                : "Google ranking only on Master (8×8).";
+
+        // Leaderboard de tempo: só quando vence o 8×8 (Mestre).
+        if (levelId == ContiGo2DLevelId.Mestre) {
+            int timeSpentSeconds = Mathf.CeilToInt (Mathf.Max (0f, mainTimer - Mathf.Max (0f, timer)));
+            long timeMs = (long)timeSpentSeconds * 1000L;
+            PlayGamesController.PostTimeToLeaderboardMs (timeMs);
         }
         gameOverMainText.text = language == "portuguese"
             ? "Venceu! " + jogador.pontos + " pontos"
             : "You win! " + jogador.pontos + " points";
+        RefreshGameOverErrorsUi (language == "portuguese");
         SoundManager.PlaySound (SoundManager.Sound.UIConfimation);
     }
 
@@ -637,61 +802,9 @@ public partial class ContiGoGameController2D : MonoBehaviour
             btnHelp.SetActive (false);
         gameOverScreen.SetActive (true);
         SaveRanking ();
-        StartGameOverGpgsFeedbackLoopIfNeeded ();
-        if (gameOverSubText != null && levelId != ContiGo2DLevelId.Mestre) {
-            gameOverSubText.text = language == "portuguese"
-                ? "Ranking Google apenas no modo Mestre (8×8)."
-                : "Google ranking only on Master (8×8).";
-        }
-        gameOverMainText.text = language == "portuguese"
-            ? "Tempo esgotado — " + jogador.pontos + " pontos"
-            : "Time up — " + jogador.pontos + " points";
-    }
-
-    void StartGameOverGpgsFeedbackLoopIfNeeded ()
-    {
-        if (levelId != ContiGo2DLevelId.Mestre)
-            return;
-        if (gameOverSubText == null)
-            return;
-        StopCoroutine (nameof (CoUpdateGameOverGpgsStatus));
-        StartCoroutine (CoUpdateGameOverGpgsStatus ());
-    }
-
-    IEnumerator CoUpdateGameOverGpgsStatus ()
-    {
-        float timeout = 12f;
-        float t0 = Time.realtimeSinceStartup;
-        while (Time.realtimeSinceStartup - t0 < timeout) {
-            if (gameOverSubText == null)
-                yield break;
-
-            string msg = PlayGamesController.GetLastLeaderboardPostMessage ();
-            bool inflight = PlayGamesController.GetLastLeaderboardPostInFlight ();
-            float secs = PlayGamesController.GetLastLeaderboardPostSecondsSinceStart ();
-
-            if (inflight && secs >= 0f) {
-                if (language == "portuguese")
-                    gameOverSubText.text = "Salvo localmente.\n" + msg + "\n(" + Mathf.FloorToInt (secs) + "s)";
-                else
-                    gameOverSubText.text = "Saved locally.\n" + msg + "\n(" + Mathf.FloorToInt (secs) + "s)";
-            } else {
-                if (language == "portuguese")
-                    gameOverSubText.text = "Salvo localmente.\n" + msg;
-                else
-                    gameOverSubText.text = "Saved locally.\n" + msg;
-                yield break;
-            }
-
-            yield return new WaitForSecondsRealtime (0.25f);
-        }
-
-        if (gameOverSubText != null) {
-            if (language == "portuguese")
-                gameOverSubText.text = "Salvo localmente.\nEnvio para o Google ainda pendente.\nAbra a cena GOOGLE PLAY para ver o estado.";
-            else
-                gameOverSubText.text = "Saved locally.\nGoogle submit still pending.\nOpen GOOGLE PLAY scene to check status.";
-        }
+        bool pt = language == "portuguese";
+        gameOverMainText.text = pt ? ("Tempo esgotado — " + jogador.pontos + " pontos") : ("Time up — " + jogador.pontos + " points");
+        RefreshGameOverErrorsUi (pt);
     }
 
     void Update ()
@@ -764,6 +877,7 @@ public partial class ContiGoGameController2D : MonoBehaviour
                 Destroy (c.gameObject);
         }
         tabuleiroPecas.Clear ();
+        _wrongAttempts.Clear ();
         if (_sessionBoardValues != null && _sessionBoardValues.Count > 0)
             pecasRestantes = new List<int> (_sessionBoardValues);
         EnsureTimerSettingsExist ();

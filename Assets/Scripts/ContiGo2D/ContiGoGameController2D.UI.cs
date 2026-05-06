@@ -11,6 +11,10 @@ public partial class ContiGoGameController2D
     /// <summary> Altura dos ícones no modal do menu (proporção da arte; ~2.5× face à versão inicial de 44px). </summary>
     const float MenuModalIconHeightPx = 110f;
     const float MenuModalHlgSpacing = 28f;
+    /// <summary>Tamanho do hexágono no modal de pause (altura em px da referência 1080×1920).</summary>
+    const float HexPauseMenuButtonPx = 132f;
+    const float HexPauseMenuSpacingPx = 26f;
+    const float HexPauseMenuPopupPadPx = 40f;
 
     Image tutorialSlideImage;
     TextMeshProUGUI tutorialSlideCounter;
@@ -32,12 +36,16 @@ public partial class ContiGoGameController2D
 
     void BuildUi ()
     {
-        TMP_FontAsset font = Resources.Load<TMP_FontAsset> ("Fonts & Materials/Anton SDF");
+        TMP_FontAsset font = ContiGo2DSharedUi.GetBoardCellFont ();
+        _uiFont = font;
 
         GameObject canvasGo = new GameObject ("Canvas2D");
         rootCanvas = canvasGo.AddComponent<Canvas> ();
         rootCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasGo.AddComponent<CanvasScaler> ().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        CanvasScaler scaler = canvasGo.AddComponent<CanvasScaler> ();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2 (1080f, 1920f);
+        scaler.matchWidthOrHeight = 0.52f;
         canvasGo.AddComponent<GraphicRaycaster> ();
 
         canvasRt = canvasGo.GetComponent<RectTransform> ();
@@ -240,9 +248,8 @@ public partial class ContiGoGameController2D
         topHudImg.raycastTarget = false;
         topHudImg.sprite = RoundedRectSpriteFactory.Get (64, 10);
         topHudImg.type = Image.Type.Sliced;
-        // Arredondamento leve em todas as bordas.
 
-        Image vidasIcon = CreateIcon (topHudRowAboveTimerRt, "VidasIcon", "Imagens/Jogador/ui-icon-chances.fw");
+        Image vidasIcon = CreateHudIcon (topHudRowAboveTimerRt, "VidasIcon", _hudLivesIconSprite, "Imagens/Jogador/ui-icon-chances.fw");
         RectTransform vidasIconRt = vidasIcon.rectTransform;
         vidasIconRt.anchorMin = new Vector2 (0.03f, 0.22f);
         vidasIconRt.anchorMax = new Vector2 (0.10f, 0.78f);
@@ -268,7 +275,7 @@ public partial class ContiGoGameController2D
         pularRt.offsetMin = Vector2.zero;
         pularRt.offsetMax = Vector2.zero;
 
-        Image pontosIcon = CreateIcon (topHudRowAboveTimerRt, "PontosIcon", "Imagens/Jogador/ui-icon-points.fw");
+        Image pontosIcon = CreateHudIcon (topHudRowAboveTimerRt, "PontosIcon", _hudScoreTrophyIconSprite, "Imagens/Jogador/ui-icon-points.fw");
         RectTransform pontosIconRt = pontosIcon.rectTransform;
         pontosIconRt.anchorMin = new Vector2 (0.70f, 0.22f);
         pontosIconRt.anchorMax = new Vector2 (0.77f, 0.78f);
@@ -288,7 +295,6 @@ public partial class ContiGoGameController2D
         timerImg.raycastTarget = false;
         timerImg.sprite = RoundedRectSpriteFactory.Get (64, 10);
         timerImg.type = Image.Type.Sliced;
-        // Arredondamento leve em todas as bordas.
 
         txtMainTimer = CreateTmp (timerRowAboveDiceRt, "MainTimer", "5:00", DiceFontPreferred, TextAlignmentOptions.Center, font);
         RectTransform mtRt = txtMainTimer.rectTransform;
@@ -297,7 +303,6 @@ public partial class ContiGoGameController2D
         mtRt.offsetMin = new Vector2 (0f, 10f);
         mtRt.offsetMax = new Vector2 (0f, -10f);
 
-        // Resultado/feedback (sempre visível; antes ficava no modal antigo do ?).
         txtResultadoApresentado = CreateTmp (timerRowAboveDiceRt, "ResultadoHud", "", 24f, TextAlignmentOptions.Bottom, font);
         RectTransform resRt = txtResultadoApresentado.rectTransform;
         resRt.anchorMin = new Vector2 (0.05f, 0.02f);
@@ -307,25 +312,12 @@ public partial class ContiGoGameController2D
         txtResultadoApresentado.enableWordWrapping = false;
         txtResultadoApresentado.overflowMode = TextOverflowModes.Ellipsis;
 
-        float hudBtnH = 56f;
-        Vector2 hudBtnSize = SizeDeltaForHomeButtonArt (hudBtnH);
-
-        btnPause = CreateImagensSpriteButton (safeAreaRt, "Menu", "btn-settings-home.fw", MenuPressed).gameObject;
+        btnPause = ContiGo2DSharedUi.CreateGameplaySettingsMenuButton (safeAreaRt, MenuPressed);
         RectTransform menuBtnRt = btnPause.GetComponent<RectTransform> ();
-        menuBtnRt.anchorMin = new Vector2 (1f, 1f);
-        menuBtnRt.anchorMax = new Vector2 (1f, 1f);
-        menuBtnRt.pivot = new Vector2 (1f, 1f);
-        menuBtnRt.sizeDelta = hudBtnSize;
-        menuBtnRt.anchoredPosition = new Vector2 (-10f, -10f);
+        float menuBtnW = menuBtnRt.sizeDelta.x;
         btnPause.SetActive (false);
 
-        btnHelp = CreateImagensSpriteButton (safeAreaRt, "Help", "btn-how-to-play.fw", HelpPressed).gameObject;
-        RectTransform helpBtnRt = btnHelp.GetComponent<RectTransform> ();
-        helpBtnRt.anchorMin = new Vector2 (1f, 1f);
-        helpBtnRt.anchorMax = new Vector2 (1f, 1f);
-        helpBtnRt.pivot = new Vector2 (1f, 1f);
-        helpBtnRt.sizeDelta = hudBtnSize;
-        helpBtnRt.anchoredPosition = new Vector2 (-10f - hudBtnSize.x - 10f, -10f);
+        btnHelp = ContiGo2DSharedUi.CreateGameplayHowToPlayHelpButton (safeAreaRt, HelpPressed, 10f + menuBtnW + 10f);
         btnHelp.SetActive (false);
 
         strategicTimerScreen = new GameObject ("StrategicOverlay");
@@ -374,44 +366,48 @@ public partial class ContiGoGameController2D
         menuPanelRt.offsetMin = Vector2.zero;
         menuPanelRt.offsetMax = Vector2.zero;
 
-        Vector2 menuIconSize = SizeDeltaForHomeButtonArt (MenuModalIconHeightPx);
-        RectOffset menuStripPad = new RectOffset (16, 16, 16, 16);
-        float stripInnerW = menuIconSize.x * 3f + MenuModalHlgSpacing * 2f;
-        float stripInnerH = menuIconSize.y;
-        float stripW = stripInnerW + menuStripPad.horizontal;
-        float stripH = stripInnerH + menuStripPad.vertical;
+        if (_menuPopupBgSprite != null && _menuHexButtonSprite != null) {
+            BuildPauseMenuHexagonModal (menuPanelRt);
+        } else {
+            Vector2 menuIconSize = SizeDeltaForHomeButtonArt (MenuModalIconHeightPx);
+            RectOffset menuStripPad = new RectOffset (16, 16, 16, 16);
+            float stripInnerW = menuIconSize.x * 3f + MenuModalHlgSpacing * 2f;
+            float stripInnerH = menuIconSize.y;
+            float stripW = stripInnerW + menuStripPad.horizontal;
+            float stripH = stripInnerH + menuStripPad.vertical;
 
-        GameObject menuStripGo = new GameObject ("MenuStrip", typeof (RectTransform));
-        menuStripGo.transform.SetParent (menuPanelRt, false);
-        RectTransform menuStripRt = menuStripGo.GetComponent<RectTransform> ();
-        menuStripRt.anchorMin = new Vector2 (0.5f, 0.5f);
-        menuStripRt.anchorMax = new Vector2 (0.5f, 0.5f);
-        menuStripRt.pivot = new Vector2 (0.5f, 0.5f);
-        menuStripRt.sizeDelta = new Vector2 (stripW, stripH);
-        menuStripRt.anchoredPosition = Vector2.zero;
-        Image menuStripBg = menuStripGo.AddComponent<Image> ();
-        menuStripBg.sprite = RoundedRectSpriteFactory.Get (64, 12);
-        menuStripBg.type = Image.Type.Sliced;
-        menuStripBg.color = new Color (0.18f, 0.19f, 0.22f, 0.82f);
-        menuStripBg.raycastTarget = true;
+            GameObject menuStripGo = new GameObject ("MenuStrip", typeof (RectTransform));
+            menuStripGo.transform.SetParent (menuPanelRt, false);
+            RectTransform menuStripRt = menuStripGo.GetComponent<RectTransform> ();
+            menuStripRt.anchorMin = new Vector2 (0.5f, 0.5f);
+            menuStripRt.anchorMax = new Vector2 (0.5f, 0.5f);
+            menuStripRt.pivot = new Vector2 (0.5f, 0.5f);
+            menuStripRt.sizeDelta = new Vector2 (stripW, stripH);
+            menuStripRt.anchoredPosition = Vector2.zero;
+            Image menuStripBg = menuStripGo.AddComponent<Image> ();
+            menuStripBg.sprite = RoundedRectSpriteFactory.Get (64, 12);
+            menuStripBg.type = Image.Type.Sliced;
+            menuStripBg.color = new Color (0.18f, 0.19f, 0.22f, 0.82f);
+            menuStripBg.raycastTarget = true;
 
-        HorizontalLayoutGroup menuHlg = menuStripGo.AddComponent<HorizontalLayoutGroup> ();
-        menuHlg.childAlignment = TextAnchor.MiddleCenter;
-        menuHlg.spacing = MenuModalHlgSpacing;
-        menuHlg.padding = menuStripPad;
-        menuHlg.childControlWidth = false;
-        menuHlg.childControlHeight = false;
-        menuHlg.childForceExpandWidth = false;
-        menuHlg.childForceExpandHeight = false;
+            HorizontalLayoutGroup menuHlg = menuStripGo.AddComponent<HorizontalLayoutGroup> ();
+            menuHlg.childAlignment = TextAnchor.MiddleCenter;
+            menuHlg.spacing = MenuModalHlgSpacing;
+            menuHlg.padding = menuStripPad;
+            menuHlg.childControlWidth = false;
+            menuHlg.childControlHeight = false;
+            menuHlg.childForceExpandWidth = false;
+            menuHlg.childForceExpandHeight = false;
 
-        menuBackButton = CreateImagensSpriteButton (menuStripRt, "MenuBack", "btn-close-home.fw", MenuBackPressed);
-        ConfigureMenuModalIconButton (menuBackButton.GetComponent<RectTransform> (), menuIconSize);
+            menuBackButton = CreateImagensSpriteButton (menuStripRt, "MenuBack", "btn-close-home.fw", MenuBackPressed);
+            ConfigureMenuModalIconButton (menuBackButton.GetComponent<RectTransform> (), menuIconSize);
 
-        menuRestartButton = CreateImagensSpriteButton (menuStripRt, "MenuRestart", "btn-reset.fw", MenuRestartPressed);
-        ConfigureMenuModalIconButton (menuRestartButton.GetComponent<RectTransform> (), menuIconSize);
+            menuRestartButton = CreateImagensSpriteButton (menuStripRt, "MenuRestart", "btn-reset.fw", MenuRestartPressed);
+            ConfigureMenuModalIconButton (menuRestartButton.GetComponent<RectTransform> (), menuIconSize);
 
-        menuHomeButton = CreateImagensSpriteButton (menuStripRt, "MenuHome", "btn-home.fw", MenuHomePressed);
-        ConfigureMenuModalIconButton (menuHomeButton.GetComponent<RectTransform> (), menuIconSize);
+            menuHomeButton = CreateImagensSpriteButton (menuStripRt, "MenuHome", "btn-home.fw", MenuHomePressed);
+            ConfigureMenuModalIconButton (menuHomeButton.GetComponent<RectTransform> (), menuIconSize);
+        }
 
         gameOverScreen = new GameObject ("GameOver");
         gameOverScreen.transform.SetParent (canvasRt, false);
@@ -421,51 +417,293 @@ public partial class ContiGoGameController2D
         goRt.offsetMin = Vector2.zero;
         goRt.offsetMax = Vector2.zero;
         Image goBg = gameOverScreen.AddComponent<Image> ();
-        goBg.color = new Color (0f, 0f, 0f, 0.82f);
+        goBg.color = new Color (0f, 0f, 0f, 0.72f);
+        goBg.raycastTarget = true;
         gameOverScreen.SetActive (false);
 
         GameObject goPanel = new GameObject ("Panel");
         goPanel.transform.SetParent (gameOverScreen.transform, false);
         RectTransform panelRt = goPanel.AddComponent<RectTransform> ();
-        panelRt.anchorMin = new Vector2 (0.15f, 0.3f);
-        panelRt.anchorMax = new Vector2 (0.85f, 0.7f);
+        panelRt.anchorMin = Vector2.zero;
+        panelRt.anchorMax = Vector2.one;
         panelRt.offsetMin = Vector2.zero;
         panelRt.offsetMax = Vector2.zero;
-        Image panelBg = goPanel.AddComponent<Image> ();
-        panelBg.color = new Color (0.18f, 0.19f, 0.22f);
 
-        gameOverMainText = CreateTmp (panelRt, "GOText", "", 34f, TextAlignmentOptions.Center, font);
+        bool useHexGameOver = _menuPopupBgSprite != null && _menuHexButtonSprite != null
+            && _menuRestartIconSprite != null && _menuExitIconSprite != null;
+        if (useHexGameOver) {
+            BuildGameOverHexagonModal (panelRt, font);
+        } else {
+            panelRt.anchorMin = new Vector2 (0.15f, 0.3f);
+            panelRt.anchorMax = new Vector2 (0.85f, 0.7f);
+
+            GameObject titleFrameGo = new GameObject ("GOTextFrame", typeof (RectTransform));
+            titleFrameGo.transform.SetParent (panelRt, false);
+            RectTransform tfRt = titleFrameGo.GetComponent<RectTransform> ();
+            tfRt.anchorMin = new Vector2 (0.5f, 1f);
+            tfRt.anchorMax = new Vector2 (0.5f, 1f);
+            tfRt.pivot = new Vector2 (0.5f, 1f);
+            tfRt.sizeDelta = new Vector2 (400f, 120f);
+            tfRt.anchoredPosition = Vector2.zero;
+            Image tfImg = titleFrameGo.AddComponent<Image> ();
+            Sprite tfSp = Resources.Load<Sprite> ("GUI PRO Kit - Fantasy RPG/ResourcesData/Sprites/Component/Frame/frame_linetextframe_04_White2");
+            if (tfSp != null) {
+                tfImg.sprite = tfSp;
+                tfImg.color = Color.white;
+                tfImg.type = Image.Type.Sliced;
+                tfImg.preserveAspect = false;
+            } else {
+                tfImg.sprite = RoundedRectSpriteFactory.Get (64, 12);
+                tfImg.type = Image.Type.Sliced;
+                tfImg.color = new Color (0.18f, 0.19f, 0.22f, 0.92f);
+            }
+            tfImg.raycastTarget = false;
+
+            gameOverMainText = CreateTmp (tfRt, "GOText", "", 34f, TextAlignmentOptions.Center, font);
+            RectTransform gotr = gameOverMainText.rectTransform;
+            gotr.anchorMin = Vector2.zero;
+            gotr.anchorMax = Vector2.one;
+            gotr.offsetMin = new Vector2 (12f, 8f);
+            gotr.offsetMax = new Vector2 (-12f, -8f);
+            gotr.anchoredPosition = new Vector2 (0f, -30f);
+
+            float hudBtnH2 = 110f;
+            Vector2 iconSize2 = SizeDeltaForHomeButtonArt (hudBtnH2);
+
+            gameOverRestartButton = CreateImagensSpriteButton (panelRt, "MenuRestart", "btn-reset.fw", RestartPressed);
+            RectTransform rr = gameOverRestartButton.GetComponent<RectTransform> ();
+            rr.anchorMin = new Vector2 (0.32f, 0.06f);
+            rr.anchorMax = new Vector2 (0.32f, 0.06f);
+            rr.pivot = new Vector2 (0.5f, 0.5f);
+            rr.sizeDelta = iconSize2;
+            rr.anchoredPosition = Vector2.zero;
+
+            gameOverHomeButton = CreateImagensSpriteButton (panelRt, "MenuHome", "btn-home.fw", HomePressed);
+            RectTransform hr = gameOverHomeButton.GetComponent<RectTransform> ();
+            hr.anchorMin = new Vector2 (0.68f, 0.06f);
+            hr.anchorMax = new Vector2 (0.68f, 0.06f);
+            hr.pivot = new Vector2 (0.5f, 0.5f);
+            hr.sizeDelta = iconSize2;
+            hr.anchoredPosition = Vector2.zero;
+        }
+    }
+
+    /// <summary>Game Over / Vitória: mesmo padrão do demo Component_1 — Popup01_Single_Navy + Group_Menu_Hexagon (ReStart + Exit).</summary>
+    void BuildGameOverHexagonModal (RectTransform parentPanelRt, TMP_FontAsset font)
+    {
+        float hex = HexPauseMenuButtonPx;
+        float sp = HexPauseMenuSpacingPx;
+        float pad = HexPauseMenuPopupPadPx;
+        float innerW = hex * 2f + sp;
+        float innerH = hex;
+        float titleH = 108f;
+        float gap = 22f;
+        // Popup mais largo para caber “valores” + “sua escolha” sem truncar demais.
+        float extraW = 240f;
+        float popW = innerW + pad * 2f + extraW;
+        // + área do relatório de erros (até 3 itens). Altura extra fixa para não “esmagar” tudo.
+        // Mais alto para ficar legível e não truncar em telas menores.
+        float errorsH = 460f;
+        float popH = pad * 2f + titleH + gap + innerH + gap + errorsH;
+
+        GameObject popGo = new GameObject ("GameOverPopupCasual", typeof (RectTransform));
+        popGo.transform.SetParent (parentPanelRt, false);
+        RectTransform popRt = popGo.GetComponent<RectTransform> ();
+        popRt.anchorMin = new Vector2 (0.5f, 0.5f);
+        popRt.anchorMax = new Vector2 (0.5f, 0.5f);
+        popRt.pivot = new Vector2 (0.5f, 0.5f);
+        popRt.sizeDelta = new Vector2 (popW, popH);
+        popRt.anchoredPosition = Vector2.zero;
+
+        Image bg = popGo.AddComponent<Image> ();
+        bg.sprite = _menuPopupBgSprite;
+        bg.type = _menuPopupBgSprite != null && _menuPopupBgSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+        bg.preserveAspect = false;
+        bg.color = Color.white;
+        bg.raycastTarget = true;
+
+        GameObject content = new GameObject ("Content", typeof (RectTransform));
+        content.transform.SetParent (popGo.transform, false);
+        RectTransform cRt = content.GetComponent<RectTransform> ();
+        cRt.anchorMin = Vector2.zero;
+        cRt.anchorMax = Vector2.one;
+        cRt.offsetMin = new Vector2 (pad, pad);
+        cRt.offsetMax = new Vector2 (-pad, -pad);
+
+        VerticalLayoutGroup vlg = content.AddComponent<VerticalLayoutGroup> ();
+        vlg.spacing = Mathf.RoundToInt (gap);
+        vlg.padding = new RectOffset (0, 0, 0, 0);
+        vlg.childAlignment = TextAnchor.UpperCenter;
+        vlg.childControlWidth = true;
+        vlg.childForceExpandWidth = true;
+        // Importante: precisa controlar a altura dos filhos (senão o ErrorsBlock não reserva espaço e pode sobrepor).
+        vlg.childControlHeight = true;
+        vlg.childForceExpandHeight = false;
+
+        GameObject titleHolder = new GameObject ("GOTextArea", typeof (RectTransform));
+        titleHolder.transform.SetParent (content.transform, false);
+        LayoutElement titleLe = titleHolder.AddComponent<LayoutElement> ();
+        titleLe.preferredHeight = titleH;
+        titleLe.flexibleWidth = 1f;
+
+        gameOverMainText = CreateTmp (titleHolder.transform, "GOText", "", 36f, TextAlignmentOptions.Center, font);
         RectTransform gotr = gameOverMainText.rectTransform;
-        gotr.anchorMin = new Vector2 (0.05f, 0.45f);
-        gotr.anchorMax = new Vector2 (0.95f, 0.92f);
-        gotr.offsetMin = Vector2.zero;
-        gotr.offsetMax = Vector2.zero;
+        gotr.anchorMin = Vector2.zero;
+        gotr.anchorMax = Vector2.one;
+        gotr.offsetMin = new Vector2 (8f, 4f);
+        gotr.offsetMax = new Vector2 (-8f, -4f);
+        gameOverMainText.enableWordWrapping = true;
 
-        gameOverSubText = CreateTmp (panelRt, "GOSubText", "", 24f, TextAlignmentOptions.Center, font);
-        RectTransform subRt = gameOverSubText.rectTransform;
-        subRt.anchorMin = new Vector2 (0.06f, 0.39f);
-        subRt.anchorMax = new Vector2 (0.94f, 0.52f);
-        subRt.offsetMin = Vector2.zero;
-        subRt.offsetMax = Vector2.zero;
-        gameOverSubText.color = new Color (0.85f, 0.9f, 1f, 0.95f);
-        gameOverSubText.enableWordWrapping = true;
+        GameObject rowGo = new GameObject ("Group_Menu_Hexagon", typeof (RectTransform));
+        rowGo.transform.SetParent (content.transform, false);
+        LayoutElement rowLe = rowGo.AddComponent<LayoutElement> ();
+        rowLe.preferredHeight = innerH;
+        rowLe.flexibleWidth = 1f;
 
-        string againLbl = language == "portuguese" ? "Jogar de novo" : "Play again";
-        string menuLbl = language == "portuguese" ? "Menu" : "Menu";
+        HorizontalLayoutGroup hlg = rowGo.AddComponent<HorizontalLayoutGroup> ();
+        hlg.childAlignment = TextAnchor.MiddleCenter;
+        hlg.spacing = sp;
+        hlg.padding = new RectOffset (0, 0, 0, 0);
+        hlg.childControlWidth = false;
+        hlg.childControlHeight = false;
+        hlg.childForceExpandWidth = false;
+        hlg.childForceExpandHeight = false;
 
-        gameOverRestartButton = CreateTextButton (panelRt, "Reiniciar", againLbl, font, RestartPressed);
-        RectTransform rr = gameOverRestartButton.GetComponent<RectTransform> ();
-        rr.anchorMin = new Vector2 (0.08f, 0.12f);
-        rr.anchorMax = new Vector2 (0.48f, 0.38f);
-        rr.offsetMin = Vector2.zero;
-        rr.offsetMax = Vector2.zero;
+        gameOverRestartButton = CreateHexPauseMenuButton (
+            rowGo.transform, "Button_Hexagon_ReStart", _menuHexButtonSprite, _menuRestartIconSprite, RestartPressed, hex);
+        gameOverHomeButton = CreateHexPauseMenuButton (
+            rowGo.transform, "Button_Hexagon_Exit", _menuHexButtonSprite, _menuExitIconSprite, HomePressed, hex);
 
-        gameOverHomeButton = CreateTextButton (panelRt, "Home", menuLbl, font, HomePressed);
-        RectTransform hr = gameOverHomeButton.GetComponent<RectTransform> ();
-        hr.anchorMin = new Vector2 (0.52f, 0.12f);
-        hr.anchorMax = new Vector2 (0.92f, 0.38f);
-        hr.offsetMin = Vector2.zero;
-        hr.offsetMax = Vector2.zero;
+        // Espaço extra entre botões e erros (separação visual clara).
+        GameObject spacer = new GameObject ("Spacer_BetweenButtonsAndErrors", typeof (RectTransform));
+        spacer.transform.SetParent (content.transform, false);
+        LayoutElement spacerLe = spacer.AddComponent<LayoutElement> ();
+        spacerLe.preferredHeight = 10f;
+        spacerLe.flexibleWidth = 1f;
+
+        // Bloco de erros (fundo azul + até 3 linhas roxas).
+        GameObject errorsGo = new GameObject ("ErrorsBlock", typeof (RectTransform));
+        errorsGo.transform.SetParent (content.transform, false);
+        LayoutElement errorsLe = errorsGo.AddComponent<LayoutElement> ();
+        errorsLe.preferredHeight = errorsH;
+        errorsLe.flexibleWidth = 1f;
+
+        Image errorsBg = errorsGo.AddComponent<Image> ();
+        // Fundo do bloco de erros deve ser roxo (mesmo frame dos itens), não o azul.
+        Sprite blockBgSp = _gameOverErrorItemFrameSprite != null ? _gameOverErrorItemFrameSprite : _gameOverErrorsListBgSprite;
+        if (blockBgSp != null) {
+            errorsBg.sprite = blockBgSp;
+            errorsBg.type = blockBgSp.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+            errorsBg.preserveAspect = false;
+        } else {
+            errorsBg.sprite = RoundedRectSpriteFactory.Get (64, 12);
+            errorsBg.type = Image.Type.Sliced;
+        }
+        errorsBg.color = Color.white;
+        errorsBg.raycastTarget = false;
+
+        gameOverErrorsBlock = errorsGo;
+
+        GameObject inner = new GameObject ("ErrorsContent", typeof (RectTransform));
+        inner.transform.SetParent (errorsGo.transform, false);
+        RectTransform innerRt = inner.GetComponent<RectTransform> ();
+        innerRt.anchorMin = Vector2.zero;
+        innerRt.anchorMax = Vector2.one;
+        innerRt.offsetMin = new Vector2 (20f, 20f);
+        innerRt.offsetMax = new Vector2 (-20f, -20f);
+
+        // Importante: NÃO usar VerticalLayoutGroup aqui. Vamos “fatiar” o retângulo:
+        // header fixo em cima + lista preenchendo o resto. Isso elimina sobreposição.
+        const float ErrorsHeaderHeight = 104f;
+        const float ErrorsGapBelowHeader = 14f;
+
+        // Componente 1: header (ERROS + colunas) — topo com altura fixa.
+        GameObject headerGo = new GameObject ("ErrorsHeader", typeof (RectTransform));
+        headerGo.transform.SetParent (inner.transform, false);
+        RectTransform headerRt = headerGo.GetComponent<RectTransform> ();
+        headerRt.anchorMin = new Vector2 (0f, 1f);
+        headerRt.anchorMax = new Vector2 (1f, 1f);
+        headerRt.pivot = new Vector2 (0.5f, 1f);
+        headerRt.anchoredPosition = Vector2.zero;
+        headerRt.sizeDelta = new Vector2 (0f, ErrorsHeaderHeight);
+
+        Image headerBg = headerGo.AddComponent<Image> ();
+        Sprite headerSp = _gameOverErrorItemFrameSprite != null ? _gameOverErrorItemFrameSprite : null;
+        if (headerSp != null) {
+            headerBg.sprite = headerSp;
+            headerBg.type = headerSp.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+            headerBg.preserveAspect = false;
+        } else {
+            headerBg.sprite = RoundedRectSpriteFactory.Get (64, 12);
+            headerBg.type = Image.Type.Sliced;
+        }
+        headerBg.color = Color.white;
+        headerBg.raycastTarget = false;
+
+        GameObject headerInner = new GameObject ("Inner", typeof (RectTransform));
+        headerInner.transform.SetParent (headerGo.transform, false);
+        RectTransform hiRt = headerInner.GetComponent<RectTransform> ();
+        hiRt.anchorMin = Vector2.zero;
+        hiRt.anchorMax = Vector2.one;
+        hiRt.offsetMin = new Vector2 (16f, 12f);
+        hiRt.offsetMax = new Vector2 (-16f, -12f);
+
+        // Linha do título “ERROS”
+        TextMeshProUGUI title = CreateTmp (headerInner.transform, "Title", "ERROS", 26f, TextAlignmentOptions.Center, font);
+        title.raycastTarget = false;
+        RectTransform titleRt = title.rectTransform;
+        titleRt.anchorMin = new Vector2 (0f, 0.52f);
+        titleRt.anchorMax = new Vector2 (1f, 1f);
+        titleRt.offsetMin = Vector2.zero;
+        titleRt.offsetMax = Vector2.zero;
+
+        // Linha de colunas “valores | sua escolha”
+        GameObject cols = new GameObject ("Cols", typeof (RectTransform));
+        cols.transform.SetParent (headerInner.transform, false);
+        RectTransform colsRt = cols.GetComponent<RectTransform> ();
+        colsRt.anchorMin = new Vector2 (0f, 0f);
+        colsRt.anchorMax = new Vector2 (1f, 0.52f);
+        colsRt.offsetMin = Vector2.zero;
+        colsRt.offsetMax = Vector2.zero;
+
+        TextMeshProUGUI l = CreateTmp (cols.transform, "ColValores", "valores", 20f, TextAlignmentOptions.MidlineLeft, font);
+        l.fontStyle = FontStyles.Bold;
+        l.raycastTarget = false;
+        RectTransform lrt = l.rectTransform;
+        lrt.anchorMin = new Vector2 (0f, 0f);
+        lrt.anchorMax = new Vector2 (0.70f, 1f);
+        lrt.offsetMin = new Vector2 (6f, 0f);
+        lrt.offsetMax = Vector2.zero;
+
+        TextMeshProUGUI r = CreateTmp (cols.transform, "ColEscolha", "sua escolha", 20f, TextAlignmentOptions.MidlineRight, font);
+        r.fontStyle = FontStyles.Bold;
+        r.raycastTarget = false;
+        RectTransform rrt = r.rectTransform;
+        rrt.anchorMin = new Vector2 (0.70f, 0f);
+        rrt.anchorMax = new Vector2 (1f, 1f);
+        rrt.offsetMin = Vector2.zero;
+        rrt.offsetMax = new Vector2 (-6f, 0f);
+
+        // Componente 2: lista (somente linhas de dados) — ocupa o resto abaixo do header.
+        GameObject listGo = new GameObject ("ErrorsList", typeof (RectTransform));
+        listGo.transform.SetParent (inner.transform, false);
+        RectTransform listRt = listGo.GetComponent<RectTransform> ();
+        listRt.anchorMin = new Vector2 (0f, 0f);
+        listRt.anchorMax = new Vector2 (1f, 1f);
+        listRt.offsetMin = Vector2.zero;
+        listRt.offsetMax = new Vector2 (0f, -(ErrorsHeaderHeight + ErrorsGapBelowHeader));
+
+        VerticalLayoutGroup listVlg = listGo.AddComponent<VerticalLayoutGroup> ();
+        listVlg.spacing = 14f;
+        listVlg.padding = new RectOffset (0, 0, 0, 0);
+        listVlg.childAlignment = TextAnchor.UpperCenter;
+        listVlg.childControlWidth = true;
+        listVlg.childForceExpandWidth = true;
+        listVlg.childControlHeight = true;
+        listVlg.childForceExpandHeight = false;
+        gameOverErrorsRoot = listRt;
+        if (gameOverErrorsBlock != null)
+            gameOverErrorsBlock.SetActive (false);
     }
 
     static Vector2 SizeDeltaForHomeButtonArt (float height)
@@ -488,6 +726,108 @@ public partial class ContiGoGameController2D
             le = rt.gameObject.AddComponent<LayoutElement> ();
         le.preferredWidth = sizeDelta.x;
         le.preferredHeight = sizeDelta.y;
+    }
+
+    void BuildPauseMenuHexagonModal (RectTransform menuPanelRt)
+    {
+        float hex = HexPauseMenuButtonPx;
+        float sp = HexPauseMenuSpacingPx;
+        float pad = HexPauseMenuPopupPadPx;
+        float innerW = hex * 3f + sp * 2f;
+        float innerH = hex;
+        float popW = innerW + pad * 2f;
+        float popH = innerH + pad * 2f;
+
+        GameObject popGo = new GameObject ("MenuPopupCasual", typeof (RectTransform));
+        popGo.transform.SetParent (menuPanelRt, false);
+        RectTransform popRt = popGo.GetComponent<RectTransform> ();
+        popRt.anchorMin = new Vector2 (0.5f, 0.5f);
+        popRt.anchorMax = new Vector2 (0.5f, 0.5f);
+        popRt.pivot = new Vector2 (0.5f, 0.5f);
+        popRt.sizeDelta = new Vector2 (popW, popH);
+        popRt.anchoredPosition = Vector2.zero;
+
+        Image bg = popGo.AddComponent<Image> ();
+        if (_menuPopupBgSprite != null) {
+            bg.sprite = _menuPopupBgSprite;
+            bg.type = _menuPopupBgSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+            bg.preserveAspect = false;
+        }
+        bg.color = Color.white;
+        bg.raycastTarget = true;
+
+        GameObject rowGo = new GameObject ("Group_Menu_Hexagon", typeof (RectTransform));
+        rowGo.transform.SetParent (popGo.transform, false);
+        RectTransform rowRt = rowGo.GetComponent<RectTransform> ();
+        rowRt.anchorMin = Vector2.zero;
+        rowRt.anchorMax = Vector2.one;
+        rowRt.offsetMin = new Vector2 (pad, pad);
+        rowRt.offsetMax = new Vector2 (-pad, -pad);
+
+        HorizontalLayoutGroup hlg = rowGo.AddComponent<HorizontalLayoutGroup> ();
+        hlg.childAlignment = TextAnchor.MiddleCenter;
+        hlg.spacing = sp;
+        hlg.padding = new RectOffset (0, 0, 0, 0);
+        hlg.childControlWidth = false;
+        hlg.childControlHeight = false;
+        hlg.childForceExpandWidth = false;
+        hlg.childForceExpandHeight = false;
+
+        menuBackButton = CreateHexPauseMenuButton (
+            rowGo.transform, "Button_Hexagon_Continue", _menuHexButtonSprite, _menuContinueIconSprite, MenuBackPressed, hex);
+        menuRestartButton = CreateHexPauseMenuButton (
+            rowGo.transform, "Button_Hexagon_ReStart", _menuHexButtonSprite, _menuRestartIconSprite, MenuRestartPressed, hex);
+        menuHomeButton = CreateHexPauseMenuButton (
+            rowGo.transform, "Button_Hexagon_Exit", _menuHexButtonSprite, _menuExitIconSprite, MenuHomePressed, hex);
+    }
+
+    static Button CreateHexPauseMenuButton (
+        Transform parent, string objectName, Sprite hexSprite, Sprite iconSprite, UnityAction onClick, float sizePx)
+    {
+        GameObject go = new GameObject (objectName, typeof (RectTransform));
+        go.transform.SetParent (parent, false);
+
+        LayoutElement le = go.AddComponent<LayoutElement> ();
+        le.preferredWidth = sizePx;
+        le.preferredHeight = sizePx;
+
+        Image hexImg = go.AddComponent<Image> ();
+        hexImg.sprite = hexSprite;
+        if (hexSprite != null && hexSprite.border.sqrMagnitude > 0.0001f) {
+            hexImg.type = Image.Type.Sliced;
+            hexImg.preserveAspect = false;
+        } else {
+            hexImg.type = Image.Type.Simple;
+            hexImg.preserveAspect = true;
+        }
+        hexImg.color = Color.white;
+
+        Button b = go.AddComponent<Button> ();
+        b.targetGraphic = hexImg;
+        b.transition = Selectable.Transition.ColorTint;
+        ColorBlock cb = ColorBlock.defaultColorBlock;
+        cb.highlightedColor = new Color (0.95f, 0.95f, 1f, 1f);
+        cb.pressedColor = new Color (0.78f, 0.82f, 0.95f, 1f);
+        b.colors = cb;
+        if (onClick != null)
+            b.onClick.AddListener (onClick);
+
+        if (iconSprite != null) {
+            GameObject iconGo = new GameObject ("Icon", typeof (RectTransform));
+            iconGo.transform.SetParent (go.transform, false);
+            RectTransform ir = iconGo.GetComponent<RectTransform> ();
+            ir.anchorMin = new Vector2 (0.2f, 0.18f);
+            ir.anchorMax = new Vector2 (0.8f, 0.82f);
+            ir.offsetMin = Vector2.zero;
+            ir.offsetMax = Vector2.zero;
+            Image iimg = iconGo.AddComponent<Image> ();
+            iimg.sprite = iconSprite;
+            iimg.color = Color.white;
+            iimg.preserveAspect = true;
+            iimg.raycastTarget = false;
+        }
+
+        return b;
     }
 
     /// <param name="normalSpriteFileName">Ficheiro em Resources/Imagens (ex.: btn-home.fw). Hover/pressed: prefixo + "-hover"/"-pressed" + extensão. </param>
@@ -667,6 +1007,26 @@ public partial class ContiGoGameController2D
             tmp.fontSize = size;
     }
 
+    Image CreateHudIcon (Transform parent, string name, Sprite preferred, string resourcesFallback)
+    {
+        if (preferred != null)
+            return CreateIconFromSprite (parent, name, preferred);
+        return CreateIcon (parent, name, resourcesFallback);
+    }
+
+    static Image CreateIconFromSprite (Transform parent, string name, Sprite sp)
+    {
+        GameObject go = new GameObject (name, typeof (RectTransform));
+        go.transform.SetParent (parent, false);
+        Image img = go.AddComponent<Image> ();
+        img.sprite = sp;
+        img.type = Image.Type.Simple;
+        img.preserveAspect = true;
+        img.color = Color.white;
+        img.raycastTarget = false;
+        return img;
+    }
+
     static Image CreateIcon (Transform parent, string name, string resourcesPath)
     {
         GameObject go = new GameObject (name, typeof (RectTransform));
@@ -676,6 +1036,7 @@ public partial class ContiGoGameController2D
         img.sprite = sp;
         img.preserveAspect = true;
         img.color = Color.white;
+        img.raycastTarget = false;
         return img;
     }
 
