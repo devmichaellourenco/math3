@@ -97,5 +97,8 @@ Keystore-CREDENTIALS.local.txt
 **/Assets/Plugins/Android/res.meta
 **/Assets/Plugins/Android/.gradle/
 
-# Unity: cache de import do Package Manager
-**/[Pp]ackages/packages-lock.json
+# Layer Lab — pacote comercial (GUI Pro-CasualGame). Manter só na máquina local;
+# não versionar. Ver README na raiz do projeto para nome do asset e como obter a versão.
+Assets/Layer Lab/
+Assets/Layer Lab.meta
+
