@@ -262,3 +262,6 @@ MonoBehaviour:
   _homeButtonSprite: {fileID: 21300000, guid: bf59ce9145cd842ffb1a897977f5200f, type: 3}
   _rankingButtonSprite: {fileID: 21300000, guid: bf59ce9145cd842ffb1a897977f5200f, type: 3}
   _titleFrameSprite: {fileID: 21300000, guid: 980a04bc7d42b4e0fbc93dd10b54d0e5, type: 3}
+  _missionRowFrameSprite: {fileID: 21300000, guid: ccb9cb3d26ff0491da27678834d72789, type: 3}
+  _claimButtonSprite: {fileID: 21300000, guid: cb37917483ee24fea8fab306393441e5, type: 3}
+  _missionLeftIconSprite: {fileID: 0}

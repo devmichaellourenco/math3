@@ -15,9 +15,14 @@ public class ContiGoBoardCell2D : MonoBehaviour
     public TextMeshProUGUI label;
     public Button button;
 
+    /// <summary>Cor do texto nas células do tabuleiro.</summary>
+    public static readonly Color BoardCellLabelColor = Color.white;
+
     public Color unmarkedColor = Color.white;
-    /// <summary>Verde claro: contraste com fundo preto do tabuleiro e número ainda legível em preto.</summary>
+    /// <summary>Verde claro da célula marcada; texto mantém <see cref="BoardCellLabelColor"/>.</summary>
     public Color markedColor = new Color (0.45f, 0.82f, 0.52f);
+    /// <summary>Feedback visual de resposta errada (fundo + estados do botão).</summary>
+    public static readonly Color WrongAnswerFlashColor = new Color (0.9f, 0.22f, 0.2f, 1f);
 
     public void Configure (int row, int col, int value, Action<ContiGoBoardCell2D> onClick)
     {
@@ -26,29 +31,70 @@ public class ContiGoBoardCell2D : MonoBehaviour
         valor = value;
         status = 0;
         label.text = ContiGoFantasyNames.FormatBoardCell (value);
-        label.color = Color.black;
+        label.color = BoardCellLabelColor;
         label.fontWeight = TMPro.FontWeight.Bold;
-        background.color = unmarkedColor;
-        if (button != null) {
-            // Garante que "desativado" não escurece a cor base (evita verde ficar apagado).
-            ColorBlock cb = button.colors;
-            cb.disabledColor = unmarkedColor;
-            cb.colorMultiplier = 1f;
-            button.colors = cb;
-        }
+        if (background != null)
+            background.color = unmarkedColor;
+        ApplyDefaultUnmarkedButtonColors ();
         button.onClick.RemoveAllListeners ();
         if (onClick != null)
             button.onClick.AddListener (() => onClick (this));
     }
 
+    void ApplyDefaultUnmarkedButtonColors ()
+    {
+        if (button == null)
+            return;
+        ColorBlock cb = ColorBlock.defaultColorBlock;
+        cb.normalColor = Color.white;
+        cb.highlightedColor = new Color (0.96f, 0.96f, 0.96f, 1f);
+        cb.pressedColor = new Color (0.88f, 0.88f, 0.88f, 1f);
+        cb.selectedColor = Color.white;
+        cb.disabledColor = unmarkedColor;
+        cb.colorMultiplier = 1f;
+        button.colors = cb;
+    }
+
+    /// <summary>Vermelho no fill e nos tints do <see cref="Button"/> (inclui estado desativado durante o lock de input).</summary>
+    public void ApplyWrongAnswerVisual ()
+    {
+        if (background != null)
+            background.color = WrongAnswerFlashColor;
+        if (button == null)
+            return;
+        ColorBlock cb = button.colors;
+        Color r = WrongAnswerFlashColor;
+        cb.normalColor = r;
+        cb.highlightedColor = new Color (1f, 0.42f, 0.38f, 1f);
+        cb.pressedColor = new Color (0.68f, 0.14f, 0.12f, 1f);
+        cb.selectedColor = r;
+        cb.disabledColor = r;
+        cb.colorMultiplier = 1f;
+        button.colors = cb;
+    }
+
+    /// <summary>Volta ao aspeto normal da célula por marcar (só se ainda não estiver marcada).</summary>
+    public void RestoreUnmarkedAppearance ()
+    {
+        if (status != 0)
+            return;
+        if (background != null)
+            background.color = unmarkedColor;
+        ApplyDefaultUnmarkedButtonColors ();
+    }
+
     public void SetMarked (int playerId)
     {
         status = playerId;
-        background.color = markedColor;
-        label.color = Color.black;
+        if (background != null)
+            background.color = markedColor;
+        label.color = BoardCellLabelColor;
         if (button != null) {
-            // Ao desativar o botão, o Unity usa disabledColor; igualamos ao verde marcado.
             ColorBlock cb = button.colors;
+            cb.normalColor = Color.white;
+            cb.highlightedColor = new Color (0.96f, 0.96f, 0.96f, 1f);
+            cb.pressedColor = new Color (0.88f, 0.88f, 0.88f, 1f);
+            cb.selectedColor = Color.white;
             cb.disabledColor = markedColor;
             cb.colorMultiplier = 1f;
             button.colors = cb;

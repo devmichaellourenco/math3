@@ -1,10 +1,50 @@
 # Roteiro (Storytelling — Jornada do Herói) — “Relatório de erros no Game Over” (Math Rush)
 
-Objetivo do vídeo: explicar a melhoria do **relatório de erros** no final da partida (Game Over), por que ela era necessária e como a solução foi construída com UI correta (sem sobreposição), deixando o jogo mais justo e compreensível.
+Objetivo do vídeo: contar como passámos de um Game Over “mudo” para um **relatório de erros** claro (valores + escolha), enfrentar o **vilão layout** na UI, e fechar o ciclo com um jogo que se sente mais justo — em arco de **Jornada do Herói**, não tutorial seco.
 
-Formato sugerido: **3–6 min** (YouTube) + **1 Short (30s)**  
+Formato sugerido: **5–7 min** (história completa) ou **8–10 min** (incluir *epílogo dev*: Layer Lab só local + README)  
 Estilo: **captura de tela + voz** (sem câmera)  
-Público: **intermediário** (Unity / mobile / UI)
+Público: **jogadores curiosos** + **devs Unity** (camadas diferentes no mesmo vídeo)
+
+---
+
+## Pacote YouTube (copiar para a plataforma)
+
+### Títulos (escolher um)
+- “O jogador errava e não sabia **por quê** — até o Game Over contar a verdade (Unity / Math Rush)”
+- “O vilão não era o bug de lógica: era o **Layout Group** (Game Over + relatório de erros)”
+- “Da frustração ao ‘ah, faz sentido’: relatório de erros no fim da partida”
+
+### Gancho dos primeiros 30 s (gravar forte; cortar pausas)
+**Voz (ritmo rápido):**  
+“Imagine acabar uma partida rápida e só ver pontos. Você *sabe* que errou — mas não *lembra* o raciocínio. Esse buraco vira frustração. Hoje eu conto a jornada de como a gente fechou esse ciclo: um relatório de erros no Game Over, bonito, legível… e por que a batalha real era o **layout**, não o texto.”
+
+### Descrição (rascunho)
+```
+No Math Rush (Desafio da Esfinge), melhorámos o Game Over com um relatório de até 3 erros: valores da jogada e a célula escolhida. O vídeo é storytelling (Jornada do Herói): problema → tentativa → vilão (UI sobreposta) → solução (VerticalLayoutGroup / Control Child Size).
+
+Epílogo para devs: asset comercial Layer Lab (GUI Pro - Casual Game) fica só local; no README ficou nome e versão do pacote.
+
+#unity #gamedev #mobile #ui #ugui #indiedev #mathrush
+```
+
+### Capítulos (colar na descrição e ajustar tempos após edição)
+```
+0:00 Mundo comum — partida rápida
+0:25 Chamado — “onde eu errei?”
+1:05 Mentor — feedback que explica
+1:35 Limiar — primeira versão
+2:10 Caverna — o vilão layout
+3:00 Provação — header + lista
+4:35 Recompensa — antes e depois
+5:15 Retorno — código simples, ciclo fechado
+5:55 Elixir — CTA
+6:30 EXTRA: Git, Layer Lab e README (opcional)
+```
+
+### Miniatura (texto sugerido)
+- Linha 1: “GAME OVER”  
+- Linha 2: “AGORA EXPLICA” ou “O VILÃO ERA O LAYOUT”
 
 ---
 
@@ -91,6 +131,15 @@ Agora o feedback fecha o ciclo da partida.”
 **Tela**: gameplay + texto “próximo: X”.  
 **Voz**:
 “Se você quer ver mais melhorias assim — pequenas no código, grandes no feeling — comenta **‘UI’** que eu mostro a próxima evolução do Math Rush.”
+
+### 13) Epílogo (opcional, +2–3 min) — “O mapa para quem clona o repo”
+*Use se o público incluir devs ou se quiser um “making of” legal.*
+
+**Tela**: `.gitignore` (entradas `Assets/Layer Lab/`), trecho do `README.md` com nome **GUI Pro - Casual Game** e versão **4.1.2**, Unity com pasta local ainda presente.  
+**Voz**:
+“Tem um segundo final feliz que é bem *boring*… mas salva a equipe: o visual bonito veio de um pacote comercial. Então a gente **não versiona** a pasta inteira — cada um importa na máquina. E o README vira o mapa: nome exato do asset na Asset Store e a versão de referência. O herói volta pra casa com o elixir… mas o elixir tem **licença**.”
+
+**Tom**: fechar com humor leve (“boring”) + responsabilidade (compliance / onboarding).
 
 ---
 

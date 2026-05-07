@@ -1087,11 +1087,19 @@ public static class ContiGoFantasyNames
         return data.Name + " (" + value + ")";
     }
 
+    /// <summary>
+    /// Fonte para células só com números: escala com o lado da célula (2×2 / 4×4 têm células grandes).
+    /// </summary>
+    public static float GetNumericBoardCellFontSize (float cellSide)
+    {
+        return Mathf.Clamp (cellSide * 0.48f, 20f, 120f);
+    }
+
     /// <summary>Tamanho de fonte sugerido para o rótulo da célula (nomes longos em grelhas densas).</summary>
     public static float GetSuggestedCellFontSize (float cellSide, int gridSide)
     {
         if (!USE_FANTASY_NAMES_ON_BOARD || !USE_FANTASY_NAMES) {
-            return cellSide > 56f ? 30f : (gridSide <= 4 ? 28f : 24f);
+            return GetNumericBoardCellFontSize (cellSide);
         }
         float baseFs = cellSide > 56f ? 26f : (gridSide <= 4 ? 24f : 20f);
         if (gridSide >= 8)

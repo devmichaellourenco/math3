@@ -97,8 +97,8 @@ public static class ContiGoMissionsCatalog
 
             new ContiGoMissionDefinition (
                 "unlock_level_sage",
-                "Vença no nível Sábio (6×6).",
-                "Win on Sage (6×6).",
+                "Vença no nível Erudito (6×6).",
+                "Win on Erudite (6×6).",
                 64,
                 ContiGoMissionKind.VictoryOnLevel,
                 L (ContiGo2DLevelId.Sabio)),
@@ -129,8 +129,8 @@ public static class ContiGoMissionsCatalog
 
             new ContiGoMissionDefinition (
                 "unlock_3_prime3_master_125",
-                "Três primos (125s) — No Mestre (8×8), marque todos os números com 3 fatores primos antes de 125 s.",
-                "Triple primes (125s) — On Master (8×8), mark all numbers with 3 prime factors before 125 s.",
+                "Três primos (125s) — No Mestre (8×8), marque todos os valores com 3 fatores primos antes de 125 s.",
+                "Triple primes (125s) — On Master (8×8), mark all values with 3 prime factors before 125 s.",
                 3,
                 ContiGoMissionKind.HitValueSetWithinSecondsOnLevel,
                 L (ContiGo2DLevelId.Mestre),

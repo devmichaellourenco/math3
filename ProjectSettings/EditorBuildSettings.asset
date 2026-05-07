@@ -33,13 +33,16 @@ EditorBuildSettings:
     path: Assets/Scenes/GamePlay.unity
     guid: 2d03964063c32854a8731ddeaa26f538
   - enabled: 1
+    path: Assets/Scenes/ContiGoLocalRanking.unity
+    guid: 8d2f7c4d7f8a4c8e9b8f4f0b5e2a1c33
+  - enabled: 1
     path: Assets/Scenes/GPGSAuth.unity
     guid: 59bd04a5f97047643951aa984ded6e42
   - enabled: 1
     path: Assets/Scenes/ContiGoGpgsRanking.unity
     guid: 31136b60f4eeaae4c9e06fe7d5d0d2b0
   - enabled: 1
-    path: Assets/Scenes/LeaderboardUI.unity
+    path: Assets/Scenes/Old/LeaderboardUI.unity
     guid: b4659ae46acff5c42aad75fc23d49800
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

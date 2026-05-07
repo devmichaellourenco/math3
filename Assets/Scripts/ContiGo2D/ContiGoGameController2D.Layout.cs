@@ -17,7 +17,7 @@ public partial class ContiGoGameController2D
             yield return null;
         }
 
-               if (!laidOut) {
+        if (!laidOut) {
             Canvas.ForceUpdateCanvases ();
             if (!TryComputePortraitBoardLayout ()) {
                 boardGridRoot.anchorMin = new Vector2 (0.05f, 0.22f);

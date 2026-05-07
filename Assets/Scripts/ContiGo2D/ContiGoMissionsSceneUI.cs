@@ -10,6 +10,12 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
     const float HomeButtonFontSize = 60f;
     const float TitleFrameW = 550f;
     const float TitleFrameH = 200f;
+    const int MissionListPadding = 24;
+    /// <summary>Altura mínima da linha — acomodarte + ícone alto + margens do frame.</summary>
+    const float MissionRowMinHeight = 220f;
+    /// <summary>Largura da coluna do cartão/ícone à esquerda (o desenho escala em altura dentro da linha).</summary>
+    const float MissionRowIconColumnWidth = 108f;
+    const float MissionRowRightWidth = 230f;
 
     [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Button / btn_rectangle_01_n_dark (fundo do botão Home)")]
     [SerializeField] Sprite _homeButtonSprite;
@@ -17,6 +23,14 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
     [SerializeField] Sprite _rankingButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Frame / frame_linetextframe_05_White2 (fundo do título)")]
     [SerializeField] Sprite _titleFrameSprite;
+
+    [Header ("Missions list style (GUI Pro CasualGame)")]
+    [Tooltip ("Assets/Layer Lab/GUI Pro-CasualGame/ResourcesData/Sprites/Components/Frame/Frame_ListFrame07.png")]
+    [SerializeField] Sprite _missionRowFrameSprite;
+    [Tooltip ("Assets/Layer Lab/GUI Pro-CasualGame/ResourcesData/Sprites/Components/Button/Button01_145_Green.Png")]
+    [SerializeField] Sprite _claimButtonSprite;
+    [Tooltip ("Imagem à esquerda no item da missão (ex.: carta com '?'). Se null, usa placeholder.")]
+    [SerializeField] Sprite _missionLeftIconSprite;
 
     void Awake ()
     {
@@ -28,7 +42,8 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
 
         ContiGoProgressRuntime.ReloadFromDisk ();
 
-        TMP_FontAsset font = Resources.Load<TMP_FontAsset> ("Fonts & Materials/Anton SDF");
+        TMP_FontAsset font = ContiGo2DSharedUi.GetBoardCellFont ();
+        TMP_FontAsset missionListFont = font;
         string language = "portuguese";
         try {
             if (ES2.Exists ("language"))
@@ -54,7 +69,7 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
 
         AddBlueBackground (canvasRt);
 
-        AddTitle (canvasRt, pt ? "MISSÕES" : "MISSIONS", font, 0.88f, 0.96f, _titleFrameSprite);
+        AddTitle (canvasRt, pt ? "DESBLOQUEIOS" : "UNLOCKS", font, 0.88f, 0.96f, _titleFrameSprite);
 
         GameObject scrollGo = new GameObject ("Scroll", typeof (RectTransform));
         scrollGo.transform.SetParent (canvasRt, false);
@@ -91,8 +106,8 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
         cRt.sizeDelta = new Vector2 (0f, 0f);
 
         VerticalLayoutGroup vlg = content.AddComponent<VerticalLayoutGroup> ();
-        vlg.spacing = 10f;
-        vlg.padding = new RectOffset (8, 8, 8, 8);
+        vlg.spacing = 16f;
+        vlg.padding = new RectOffset (MissionListPadding, MissionListPadding, MissionListPadding, MissionListPadding);
         vlg.childAlignment = TextAnchor.UpperCenter;
         vlg.childControlWidth = true;
         vlg.childForceExpandWidth = true;
@@ -107,60 +122,270 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
 
         foreach (ContiGoMissionDefinition def in ContiGoMissionsCatalog.All) {
             bool done = ContiGoProgressRuntime.IsMissionCompleted (def.Id);
-            AddMissionRow (content.transform, def, done, pt, font);
+            bool claimed = ContiGoProgressRuntime.IsCardUnlocked (def.TargetCardId);
+            AddMissionRow (content.transform, def, done, claimed, pt, missionListFont, _missionRowFrameSprite, _claimButtonSprite, _missionLeftIconSprite);
         }
 
-        AddRankingButton (canvasRt, pt, font, _rankingButtonSprite != null ? _rankingButtonSprite : _homeButtonSprite);
-        AddBackButton (canvasRt, font, _homeButtonSprite);
+        Sprite actionBtnBg = ContiGo2DSharedUi.GetSceneActionButtonBackgroundSprite ()
+            ?? (_rankingButtonSprite != null ? _rankingButtonSprite : _homeButtonSprite);
+        AddRankingButton (canvasRt, pt, font, actionBtnBg);
+        ContiGo2DSharedUi.AddHomeBackButtonTopLeft (canvasRt);
     }
 
-    static void AddMissionRow (Transform parent, ContiGoMissionDefinition def, bool done, bool pt, TMP_FontAsset font)
+    static void AddMissionRow (
+        Transform parent,
+        ContiGoMissionDefinition def,
+        bool done,
+        bool claimed,
+        bool pt,
+        TMP_FontAsset font,
+        Sprite frameSprite,
+        Sprite claimBtnSprite,
+        Sprite leftIconSprite)
     {
         GameObject row = new GameObject ("Row_" + def.Id, typeof (RectTransform));
         row.transform.SetParent (parent, false);
         LayoutElement le = row.AddComponent<LayoutElement> ();
-        le.minHeight = 140f;
-        le.preferredHeight = 140f;
+        le.minHeight = MissionRowMinHeight;
+        le.preferredHeight = MissionRowMinHeight;
 
         Image bg = row.AddComponent<Image> ();
-        bg.color = done ? new Color (0.35f, 0.62f, 0.42f, 0.35f) : new Color (0.15f, 0.2f, 0.28f, 0.45f);
+        if (frameSprite != null) {
+            bg.sprite = frameSprite;
+            bg.type = frameSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+            bg.preserveAspect = false;
+        }
 
-        GameObject txtGo = new GameObject ("Desc", typeof (RectTransform));
-        txtGo.transform.SetParent (row.transform, false);
-        RectTransform tr = txtGo.GetComponent<RectTransform> ();
-        tr.anchorMin = new Vector2 (0f, 0f);
-        tr.anchorMax = new Vector2 (0.78f, 1f);
-        tr.offsetMin = new Vector2 (12f, 6f);
-        tr.offsetMax = new Vector2 (-8f, -6f);
-        TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
-        tmp.text = pt ? def.DescriptionPt : def.DescriptionEn;
-        tmp.fontSize = 32f;
-        tmp.enableAutoSizing = true;
-        tmp.fontSizeMin = 24f;
-        tmp.fontSizeMax = 36f;
-        tmp.alignment = TextAlignmentOptions.MidlineLeft;
-        tmp.color = Color.white;
-        if (font != null)
-            tmp.font = font;
-        tmp.enableWordWrapping = true;
+        // Cores do exemplo:
+        // - claim disponível: #1DB1FF
+        // - pendente: #045E9D
+        Color pendingCol = new Color (0.015686f, 0.368627f, 0.615686f, 1f);
+        Color claimableCol = new Color (0.113725f, 0.694117f, 1f, 1f);
+        bool claimable = done && !claimed;
+        Color baseCol = claimable ? claimableCol : pendingCol;
+        bg.color = claimable ? baseCol : new Color (baseCol.r, baseCol.g, baseCol.b, 0.92f);
 
-        GameObject stGo = new GameObject ("Status", typeof (RectTransform));
-        stGo.transform.SetParent (row.transform, false);
-        RectTransform sr = stGo.GetComponent<RectTransform> ();
-        sr.anchorMin = new Vector2 (0.78f, 0f);
-        sr.anchorMax = new Vector2 (1f, 1f);
-        sr.offsetMin = new Vector2 (4f, 6f);
-        sr.offsetMax = new Vector2 (-12f, -6f);
-        TextMeshProUGUI st = stGo.AddComponent<TextMeshProUGUI> ();
-        st.text = done ? (pt ? "Concluída" : "Done") : (pt ? "Pendente" : "Pending");
-        st.fontSize = 28f;
-        st.enableAutoSizing = true;
-        st.fontSizeMin = 20f;
-        st.fontSizeMax = 32f;
-        st.alignment = TextAlignmentOptions.MidlineRight;
-        st.color = done ? new Color (0.85f, 1f, 0.88f) : new Color (0.85f, 0.85f, 0.9f);
+        HorizontalLayoutGroup rowHlg = row.AddComponent<HorizontalLayoutGroup> ();
+        // Mais espaço útil à esquerda: cartão colado ao lado interno do frame da linha.
+        rowHlg.padding = new RectOffset (6, 16, 12, 12);
+        rowHlg.spacing = 12;
+        rowHlg.childAlignment = TextAnchor.MiddleLeft;
+        rowHlg.childControlWidth = true;
+        rowHlg.childForceExpandWidth = false;
+        rowHlg.childControlHeight = true;
+        rowHlg.childForceExpandHeight = true;
+
+        // Ícone/cartão à esquerda: coluna fixa, altura = altura útil da linha (via HLG).
+        GameObject left = new GameObject ("LeftIcon", typeof (RectTransform));
+        left.transform.SetParent (row.transform, false);
+        LayoutElement lle = left.AddComponent<LayoutElement> ();
+        lle.preferredWidth = MissionRowIconColumnWidth;
+        lle.minWidth = MissionRowIconColumnWidth;
+        lle.flexibleWidth = 0f;
+
+        RectTransform lrtRoot = left.GetComponent<RectTransform> ();
+        lrtRoot.anchorMin = Vector2.zero;
+        lrtRoot.anchorMax = Vector2.one;
+
+        GameObject inner = new GameObject ("IconInner", typeof (RectTransform));
+        inner.transform.SetParent (left.transform, false);
+        RectTransform irt = inner.GetComponent<RectTransform> ();
+        irt.anchorMin = Vector2.zero;
+        irt.anchorMax = Vector2.one;
+        irt.offsetMin = new Vector2 (0f, 6f);
+        irt.offsetMax = new Vector2 (-2f, -6f);
+
+        Image limg = inner.AddComponent<Image> ();
+        limg.raycastTarget = false;
+        if (leftIconSprite != null) {
+            limg.sprite = leftIconSprite;
+            limg.type = leftIconSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+            limg.preserveAspect = true;
+            limg.color = Color.white;
+        } else {
+            limg.sprite = null;
+            limg.color = new Color (0f, 0f, 0f, 0.28f);
+            GameObject q = new GameObject ("Q", typeof (RectTransform));
+            q.transform.SetParent (inner.transform, false);
+            RectTransform qrt = q.GetComponent<RectTransform> ();
+            qrt.anchorMin = Vector2.zero;
+            qrt.anchorMax = Vector2.one;
+            qrt.offsetMin = Vector2.zero;
+            qrt.offsetMax = Vector2.zero;
+            TextMeshProUGUI qtxt = q.AddComponent<TextMeshProUGUI> ();
+            qtxt.raycastTarget = false;
+            qtxt.text = "?";
+            qtxt.fontSize = 72f;
+            qtxt.enableAutoSizing = true;
+            qtxt.fontSizeMin = 40f;
+            qtxt.fontSizeMax = 80f;
+            qtxt.alignment = TextAlignmentOptions.Center;
+            qtxt.color = Color.white;
+            if (font != null)
+                qtxt.font = font;
+        }
+
+        // Bloco central: Título (em cima) + descrição (em baixo)
+        GameObject mid = new GameObject ("Mid", typeof (RectTransform));
+        mid.transform.SetParent (row.transform, false);
+        LayoutElement midLe = mid.AddComponent<LayoutElement> ();
+        midLe.flexibleWidth = 1f;
+        midLe.minWidth = 120f;
+        RectTransform mrt = mid.GetComponent<RectTransform> ();
+        mrt.anchorMin = Vector2.zero;
+        mrt.anchorMax = Vector2.one;
+        mrt.offsetMin = new Vector2 (2f, 8f);
+        mrt.offsetMax = new Vector2 (-2f, -8f);
+
+        string title = ContiGoFantasyNames.GetFantasyName (def.TargetCardId);
+        if (string.IsNullOrEmpty (title))
+            title = pt ? "Missão" : "Mission";
+
+        GameObject titleGo = new GameObject ("Title", typeof (RectTransform));
+        titleGo.transform.SetParent (mid.transform, false);
+        RectTransform ttr = titleGo.GetComponent<RectTransform> ();
+        ttr.anchorMin = new Vector2 (0f, 0.55f);
+        ttr.anchorMax = new Vector2 (1f, 1f);
+        ttr.offsetMin = Vector2.zero;
+        ttr.offsetMax = Vector2.zero;
+        TextMeshProUGUI titleTmp = titleGo.AddComponent<TextMeshProUGUI> ();
+        titleTmp.raycastTarget = false;
+        titleTmp.text = title;
+        titleTmp.fontSize = 40f;
+        titleTmp.enableAutoSizing = true;
+        titleTmp.fontSizeMin = 28f;
+        titleTmp.fontSizeMax = 44f;
+        titleTmp.alignment = TextAlignmentOptions.TopLeft;
+        titleTmp.color = Color.white;
         if (font != null)
-            st.font = font;
+            titleTmp.font = font;
+
+        GameObject descGo = new GameObject ("Description", typeof (RectTransform));
+        descGo.transform.SetParent (mid.transform, false);
+        RectTransform dtr = descGo.GetComponent<RectTransform> ();
+        dtr.anchorMin = new Vector2 (0f, 0f);
+        dtr.anchorMax = new Vector2 (1f, 0.58f);
+        dtr.offsetMin = Vector2.zero;
+        dtr.offsetMax = Vector2.zero;
+        TextMeshProUGUI descTmp = descGo.AddComponent<TextMeshProUGUI> ();
+        descTmp.raycastTarget = false;
+        descTmp.text = pt ? def.DescriptionPt : def.DescriptionEn;
+        descTmp.fontSize = 30f;
+        descTmp.enableAutoSizing = true;
+        descTmp.fontSizeMin = 22f;
+        descTmp.fontSizeMax = 34f;
+        descTmp.alignment = TextAlignmentOptions.BottomLeft;
+        descTmp.color = new Color (1f, 1f, 1f, 0.95f);
+        if (font != null)
+            descTmp.font = font;
+        descTmp.enableWordWrapping = true;
+
+        // Bloco da direita: Claim (se elegível) ou texto de estado (pendente/concluída)
+        GameObject right = new GameObject ("Right", typeof (RectTransform));
+        right.transform.SetParent (row.transform, false);
+        LayoutElement rle = right.AddComponent<LayoutElement> ();
+        rle.preferredWidth = MissionRowRightWidth;
+        rle.minWidth = MissionRowRightWidth - 24f;
+        rle.flexibleWidth = 0f;
+        RectTransform rrt = right.GetComponent<RectTransform> ();
+        rrt.anchorMin = Vector2.zero;
+        rrt.anchorMax = Vector2.one;
+        rrt.offsetMin = Vector2.zero;
+        rrt.offsetMax = Vector2.zero;
+
+        TextMeshProUGUI statusTmp = null;
+        Button claimBtn = null;
+        GameObject claimGo = null;
+
+        if (claimable) {
+            claimGo = new GameObject ("ClaimButton", typeof (RectTransform));
+            claimGo.transform.SetParent (right.transform, false);
+            RectTransform crt = claimGo.GetComponent<RectTransform> ();
+            crt.anchorMin = new Vector2 (0f, 0.5f);
+            crt.anchorMax = new Vector2 (1f, 0.5f);
+            crt.pivot = new Vector2 (0.5f, 0.5f);
+            crt.sizeDelta = new Vector2 (-20f, 92f);
+            crt.anchoredPosition = Vector2.zero;
+
+            Image cimg = claimGo.AddComponent<Image> ();
+            if (claimBtnSprite != null) {
+                cimg.sprite = claimBtnSprite;
+                cimg.type = claimBtnSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+                cimg.preserveAspect = false;
+                cimg.color = Color.white;
+            } else {
+                cimg.color = new Color (0.2f, 0.8f, 0.3f, 1f);
+            }
+            claimBtn = claimGo.AddComponent<Button> ();
+            claimBtn.targetGraphic = cimg;
+
+            GameObject ctextGo = new GameObject ("Text", typeof (RectTransform));
+            ctextGo.transform.SetParent (claimGo.transform, false);
+            RectTransform ctr = ctextGo.GetComponent<RectTransform> ();
+            ctr.anchorMin = Vector2.zero;
+            ctr.anchorMax = Vector2.one;
+            ctr.offsetMin = new Vector2 (10f, 6f);
+            ctr.offsetMax = new Vector2 (-10f, -6f);
+            TextMeshProUGUI ctmp = ctextGo.AddComponent<TextMeshProUGUI> ();
+            ctmp.raycastTarget = false;
+            ctmp.text = "Claim";
+            ctmp.fontSize = 34f;
+            ctmp.enableAutoSizing = true;
+            ctmp.fontSizeMin = 22f;
+            ctmp.fontSizeMax = 36f;
+            ctmp.alignment = TextAlignmentOptions.Center;
+            ctmp.color = Color.white;
+            if (font != null)
+                ctmp.font = font;
+
+            claimBtn.onClick.AddListener (() => {
+                bool unlockedNow = ContiGoProgressRuntime.ClaimMissionReward (def);
+                if (!unlockedNow)
+                    return;
+                // Atualiza UI do item sem reconstruir a lista.
+                if (claimGo != null)
+                    Object.Destroy (claimGo);
+                if (statusTmp == null) {
+                    GameObject stGo2 = new GameObject ("Status", typeof (RectTransform));
+                    stGo2.transform.SetParent (right.transform, false);
+                    RectTransform srt = stGo2.GetComponent<RectTransform> ();
+                    srt.anchorMin = new Vector2 (0f, 0f);
+                    srt.anchorMax = new Vector2 (1f, 1f);
+                    srt.offsetMin = new Vector2 (0f, 18f);
+                    srt.offsetMax = new Vector2 (-6f, -18f);
+                    statusTmp = stGo2.AddComponent<TextMeshProUGUI> ();
+                    statusTmp.raycastTarget = false;
+                    statusTmp.fontSize = 28f;
+                    statusTmp.enableAutoSizing = true;
+                    statusTmp.fontSizeMin = 20f;
+                    statusTmp.fontSizeMax = 32f;
+                    statusTmp.alignment = TextAlignmentOptions.MidlineRight;
+                    statusTmp.color = Color.white;
+                    if (font != null)
+                        statusTmp.font = font;
+                }
+                statusTmp.text = pt ? "Concluída" : "Done";
+            });
+        } else {
+            GameObject stGo = new GameObject ("Status", typeof (RectTransform));
+            stGo.transform.SetParent (right.transform, false);
+            RectTransform sr = stGo.GetComponent<RectTransform> ();
+            sr.anchorMin = new Vector2 (0f, 0f);
+            sr.anchorMax = new Vector2 (1f, 1f);
+            sr.offsetMin = new Vector2 (0f, 18f);
+            sr.offsetMax = new Vector2 (-6f, -18f);
+            statusTmp = stGo.AddComponent<TextMeshProUGUI> ();
+            statusTmp.raycastTarget = false;
+            statusTmp.text = done ? (pt ? "Concluída" : "Done") : (pt ? "Pendente" : "Pending");
+            statusTmp.fontSize = 28f;
+            statusTmp.enableAutoSizing = true;
+            statusTmp.fontSizeMin = 20f;
+            statusTmp.fontSizeMax = 32f;
+            statusTmp.alignment = TextAlignmentOptions.MidlineRight;
+            statusTmp.color = Color.white;
+            if (font != null)
+                statusTmp.font = font;
+        }
     }
 
     static void AddTitle (RectTransform parent, string text, TMP_FontAsset font, float yMin, float yMax, Sprite titleFrameSprite)
@@ -278,47 +503,4 @@ public class ContiGoMissionsSceneUI : MonoBehaviour
             tmp.font = font;
     }
 
-    static void AddBackButton (RectTransform canvasRt, TMP_FontAsset font, Sprite homeBackgroundSprite)
-    {
-        GameObject go = new GameObject ("BtnBack", typeof (RectTransform));
-        go.transform.SetParent (canvasRt, false);
-        RectTransform rt = go.GetComponent<RectTransform> ();
-        rt.anchorMin = new Vector2 (0.08f, 0.02f);
-        rt.anchorMax = new Vector2 (0.92f, 0.09f);
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
-        Image img = go.AddComponent<Image> ();
-        if (homeBackgroundSprite != null) {
-            img.sprite = homeBackgroundSprite;
-            img.color = Color.white;
-            if (homeBackgroundSprite.border.sqrMagnitude > 0.0001f) {
-                img.type = Image.Type.Sliced;
-                img.preserveAspect = false;
-            } else {
-                img.type = Image.Type.Simple;
-                img.preserveAspect = true;
-            }
-        } else {
-            img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
-        }
-        Button btn = go.AddComponent<Button> ();
-        btn.targetGraphic = img;
-        btn.onClick.AddListener (() => SceneManager.LoadScene ("Home"));
-
-        GameObject txtGo = new GameObject ("Text", typeof (RectTransform));
-        txtGo.transform.SetParent (go.transform, false);
-        RectTransform tr = txtGo.GetComponent<RectTransform> ();
-        tr.anchorMin = Vector2.zero;
-        tr.anchorMax = Vector2.one;
-        tr.offsetMin = new Vector2 (8f, 4f);
-        tr.offsetMax = new Vector2 (-8f, -4f);
-        TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
-        tmp.raycastTarget = false;
-        tmp.text = "HOME";
-        tmp.fontSize = HomeButtonFontSize;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color = Color.white;
-        if (font != null)
-            tmp.font = font;
-    }
 }

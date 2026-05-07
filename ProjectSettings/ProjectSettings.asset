@@ -22,7 +22,7 @@ PlayerSettings:
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
-  m_SplashScreenDrawMode: 0
+  m_SplashScreenDrawMode: 1
   m_SplashScreenBackgroundAnimationZoom: 1
   m_SplashScreenLogoAnimationZoom: 1
   m_SplashScreenBackgroundLandscapeAspect: 1
@@ -39,8 +39,11 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
-  m_VirtualRealitySplashScreen: {fileID: 0}
+  m_SplashScreenLogos:
+  - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
+    duration: 2
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 46368754a72501b4baf157134e861a05,
+    type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
@@ -143,7 +146,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.40
+  bundleVersion: 0.63
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -173,7 +176,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 40
+  AndroidBundleVersionCode: 63
   AndroidMinSdkVersion: 25
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -267,8 +270,8 @@ PlayerSettings:
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 3
   AndroidAllowedArchitectures: -1
-  AndroidSplashScreenScale: 0
-  androidSplashScreen: {fileID: 0}
+  AndroidSplashScreenScale: 2
+  androidSplashScreen: {fileID: 2800000, guid: 46368754a72501b4baf157134e861a05, type: 3}
   AndroidKeystoreName: '{inproject}: contigo-release.keystore'
   AndroidKeyaliasName: contigomobile
   AndroidEnableArmv9SecurityFeatures: 0
@@ -298,7 +301,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      m_Icon: {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -306,115 +309,115 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 324
       m_Height: 324
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 216
       m_Height: 216
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 162
       m_Height: 162
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 108
       m_Height: 108
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 81
       m_Height: 81
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 144
       m_Height: 144
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 96
       m_Height: 96
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 72
       m_Height: 72
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 48
       m_Height: 48
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 36
       m_Height: 36
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 144
       m_Height: 144
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 96
       m_Height: 96
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 72
       m_Height: 72
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 48
       m_Height: 48
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 2d608f8d0ef754e478d706b5d1f076f5, type: 3}
+      - {fileID: 2800000, guid: 0dcc31067d6e93e408f88173c1dcb602, type: 3}
       m_Width: 36
       m_Height: 36
       m_Kind: 0
@@ -756,7 +759,8 @@ PlayerSettings:
   ps4IncludedModules: []
   ps4attribVROutputEnabled: 0
   monoEnv: 
-  splashScreenBackgroundSourceLandscape: {fileID: 0}
+  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: 46368754a72501b4baf157134e861a05,
+    type: 3}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
   blurSplashScreenBackground: 1
   spritePackerPolicy: 
@@ -852,7 +856,7 @@ PlayerSettings:
   syncCapabilities: 0
   platformCapabilities:
     WindowsStoreApps:
-      EnterpriseAuthentication: False
+      CodeGeneration: False
       OfflineMapsManagement: False
       HumanInterfaceDevice: False
       Location: False
@@ -885,10 +889,10 @@ PlayerSettings:
       PointOfService: False
       RecordedCallsFolder: False
       Contacts: False
-      InternetClient: False
-      CodeGeneration: False
-      BackgroundMediaPlayback: False
       Proximity: False
+      InternetClient: False
+      BackgroundMediaPlayback: False
+      EnterpriseAuthentication: False
   metroTargetDeviceFamilies:
     Desktop: False
     Holographic: False

@@ -13,12 +13,16 @@ public class PlayGamesController : MonoBehaviour
 {
     const string KeyLeaderboardIdOverride = "gpgs_leaderboard_id";
     const string KeyBestReported = "gpgs_leaderboard_best_reported_v1";
+    const string KeyTimeLeaderboardIdOverride = "gpgs_leaderboard_time_id";
 
     static PlayGamesController _instance;
 
     [Header ("Google Play Games / Leaderboards")]
     [Tooltip ("ID do leaderboard. Se vazio, usa GPGSIds (gerado pelo plugin) ou ES2 key gpgs_leaderboard_id.")]
     [SerializeField] string leaderboardId = "";
+
+    [Tooltip ("ID do leaderboard de tempo (menor é melhor). Se vazio, usa ES2 key gpgs_leaderboard_time_id ou fallback hardcoded.")]
+    [SerializeField] string timeLeaderboardId = "CgkIk6v8heUKEAIQAg";
 
     [Header ("Opcional (cena GPGSAuth)")]
     public Text mainText;
@@ -121,9 +125,30 @@ public class PlayGamesController : MonoBehaviour
         return GPGSIds.leaderboard_ranking;
     }
 
+    string ResolveTimeLeaderboardId ()
+    {
+        if (!string.IsNullOrEmpty (timeLeaderboardId))
+            return timeLeaderboardId;
+        try {
+            if (ES2.Exists (KeyTimeLeaderboardIdOverride)) {
+                string v = ES2.Load<string> (KeyTimeLeaderboardIdOverride);
+                if (!string.IsNullOrEmpty (v))
+                    return v;
+            }
+        } catch {
+            // ignore
+        }
+        return "CgkIk6v8heUKEAIQAg";
+    }
+
     public static string GetLeaderboardId ()
     {
         return EnsureExists ().ResolveLeaderboardId ();
+    }
+
+    public static string GetTimeLeaderboardId ()
+    {
+        return EnsureExists ().ResolveTimeLeaderboardId ();
     }
 
     public static void TrySignInSilent ()
@@ -189,6 +214,53 @@ public class PlayGamesController : MonoBehaviour
     public static void PostToLeaderboard (long newScore)
     {
         EnsureExists ().PostToLeaderboardInstance (newScore);
+    }
+
+    /// <summary>
+    /// Envia um tempo (duração) para o leaderboard de tempo.
+    /// A métrica enviada é em milissegundos (score inteiro). No Console, configure como "Tempo" e "Menor é melhor".
+    /// </summary>
+    public static void PostTimeToLeaderboardMs (long durationMs)
+    {
+        EnsureExists ().PostTimeToLeaderboardInstance (durationMs);
+    }
+
+    void PostTimeToLeaderboardInstance (long durationMs)
+    {
+        // Reaproveita o mesmo estado de debug UI: a última mensagem sempre reflete o último envio (pontos ou tempo).
+        _lastLeaderboardPostHadAttempt = true;
+        _lastLeaderboardPostSuccess = false;
+        _lastLeaderboardPostInFlight = false;
+        _lastLeaderboardPostStartedAt = -1f;
+        _lastLeaderboardPostCompletedAt = -1f;
+
+        string lid = ResolveTimeLeaderboardId ();
+        if (string.IsNullOrEmpty (lid)) {
+            _lastLeaderboardPostMsg = "Falha: leaderboardId (tempo) vazio.";
+            Debug.LogWarning ("PlayGamesController: timeLeaderboardId vazio. Defina no Inspector ou via ES2 key " + KeyTimeLeaderboardIdOverride + ".");
+            return;
+        }
+
+        if (Social.localUser == null || !Social.localUser.authenticated) {
+            _lastLeaderboardPostMsg = "Falha: Play Games offline (não autenticado).";
+            Debug.Log ("PlayGamesController: não autenticado; mantendo ranking local. Tempo pendente (ms): " + durationMs);
+            return;
+        }
+
+        long safeMs = Math.Max (0L, durationMs);
+        _lastLeaderboardPostMsg = "A enviar tempo para o Google… (" + safeMs + " ms)";
+        _lastLeaderboardPostInFlight = true;
+        _lastLeaderboardPostStartedAt = Time.realtimeSinceStartup;
+
+        Social.ReportScore (safeMs, lid, success => {
+            Debug.Log ("PlayGamesController: ReportScore(timeMs=" + safeMs + ") => " + success);
+            _lastLeaderboardPostSuccess = success;
+            _lastLeaderboardPostInFlight = false;
+            _lastLeaderboardPostCompletedAt = Time.realtimeSinceStartup;
+            _lastLeaderboardPostMsg = success
+                ? "Tempo enviado para o Google com sucesso. (" + safeMs + " ms)"
+                : "Falha ao enviar tempo para o Google. (" + safeMs + " ms)";
+        });
     }
 
     void PostToLeaderboardInstance (long newScore)

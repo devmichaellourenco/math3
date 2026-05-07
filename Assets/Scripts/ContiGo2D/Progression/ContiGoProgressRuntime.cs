@@ -34,6 +34,22 @@ public static class ContiGoProgressRuntime
         return s_unlockedCards.Contains (cardId);
     }
 
+    /// <summary>
+    /// Reivindica (claim) a recompensa de uma missão já concluída.
+    /// Não altera o estado "done" (isso já é persistido por <see cref="TryCompleteMission"/>).
+    /// </summary>
+    public static bool ClaimMissionReward (ContiGoMissionDefinition def)
+    {
+        EnsureLoaded ();
+        if (!s_doneMissions.Contains (def.Id))
+            return false;
+        if (s_unlockedCards.Contains (def.TargetCardId))
+            return false;
+        s_unlockedCards.Add (def.TargetCardId);
+        ContiGoProgressPersistence.Save (s_unlockedCards, s_doneMissions);
+        return true;
+    }
+
     public static IReadOnlyCollection<int> UnlockedCardIds ()
     {
         EnsureLoaded ();

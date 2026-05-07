@@ -4,11 +4,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>Cena de coleção de cartas (valores + nomes fantasia + modal de detalhes para cartas desbloqueadas).</summary>
+/// <summary>Cena de cartas (valores + nomes fantasia + modal de detalhes para cartas desbloqueadas).</summary>
 public class ContiGoCollectionSceneUI : MonoBehaviour
 {
     TMP_FontAsset _font;
-    /// <summary>Fonte de corpo para a lore no modal (mais legível que display).</summary>
+    /// <summary>Mesma fonte do tabuleiro (Lilita) no modal de detalhe / lore.</summary>
     TMP_FontAsset _loreModalFont;
     bool _pt;
     GameObject _detailModal;
@@ -48,9 +48,8 @@ public class ContiGoCollectionSceneUI : MonoBehaviour
 
         ContiGoProgressRuntime.ReloadFromDisk ();
 
-        _font = Resources.Load<TMP_FontAsset> ("Fonts & Materials/Anton SDF");
-        _loreModalFont = Resources.Load<TMP_FontAsset> ("Fonts & Materials/LiberationSans SDF")
-            ?? Resources.Load<TMP_FontAsset> ("Fonts & Materials/LiberationSans SDF - Fallback");
+        _font = ContiGo2DSharedUi.GetBoardCellFont ();
+        _loreModalFont = ContiGo2DSharedUi.GetBoardCellFont ();
         string language = "portuguese";
         try {
             if (ES2.Exists ("language"))
@@ -75,7 +74,7 @@ public class ContiGoCollectionSceneUI : MonoBehaviour
         canvasRt.offsetMax = Vector2.zero;
 
         AddBlueBackground (canvasRt);
-        AddTitle (canvasRt, _pt ? "COLEÇÃO" : "COLLECTION", _font, 0.88f, 0.96f, _titleFrameSprite);
+        AddTitle (canvasRt, _pt ? "CARTAS" : "CARDS", _font, 0.88f, 0.96f, _titleFrameSprite);
 
         GameObject scrollGo = new GameObject ("Scroll", typeof (RectTransform));
         scrollGo.transform.SetParent (canvasRt, false);
@@ -130,8 +129,10 @@ public class ContiGoCollectionSceneUI : MonoBehaviour
             AddCardCell (content.transform, id, unlocked);
         }
 
-        AddRankingButton (canvasRt, _pt, _font, _rankingButtonSprite != null ? _rankingButtonSprite : _homeButtonSprite);
-        AddBackButton (canvasRt, _font, _homeButtonSprite);
+        Sprite actionBtnBg = ContiGo2DSharedUi.GetSceneActionButtonBackgroundSprite ()
+            ?? (_rankingButtonSprite != null ? _rankingButtonSprite : _homeButtonSprite);
+        AddRankingButton (canvasRt, _pt, _font, actionBtnBg);
+        ContiGo2DSharedUi.AddHomeBackButtonTopLeft (canvasRt);
         BuildDetailModal (canvasRt);
     }
 
@@ -827,47 +828,4 @@ public class ContiGoCollectionSceneUI : MonoBehaviour
             tmp.font = font;
     }
 
-    static void AddBackButton (RectTransform canvasRt, TMP_FontAsset font, Sprite homeBackgroundSprite)
-    {
-        GameObject go = new GameObject ("BtnBack", typeof (RectTransform));
-        go.transform.SetParent (canvasRt, false);
-        RectTransform rt = go.GetComponent<RectTransform> ();
-        rt.anchorMin = new Vector2 (0.08f, 0.02f);
-        rt.anchorMax = new Vector2 (0.92f, 0.09f);
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
-        Image img = go.AddComponent<Image> ();
-        if (homeBackgroundSprite != null) {
-            img.sprite = homeBackgroundSprite;
-            img.color = Color.white;
-            if (homeBackgroundSprite.border.sqrMagnitude > 0.0001f) {
-                img.type = Image.Type.Sliced;
-                img.preserveAspect = false;
-            } else {
-                img.type = Image.Type.Simple;
-                img.preserveAspect = true;
-            }
-        } else {
-            img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
-        }
-        Button btn = go.AddComponent<Button> ();
-        btn.targetGraphic = img;
-        btn.onClick.AddListener (() => SceneManager.LoadScene ("Home"));
-
-        GameObject txtGo = new GameObject ("Text", typeof (RectTransform));
-        txtGo.transform.SetParent (go.transform, false);
-        RectTransform tr = txtGo.GetComponent<RectTransform> ();
-        tr.anchorMin = Vector2.zero;
-        tr.anchorMax = Vector2.one;
-        tr.offsetMin = new Vector2 (8f, 4f);
-        tr.offsetMax = new Vector2 (-8f, -4f);
-        TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
-        tmp.raycastTarget = false;
-        tmp.text = "HOME";
-        tmp.fontSize = HomeButtonFontSize;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color = Color.white;
-        if (font != null)
-            tmp.font = font;
-    }
 }

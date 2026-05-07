@@ -7,17 +7,29 @@ using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
+#if UNITY_ANDROID
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+#endif
+
 /// <summary>Cena simples para exibir Top 10 do Google Play Games Leaderboard.</summary>
 public class ContiGoGpgsRankingSceneUI : MonoBehaviour
 {
-    const float HomeButtonFontSize = 60f;
     const float TitleFrameW = 550f;
     const float TitleFrameH = 200f;
+    const float RowHeight = 152f;
+    const float RankColWidth = 150f;
+    const float ScoreColWidth = 260f;
+    const float RowPaddingX = 22f;
+    const float RowPaddingY = 10f;
+    const float ScoreRightMargin = 34f;
 
-    [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Button / btn_rectangle_01_n_dark")]
-    [SerializeField] Sprite _homeButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Frame / frame_linetextframe_05_White2")]
     [SerializeField] Sprite _titleFrameSprite;
+
+    [Header ("Row style (GUI Pro CasualGame)")]
+    [Tooltip ("Assets/Layer Lab/GUI Pro-CasualGame/ResourcesData/Sprites/Components/Frame/ListFrame03_Single_Bg_Blue.png")]
+    [SerializeField] Sprite _rowFrameSprite;
 
     TextMeshProUGUI _status;
     Transform _rowsParent;
@@ -31,7 +43,7 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
             es.AddComponent<StandaloneInputModule> ();
         }
 
-        TMP_FontAsset font = Resources.Load<TMP_FontAsset> ("Fonts & Materials/Anton SDF");
+        TMP_FontAsset font = ContiGo2DSharedUi.GetBoardCellFont ();
         bool pt = true;
         try {
             if (ES2.Exists ("language"))
@@ -62,7 +74,7 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
         stRt.anchorMax = new Vector2 (0.94f, 0.88f);
         stRt.offsetMin = Vector2.zero;
         stRt.offsetMax = Vector2.zero;
-        _status.color = new Color (0.9f, 0.92f, 1f, 0.95f);
+        _status.color = Color.white;
 
         // Scroll + content
         GameObject scrollGo = new GameObject ("Scroll", typeof (RectTransform));
@@ -117,7 +129,7 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
 
         // Botões: Atualizar + Abrir Google + Home
         AddActionButtons (canvasRt, font, pt);
-        AddBackButton (canvasRt, font, _homeButtonSprite);
+        ContiGo2DSharedUi.AddHomeBackButtonTopLeft (canvasRt);
 
         PlayGamesController.TrySignInSilent ();
         StartCoroutine (LoadAfterAuth (pt));
@@ -149,6 +161,37 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
 
         SetStatus (pt ? "A carregar ranking…" : "Loading leaderboard…");
 
+#if UNITY_ANDROID
+        // No Android, preferimos a API específica do GPGS para evitar comportamento de cache do wrapper Social/ILeaderboard.
+        if (Social.Active is PlayGamesPlatform pgp) {
+            pgp.LoadScores (
+                lid,
+                LeaderboardStart.TopScores,
+                10,
+                LeaderboardCollection.Public,
+                LeaderboardTimeSpan.AllTime,
+                data => {
+                    if (data == null) {
+                        SetStatus (pt ? "Falha ao carregar ranking (sem resposta)." : "Failed to load leaderboard (no response).");
+                        return;
+                    }
+                    if (data.Status != ResponseStatus.Success) {
+                        ClearRows ();
+                        SetStatus ((pt ? "Falha ao carregar ranking. Status: " : "Failed to load leaderboard. Status: ") + data.Status);
+                        return;
+                    }
+                    IScore[] scores2 = data.Scores;
+                    if (scores2 == null || scores2.Length == 0) {
+                        ClearRows ();
+                        SetStatus (pt ? "Sem dados no ranking ainda." : "No leaderboard data yet.");
+                        return;
+                    }
+                    LoadAndRenderUsers (scores2, pt);
+                });
+            return;
+        }
+#endif
+
         ILeaderboard lb = Social.CreateLeaderboard ();
         lb.id = lid;
         lb.timeScope = TimeScope.AllTime;
@@ -166,27 +209,31 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
                 SetStatus (pt ? "Sem dados no ranking ainda." : "No leaderboard data yet.");
                 return;
             }
+            LoadAndRenderUsers (scores, pt);
+        });
+    }
 
-            // Carregar nomes de utilizador (se possível)
-            var userIds = new List<string> ();
-            foreach (IScore s in scores) {
-                if (s != null && !string.IsNullOrEmpty (s.userID) && !userIds.Contains (s.userID))
-                    userIds.Add (s.userID);
-            }
+    void LoadAndRenderUsers (IScore[] scores, bool pt)
+    {
+        // Carregar nomes de utilizador (se possível)
+        var userIds = new List<string> ();
+        foreach (IScore s in scores) {
+            if (s != null && !string.IsNullOrEmpty (s.userID) && !userIds.Contains (s.userID))
+                userIds.Add (s.userID);
+        }
 
-            Social.LoadUsers (userIds.ToArray (), profiles => {
-                var map = new Dictionary<string, string> ();
-                if (profiles != null) {
-                    foreach (var p in profiles) {
-                        if (p == null || string.IsNullOrEmpty (p.id))
-                            continue;
-                        string name = !string.IsNullOrEmpty (p.userName) ? p.userName : p.id;
-                        map[p.id] = name;
-                    }
+        Social.LoadUsers (userIds.ToArray (), profiles => {
+            var map = new Dictionary<string, string> ();
+            if (profiles != null) {
+                foreach (var p in profiles) {
+                    if (p == null || string.IsNullOrEmpty (p.id))
+                        continue;
+                    string name = !string.IsNullOrEmpty (p.userName) ? p.userName : p.id;
+                    map[p.id] = name;
                 }
-                RenderRows (scores, map);
-                SetStatus (pt ? "Top 10 global (Play Games)" : "Global Top 10 (Play Games)");
-            });
+            }
+            RenderRows (scores, map);
+            SetStatus (pt ? "Top 10 global (Play Games)" : "Global Top 10 (Play Games)");
         });
     }
 
@@ -211,37 +258,65 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
         GameObject row = new GameObject ("Row", typeof (RectTransform));
         row.transform.SetParent (parent, false);
         LayoutElement le = row.AddComponent<LayoutElement> ();
-        le.minHeight = 110f;
-        le.preferredHeight = 110f;
+        le.minHeight = RowHeight;
+        le.preferredHeight = RowHeight;
 
         Image bg = row.AddComponent<Image> ();
-        bg.color = new Color (0.15f, 0.2f, 0.28f, 0.45f);
+        if (_rowFrameSprite != null) {
+            bg.sprite = _rowFrameSprite;
+            bg.type = _rowFrameSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+            bg.preserveAspect = false;
+            bg.color = Color.white;
+        } else {
+            bg.color = new Color (0.15f, 0.2f, 0.28f, 0.45f);
+        }
 
-        TMP_FontAsset font = Resources.Load<TMP_FontAsset> ("Fonts & Materials/Anton SDF");
-
-        TextMeshProUGUI left = CreateTmp (row.transform, "Left", "", 34f, TextAlignmentOptions.MidlineLeft, font);
-        RectTransform lrt = left.rectTransform;
-        lrt.anchorMin = new Vector2 (0f, 0f);
-        lrt.anchorMax = new Vector2 (0.70f, 1f);
-        lrt.offsetMin = new Vector2 (12f, 6f);
-        lrt.offsetMax = new Vector2 (-8f, -6f);
-        left.enableWordWrapping = false;
-        left.overflowMode = TextOverflowModes.Ellipsis;
-        left.color = Color.white;
-
-        TextMeshProUGUI right = CreateTmp (row.transform, "Right", "", 32f, TextAlignmentOptions.MidlineRight, font);
-        RectTransform rrt = right.rectTransform;
-        rrt.anchorMin = new Vector2 (0.70f, 0f);
-        rrt.anchorMax = new Vector2 (1f, 1f);
-        rrt.offsetMin = new Vector2 (4f, 6f);
-        rrt.offsetMax = new Vector2 (-12f, -6f);
-        right.enableWordWrapping = false;
-        right.color = new Color (0.92f, 0.94f, 1f, 0.95f);
+        TMP_FontAsset rowFont = ContiGo2DSharedUi.GetBoardCellFont ();
 
         string rank = s.rank > 0 ? s.rank.ToString () : (s.rank >= 0 ? (s.rank + 1).ToString () : "-");
         string name = string.IsNullOrEmpty (userName) ? "Jogador" : userName;
-        left.text = rank + ". " + name;
-        right.text = !string.IsNullOrEmpty (s.formattedValue) ? s.formattedValue : s.value.ToString ();
+
+        // Coluna esquerda: posição
+        TextMeshProUGUI colRank = CreateTmp (row.transform, "Rank", "", 46f, TextAlignmentOptions.Center, rowFont);
+        RectTransform rrtRank = colRank.rectTransform;
+        rrtRank.anchorMin = new Vector2 (0f, 0f);
+        rrtRank.anchorMax = new Vector2 (0f, 1f);
+        rrtRank.pivot = new Vector2 (0f, 0.5f);
+        rrtRank.sizeDelta = new Vector2 (RankColWidth, 0f);
+        rrtRank.anchoredPosition = Vector2.zero;
+        // padding interno: não desloca a coluna inteira, só o conteúdo dentro
+        rrtRank.offsetMin = new Vector2 (RowPaddingX, RowPaddingY);
+        rrtRank.offsetMax = new Vector2 (0f, -RowPaddingY);
+        colRank.enableWordWrapping = false;
+        colRank.color = Color.white;
+        colRank.text = rank;
+
+        // Centro: nome
+        TextMeshProUGUI colName = CreateTmp (row.transform, "Name", "", 38f, TextAlignmentOptions.MidlineLeft, rowFont);
+        RectTransform rrtName = colName.rectTransform;
+        rrtName.anchorMin = new Vector2 (0f, 0f);
+        rrtName.anchorMax = new Vector2 (1f, 1f);
+        rrtName.offsetMin = new Vector2 (RankColWidth + 40f, 10f);
+        rrtName.offsetMax = new Vector2 (-ScoreColWidth, -10f);
+        colName.enableWordWrapping = false;
+        colName.overflowMode = TextOverflowModes.Ellipsis;
+        colName.color = Color.white;
+        colName.text = name;
+
+        // Direita: resultado
+        TextMeshProUGUI colScore = CreateTmp (row.transform, "Score", "", 38f, TextAlignmentOptions.MidlineRight, rowFont);
+        RectTransform rrtScore = colScore.rectTransform;
+        rrtScore.anchorMin = new Vector2 (1f, 0f);
+        rrtScore.anchorMax = new Vector2 (1f, 1f);
+        rrtScore.pivot = new Vector2 (1f, 0.5f);
+        rrtScore.sizeDelta = new Vector2 (ScoreColWidth, 0f);
+        rrtScore.anchoredPosition = new Vector2 (-RowPaddingX, 0f);
+        // margem interna à direita + padding vertical
+        rrtScore.offsetMin = new Vector2 (0f, RowPaddingY);
+        rrtScore.offsetMax = new Vector2 (-ScoreRightMargin, -RowPaddingY);
+        colScore.enableWordWrapping = false;
+        colScore.color = Color.white;
+        colScore.text = !string.IsNullOrEmpty (s.formattedValue) ? s.formattedValue : s.value.ToString ();
 
         _rowGos.Add (row);
     }
@@ -288,8 +363,17 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
     {
         Button b = CreateTextButton (parent, text, text, font, onClick);
         Image img = b.GetComponent<Image> ();
-        if (img != null)
-            img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
+        if (img != null) {
+            Sprite sp = ContiGo2DSharedUi.GetSceneActionButtonBackgroundSprite ();
+            if (sp != null) {
+                img.sprite = sp;
+                img.color = Color.white;
+                img.type = sp.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
+                img.preserveAspect = false;
+            } else {
+                img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
+            }
+        }
         SetButtonTextSize (b, 34f);
     }
 
@@ -302,6 +386,7 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
         tmp.fontSize = size;
         tmp.alignment = align;
         tmp.enableWordWrapping = true;
+        tmp.color = Color.white;
         if (font != null)
             tmp.font = font;
         return tmp;
@@ -371,45 +456,6 @@ public class ContiGoGpgsRankingSceneUI : MonoBehaviour
             ?? Resources.Load<Sprite> ("Imagens/bg-square-blue");
         if (bgSp != null)
             bg.sprite = bgSp;
-    }
-
-    static void AddBackButton (RectTransform canvasRt, TMP_FontAsset font, Sprite homeBackgroundSprite)
-    {
-        GameObject go = new GameObject ("BtnBack", typeof (RectTransform));
-        go.transform.SetParent (canvasRt, false);
-        RectTransform rt = go.GetComponent<RectTransform> ();
-        rt.anchorMin = new Vector2 (0.08f, 0.02f);
-        rt.anchorMax = new Vector2 (0.92f, 0.09f);
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
-        Image img = go.AddComponent<Image> ();
-        if (homeBackgroundSprite != null) {
-            img.sprite = homeBackgroundSprite;
-            img.color = Color.white;
-            img.type = homeBackgroundSprite.border.sqrMagnitude > 0.0001f ? Image.Type.Sliced : Image.Type.Simple;
-            img.preserveAspect = false;
-        } else {
-            img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
-        }
-        Button btn = go.AddComponent<Button> ();
-        btn.targetGraphic = img;
-        btn.onClick.AddListener (() => SceneManager.LoadScene ("Home"));
-
-        GameObject txtGo = new GameObject ("Text", typeof (RectTransform));
-        txtGo.transform.SetParent (go.transform, false);
-        RectTransform tr = txtGo.GetComponent<RectTransform> ();
-        tr.anchorMin = Vector2.zero;
-        tr.anchorMax = Vector2.one;
-        tr.offsetMin = new Vector2 (8f, 4f);
-        tr.offsetMax = new Vector2 (-8f, -4f);
-        TextMeshProUGUI tmp = txtGo.AddComponent<TextMeshProUGUI> ();
-        tmp.raycastTarget = false;
-        tmp.text = "HOME";
-        tmp.fontSize = HomeButtonFontSize;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color = Color.white;
-        if (font != null)
-            tmp.font = font;
     }
 
     // Helpers (copiados do padrão do projeto)

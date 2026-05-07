@@ -54,6 +54,7 @@ public static class ContiGoMatch2D
         ContiGoBoardCell2D[,] pieces = new ContiGoBoardCell2D[gridSide, gridSide];
         int idx = 0;
 
+        Sprite cellFaceSprite = ContiGo2DSharedUi.GetBoardCellBackgroundSprite ();
         Sprite rounded = RoundedRectSpriteFactory.Get (64, 10);
         Color borderCol = new Color (0f, 0f, 0f, 0.35f);
         float borderPx = 2f;
@@ -63,23 +64,37 @@ public static class ContiGoMatch2D
                 GameObject go = new GameObject ($"Cell_{xx}_{yy}", typeof (RectTransform));
                 go.transform.SetParent (gridRoot, false);
 
-                Image borderImg = go.AddComponent<Image> ();
-                borderImg.sprite = rounded;
-                borderImg.type = Image.Type.Sliced;
-                borderImg.color = borderCol;
+                Image fillImg;
+                if (cellFaceSprite != null) {
+                    fillImg = go.AddComponent<Image> ();
+                    fillImg.sprite = cellFaceSprite;
+                    fillImg.color = Color.white;
+                    if (cellFaceSprite.border.sqrMagnitude > 0.0001f) {
+                        fillImg.type = Image.Type.Sliced;
+                        fillImg.preserveAspect = false;
+                    } else {
+                        fillImg.type = Image.Type.Simple;
+                        fillImg.preserveAspect = true;
+                    }
+                } else {
+                    Image borderImg = go.AddComponent<Image> ();
+                    borderImg.sprite = rounded;
+                    borderImg.type = Image.Type.Sliced;
+                    borderImg.color = borderCol;
 
-                GameObject fillGo = new GameObject ("Fill", typeof (RectTransform));
-                fillGo.transform.SetParent (go.transform, false);
-                RectTransform fillRt = fillGo.GetComponent<RectTransform> ();
-                fillRt.anchorMin = Vector2.zero;
-                fillRt.anchorMax = Vector2.one;
-                fillRt.offsetMin = new Vector2 (borderPx, borderPx);
-                fillRt.offsetMax = new Vector2 (-borderPx, -borderPx);
+                    GameObject fillGo = new GameObject ("Fill", typeof (RectTransform));
+                    fillGo.transform.SetParent (go.transform, false);
+                    RectTransform fillRt = fillGo.GetComponent<RectTransform> ();
+                    fillRt.anchorMin = Vector2.zero;
+                    fillRt.anchorMax = Vector2.one;
+                    fillRt.offsetMin = new Vector2 (borderPx, borderPx);
+                    fillRt.offsetMax = new Vector2 (-borderPx, -borderPx);
 
-                Image fillImg = fillGo.AddComponent<Image> ();
-                fillImg.sprite = rounded;
-                fillImg.type = Image.Type.Sliced;
-                fillImg.color = Color.white;
+                    fillImg = fillGo.AddComponent<Image> ();
+                    fillImg.sprite = rounded;
+                    fillImg.type = Image.Type.Sliced;
+                    fillImg.color = Color.white;
+                }
 
                 Button btn = go.AddComponent<Button> ();
                 btn.targetGraphic = fillImg;
@@ -96,8 +111,9 @@ public static class ContiGoMatch2D
                 cell.background = fillImg;
                 cell.button = btn;
 
+                Transform labelParent = cellFaceSprite != null ? go.transform : go.transform.GetChild (0);
                 GameObject textGo = new GameObject ("Label", typeof (RectTransform));
-                textGo.transform.SetParent (fillGo.transform, false);
+                textGo.transform.SetParent (labelParent, false);
                 RectTransform trt = textGo.GetComponent<RectTransform> ();
                 trt.anchorMin = Vector2.zero;
                 trt.anchorMax = Vector2.one;
@@ -110,11 +126,8 @@ public static class ContiGoMatch2D
                 }
                 tmp.alignment = TextAlignmentOptions.Center;
                 tmp.enableWordWrapping = ContiGoFantasyNames.USE_FANTASY_NAMES_ON_BOARD;
-                float fs = ContiGoFantasyNames.USE_FANTASY_NAMES_ON_BOARD
-                    ? ContiGoFantasyNames.GetSuggestedCellFontSize (side, gridSide)
-                    : (side > 56f ? 30f : (gridSide <= 4 ? 28f : 24f));
-                tmp.fontSize = fs;
-                tmp.color = Color.black;
+                tmp.fontSize = ContiGoFantasyNames.GetSuggestedCellFontSize (side, gridSide);
+                tmp.color = ContiGoBoardCell2D.BoardCellLabelColor;
                 tmp.fontWeight = TMPro.FontWeight.Bold;
                 cell.label = tmp;
 

@@ -12,13 +12,9 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
     const float TitleFrameW = 550f;
     const float TitleFrameH = 200f;
 
-    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_mint")]
-    [SerializeField] Sprite _navMissionsButtonSprite;
-    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_yellow")]
-    [SerializeField] Sprite _navCollectionButtonSprite;
-    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_dark (Ranking Google)")]
+    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_dark (Google Play)")]
     [SerializeField] Sprite _navRankingButtonSprite;
-    [Tooltip ("GUI PRO Kit - Fantasy RPG / Sprites / Component / Button / btn_rectangle_01_n_dark (botões Iniciante…Mestre)")]
+    [Tooltip ("Opcional: fallback se ContiGo2DUiSprites não tiver sprites de modos (ex.: Google Play).")]
     [SerializeField] Sprite _levelChallengeButtonSprite;
     [Tooltip ("GUI PRO Kit - Fantasy RPG / ResourcesData / Sprites / Component / Frame / frame_linetextframe_05_White2 (fundo do título)")]
     [SerializeField] Sprite _titleFrameSprite;
@@ -31,7 +27,7 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
             es.AddComponent<StandaloneInputModule> ();
         }
 
-        TMP_FontAsset font = Resources.Load<TMP_FontAsset> ("Fonts & Materials/Anton SDF");
+        TMP_FontAsset font = ContiGo2DSharedUi.GetBoardCellFont ();
 
         // Idioma segue o mesmo padrão do jogo (ES2 key "language").
         string language = "portuguese";
@@ -59,26 +55,22 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
 
         AddBlueSceneBackground (canvasRt);
 
-        Sprite levelRowSprite = _levelChallengeButtonSprite != null
-            ? _levelChallengeButtonSprite
-            : LoadLevelRowPanelSprite ();
-
         AddTitle (canvasRt, pt ? "ESCOLHA O DESAFIO" : "CHOOSE THE CHALLENGE", font, 0.86f, 0.94f, _titleFrameSprite);
 
         // Tenta login silencioso assim que o jogador entra no menu de modos.
         PlayGamesController.TrySignInSilent ();
 
-        AddNavButton (canvasRt, pt ? "GOOGLE PLAY" : "GOOGLE PLAY", () => SceneManager.LoadScene ("GPGSAuth"), 0.26f, 0.34f, font, _navRankingButtonSprite != null ? _navRankingButtonSprite : _levelChallengeButtonSprite);
-        AddNavButton (canvasRt, pt ? "MISSÕES" : "MISSIONS", () => SceneManager.LoadScene ("ContiGoMissions"), 0.18f, 0.26f, font, _navMissionsButtonSprite);
-        AddNavButton (canvasRt, pt ? "RANKING" : "LEADERBOARD", () => SceneManager.LoadScene ("ContiGoGpgsRanking"), 0.10f, 0.18f, font, _navRankingButtonSprite != null ? _navRankingButtonSprite : _levelChallengeButtonSprite);
-        AddNavButton (canvasRt, pt ? "COLEÇÃO" : "COLLECTION", () => SceneManager.LoadScene ("ContiGoCollection"), 0.02f, 0.10f, font, _navCollectionButtonSprite);
+        Sprite googleBg = _navRankingButtonSprite != null ? _navRankingButtonSprite : _levelChallengeButtonSprite;
+        if (googleBg == null)
+            googleBg = ContiGo2DSharedUi.GetModeListButtonSprite ();
+        AddNavButton (canvasRt, pt ? "GOOGLE PLAY" : "GOOGLE PLAY", () => SceneManager.LoadScene ("GPGSAuth"), 0.26f, 0.34f, font, googleBg);
 
-        AddLevelButton (canvasRt, ContiGo2DLevelId.Iniciante, pt ? "INICIANTE  (2×2)" : "BEGINNER  (2×2)", 0.68f, 0.78f, font, levelRowSprite);
-        AddLevelButton (canvasRt, ContiGo2DLevelId.Profissional, pt ? "PROFISSIONAL  (4×4)" : "PRO  (4×4)", 0.54f, 0.64f, font, levelRowSprite);
-        AddLevelButton (canvasRt, ContiGo2DLevelId.Sabio, pt ? "SÁBIO  (6×6)" : "SAGE  (6×6)", 0.40f, 0.50f, font, levelRowSprite);
-        AddLevelButton (canvasRt, ContiGo2DLevelId.Mestre, pt ? "MESTRE  (8×8)" : "MASTER  (8×8)", 0.26f, 0.36f, font, levelRowSprite);
+        AddLevelButton (canvasRt, ContiGo2DLevelId.Iniciante, pt ? "INICIANTE  (2×2)" : "BEGINNER  (2×2)", 0.68f, 0.78f, font, ContiGo2DSharedUi.GetLevelSelectRowSprite (ContiGo2DLevelId.Iniciante));
+        AddLevelButton (canvasRt, ContiGo2DLevelId.Profissional, pt ? "PROFISSIONAL  (4×4)" : "PRO  (4×4)", 0.54f, 0.64f, font, ContiGo2DSharedUi.GetLevelSelectRowSprite (ContiGo2DLevelId.Profissional));
+        AddLevelButton (canvasRt, ContiGo2DLevelId.Sabio, pt ? "ERUDITO  (6×6)" : "ERUDITE  (6×6)", 0.40f, 0.50f, font, ContiGo2DSharedUi.GetLevelSelectRowSprite (ContiGo2DLevelId.Sabio));
+        AddLevelButton (canvasRt, ContiGo2DLevelId.Mestre, pt ? "MESTRE  (8×8)" : "MASTER  (8×8)", 0.26f, 0.36f, font, ContiGo2DSharedUi.GetLevelSelectRowSprite (ContiGo2DLevelId.Mestre));
 
-        AddCloseButtonTopRight (canvasRt, () => SceneManager.LoadScene ("Home"));
+        ContiGo2DSharedUi.AddHomeBackButtonTopLeft (canvasRt);
     }
 
     /// <summary>Igual ao fundo do <see cref="ContiGoGameController2D"/> (mosaico azul).</summary>
@@ -102,12 +94,6 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
             bgSp = Resources.Load<Sprite> ("Imagens/bg-square-blue");
         if (bgSp != null)
             bg.sprite = bgSp;
-    }
-
-    static Sprite LoadLevelRowPanelSprite ()
-    {
-        return Resources.Load<Sprite> ("Imagens/CONFIRMA-QUIT-HOME-PAINEL.fw")
-            ?? Resources.Load<Sprite> ("Imagens/CONFIRMA-QUIT-HOME-PANEL.fw");
     }
 
     static void AddTitle (RectTransform parent, string text, TMP_FontAsset font, float yMin, float yMax, Sprite titleFrameSprite)
@@ -230,9 +216,14 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
         Image img = go.AddComponent<Image> ();
         if (backgroundSprite != null) {
             img.sprite = backgroundSprite;
-            img.type = Image.Type.Sliced;
             img.color = Color.white;
-            img.preserveAspect = false;
+            if (backgroundSprite.border.sqrMagnitude > 0.0001f) {
+                img.type = Image.Type.Sliced;
+                img.preserveAspect = false;
+            } else {
+                img.type = Image.Type.Simple;
+                img.preserveAspect = true;
+            }
         } else {
             img.color = new Color (0.2f, 0.45f, 0.75f, 1f);
         }
@@ -257,49 +248,4 @@ public class ContiGo2DLevelSelectUI : MonoBehaviour
             tmp.font = font;
     }
 
-    static void AddCloseButtonTopRight (RectTransform parent, UnityAction onClick)
-    {
-        // Igual estilo do "GameAbout" na Home: botão de fechar no topo direito.
-        GameObject go = new GameObject ("BtnClose", typeof (RectTransform));
-        go.transform.SetParent (parent, false);
-        RectTransform rt = go.GetComponent<RectTransform> ();
-        rt.anchorMin = new Vector2 (1f, 1f);
-        rt.anchorMax = new Vector2 (1f, 1f);
-        rt.pivot = new Vector2 (1f, 1f);
-        rt.sizeDelta = new Vector2 (96f, 96f);
-        rt.anchoredPosition = new Vector2 (-18f, -18f);
-
-        Image img = go.AddComponent<Image> ();
-        img.color = Color.white;
-        Button b = go.AddComponent<Button> ();
-        b.targetGraphic = img;
-        b.onClick.AddListener (onClick);
-
-        // SpriteSwap com hover/pressed se existirem.
-        SetupSpriteSwapFromImagens (b, img, "btn-close-home.fw");
-    }
-
-    static void SetupSpriteSwapFromImagens (Button b, Image img, string normalSpriteFileName)
-    {
-        Sprite n = Resources.Load<Sprite> ("Imagens/" + normalSpriteFileName);
-        if (n == null) {
-            img.color = new Color (0.28f, 0.45f, 0.7f, 1f);
-            return;
-        }
-        int dot = normalSpriteFileName.LastIndexOf ('.');
-        string prefix = dot >= 0 ? normalSpriteFileName.Substring (0, dot) : normalSpriteFileName;
-        string ext = dot >= 0 ? normalSpriteFileName.Substring (dot) : "";
-        Sprite hi = Resources.Load<Sprite> ("Imagens/" + prefix + "-hover" + ext);
-        Sprite pr = Resources.Load<Sprite> ("Imagens/" + prefix + "-pressed" + ext);
-        img.sprite = n;
-        img.type = Image.Type.Simple;
-        img.preserveAspect = true;
-        b.transition = Selectable.Transition.SpriteSwap;
-        SpriteState st = b.spriteState;
-        st.highlightedSprite = hi != null ? hi : n;
-        st.pressedSprite = pr != null ? pr : n;
-        st.selectedSprite = st.highlightedSprite;
-        st.disabledSprite = n;
-        b.spriteState = st;
-    }
 }
